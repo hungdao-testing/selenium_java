@@ -43,7 +43,7 @@ There are pages in Singapore that need to go through:
 
 #### 2. What have not done yet ?
 
-- So far, the framework already covers from step#1 to step#6. From step#7 and step#8, they are under construction.
+- So far, the framework already covers from step#1 to step#6. From step#7 and step#8, they are under construction. Related to step#7, there is a screen to take selfie that could not be achieved by automation
 
 The test script is defined as the *end-to-end flow* on one file `OnBoardingTest` 
 
