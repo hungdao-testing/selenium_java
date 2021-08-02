@@ -51,14 +51,14 @@ The test script is defined as the *end-to-end flow* on one file `OnBoardingTest`
 
 - Before installing the framework, please make sure your computer already have:
 
-  - Java 11 and Maven tool.
+  - Java >= 8 and Maven tool.
     
 - How to install:
 
   - At the root folder of the project, type command `mvn clean install -DskipTests`
     
-### E. How to update data to run the test
+### E. How to run the test
 
-- Go to `src/test/resources/data.json` and update the corresponding data you want to create account (e.g , email, phone, Business Number...)
+- Before running the test, go to `src/test/resources/data.json` and update the corresponding data you want to create account (e.g , email, phone, Business Number...)
 
 - Hit command : `mvn clean test`
