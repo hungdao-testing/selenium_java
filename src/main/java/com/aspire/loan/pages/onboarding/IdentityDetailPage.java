@@ -28,13 +28,13 @@ public class IdentityDetailPage extends AbstractBasePage {
         driver.get(getBaseUrl() + "/onboarding/identify-view");
         return this;
     }
-
-    public IdentityDetailPage isAt(){
-        this.wait.until(noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.textToBePresentInElement(sideBar.getTitleComp(), "Information needed"));
-        this.wait.until(d -> documentCardOptions.isDisplayed());
-        return this;
-    }
+//
+//    public IdentityDetailPage isAt(){
+//        this.wait.until(noActiveAjaxRequest());
+//        this.wait.until(ExpectedConditions.textToBePresentInElement(sideBar.getTitleComp(), "Information needed"));
+//        this.wait.until(d -> documentCardOptions.isDisplayed());
+//        return this;
+//    }
 
     public void clickGetStartedButton(){
         this.wait.until(d -> getStartedButton.isDisplayed());

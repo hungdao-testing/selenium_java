@@ -36,12 +36,12 @@ public class IdentityOnFidoPage extends AbstractBasePage {
         return this;
     }
 
-    public IdentityOnFidoPage isAt() {
-        this.wait.until(noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.textToBePresentInElement(sideBar.getTitleComp(), "Account Verification"));
-        this.wait.until(d -> documentCardOptions.isDisplayed());
-        return this;
-    }
+//    public IdentityOnFidoPage isAt() {
+//        this.wait.until(noActiveAjaxRequest());
+//        this.wait.until(ExpectedConditions.textToBePresentInElement(sideBar.getTitleComp(), "Account Verification"));
+//        this.wait.until(d -> documentCardOptions.isDisplayed());
+//        return this;
+//    }
 
     public IdentityOnFidoPage clickBeginVerificationButton() {
         this.wait.until(d -> beginVerificationButton.isDisplayed());

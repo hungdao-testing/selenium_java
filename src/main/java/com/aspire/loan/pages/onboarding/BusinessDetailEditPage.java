@@ -43,11 +43,11 @@ public class BusinessDetailEditPage extends AbstractBasePage implements IDropdow
         return this;
     }
 
-    public BusinessDetailEditPage isAt(){
-        this.wait.until(noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Enter your business’ details"));
-        return this;
-    }
+//    public BusinessDetailEditPage isAt(){
+//        this.wait.until(noActiveAjaxRequest());
+//        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Enter your business’ details"));
+//        return this;
+//    }
 
     public BusinessDetailEditPage setBusinessActivity(String activity){
         Assert.assertTrue("Activity must be at lease 40 chars, please check again!!",
@@ -73,20 +73,20 @@ public class BusinessDetailEditPage extends AbstractBasePage implements IDropdow
 
     public BusinessDetailEditPage setNumberOfEmployees(String numberOfEmployees){
         this.wait.until(ExpectedConditions.elementToBeClickable(numberOfEmployeeField));
-        selectOptionFromDropdown(driver, numberOfEmployeeField, numberOfEmployees);
+        scrollAndSelectOption(driver, wait, numberOfEmployees);
         return this;
     }
 
     public BusinessDetailEditPage setAnnualTurnOverField(String annualTurnOverRange){
         this.wait.until(ExpectedConditions.elementToBeClickable(annualTurnOverField));
-        selectOptionFromDropdown(driver, annualTurnOverField, annualTurnOverRange);
+        scrollAndSelectOption(driver, wait, annualTurnOverRange);
         return this;
     }
 
     public void clickSubmit(){
         this.wait.until(d -> this.continueButton.isDisplayed());
         this.continueButton.click();
-        this.wait.until(noActiveAjaxRequest());
+//        this.wait.until(noActiveAjaxRequest());
     }
     
 }

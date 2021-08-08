@@ -29,7 +29,7 @@ public class RegisteredDirectorRoleSelection extends IBusinessRoleTemplate {
     public void isAt(){
         this.wait.until(d -> registerDirectorSelection.isDisplayed() && nonRegisteredDirectorSelection.isDisplayed());
         this.wait.until(d -> this.sideBar.getTitleComp().getText().equalsIgnoreCase("Tell us more about yourself"));
-        this.wait.until(d -> noActiveAjaxRequest());
+//        this.wait.until(d -> noActiveAjaxRequest());
     }
 
     @Override
@@ -40,10 +40,15 @@ public class RegisteredDirectorRoleSelection extends IBusinessRoleTemplate {
 
     @Override
     public void processDetail(AdditionalDetail additionalDetailData) {
-        this.additionalDetailPage
-                .isAt()
-                .setCountry(additionalDetailData.getCountry())
-                .setSolution(additionalDetailData.getSolutions())
-                .clickContinue();
+
     }
+
+//    @Override
+//    public void processDetail(AdditionalDetail additionalDetailData) {
+//        this.additionalDetailPage
+//                .isAt()
+//                .setCountry(additionalDetailData.getCountry())
+//                .setSolution(additionalDetailData.getSolutions())
+//                .clickContinue();
+//    }
 }

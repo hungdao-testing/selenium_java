@@ -34,11 +34,10 @@ public class LoginPage extends AbstractBasePage implements IDropdown {
     }
 
 
-    public LoginPage isAt() {
-        this.wait.until(noActiveAjaxRequest());
+    public void isAt() {
+        //this.wait.until(noActiveAjaxRequest());
         this.wait.until(d -> this.mobile.isDisplayed());
         this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Login to Aspire"));
-        return this;
     }
 
     public LoginPage goTo() {
@@ -48,7 +47,7 @@ public class LoginPage extends AbstractBasePage implements IDropdown {
 
     public void loginByMobilePhone(String country, String nationPhoneCodeWithPlusSymbol, String phoneNumber){
         this.wait.until(ExpectedConditions.elementToBeClickable(this.countryDropdownIcon));
-        selectOptionFromDropdown(driver, countryDropdownIcon, country);
+        scrollAndSelectOption(driver, wait, country);
         this.wait.until(ExpectedConditions.textToBePresentInElement(countryPhoneCodeEl, nationPhoneCodeWithPlusSymbol));
         this.wait.until(ExpectedConditions.elementToBeClickable(mobile));
         mobile.sendKeys(phoneNumber);

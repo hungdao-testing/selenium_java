@@ -2,8 +2,10 @@ package com.aspire.loan.tests;
 
 import com.aspire.loan.core.GlobalConstants;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import java.util.concurrent.TimeUnit;
@@ -14,8 +16,14 @@ public class BaseTest {
 
     @BeforeTest
     public void setupClass()  {
+        ChromeOptions chromeOptions = new ChromeOptions();
+
+        /*
+        * https://www.selenium.dev/documentation/en/webdriver/page_loading_strategy/
+        * */
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(GlobalConstants.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(GlobalConstants.IMPLICIT_WAIT_TIMEOUT, TimeUnit.SECONDS);

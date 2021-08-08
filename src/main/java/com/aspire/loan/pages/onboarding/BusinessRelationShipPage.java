@@ -36,13 +36,13 @@ public class BusinessRelationShipPage extends AbstractBasePage {
         return this;
     }
 
-    public BusinessRelationShipPage isAt() {
-        this.wait.until(noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.urlContains("/onboarding/business-relationship"));
-        this.wait.until(ExpectedConditions.visibilityOfAllElements(radioButtonsOfQuestionOne));
-        this.wait.until(ExpectedConditions.visibilityOfAllElements(radioButtonsOfQuestionTwo));
-        return this;
-    }
+//    public BusinessRelationShipPage isAt() {
+//        this.wait.until(noActiveAjaxRequest());
+//        this.wait.until(ExpectedConditions.urlContains("/onboarding/business-relationship"));
+//        this.wait.until(ExpectedConditions.visibilityOfAllElements(radioButtonsOfQuestionOne));
+//        this.wait.until(ExpectedConditions.visibilityOfAllElements(radioButtonsOfQuestionTwo));
+//        return this;
+//    }
 
     public BusinessRelationShipPage answerForQuestionOne(String answerOption) {
         for (WebElement radio : radioButtonsOfQuestionOne) {

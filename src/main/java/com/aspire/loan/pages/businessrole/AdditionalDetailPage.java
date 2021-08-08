@@ -3,15 +3,14 @@ package com.aspire.loan.pages.businessrole;
 import com.aspire.loan.components.SideBar;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
-import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 public class AdditionalDetailPage extends AbstractBasePage implements IDropdown {
@@ -27,49 +26,44 @@ public class AdditionalDetailPage extends AbstractBasePage implements IDropdown 
 
     private SideBar sideBar;
 
+    @Override
+    public void isAt() {
+        super.isAt();
+    }
+
     public AdditionalDetailPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-    public AdditionalDetailPage isAt(){
-        this.wait.until( d ->
-                this.sideBar.getTitleComp().getText().equalsIgnoreCase("Additional details"));
-        this.wait.until(ExpectedConditions.urlContains("/additional-details"));
-        this.wait.until(d -> noActiveAjaxRequest());
-        return this;
-    }
-
-    public AdditionalDetailPage setCountry(String countryValue){
+    public AdditionalDetailPage setCountry(String countryValue) {
         this.wait.until(d -> countryDropDown.isDisplayed());
         if (!this.countryDropDown.getText().equalsIgnoreCase(countryValue)) {
             this.wait.until(ExpectedConditions.elementToBeClickable(countryDropDown));
-            selectOptionFromDropdown(driver, countryDropDown, countryValue);
+            countryDropDown.click();
+            scrollAndSelectOption(driver, wait, countryValue);
             this.wait.until(ExpectedConditions.textToBePresentInElement(countryDropDown, countryValue));
-            this.wait.until(d -> noActiveAjaxRequest());
         }
         return this;
     }
 
-    public AdditionalDetailPage setSolution(List<String> options){
+    public AdditionalDetailPage setSolution(List<String> options) {
         this.wait.until(ExpectedConditions.elementToBeClickable(solutionDropDown));
-        Uninterruptibles.sleepUninterruptibly(200, TimeUnit.MILLISECONDS);
-        new Actions(driver).moveToElement(solutionDropDown).click().build().perform();
+        solutionDropDown.click();
         options.forEach(option -> {
             wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(solutionDropDown)));
-            selectCheckboxFromDropdownList(driver, option);
+            scrollAndSelectOption(driver, wait, option);
         });
         new Actions(driver).moveToElement(this.solutionDropDown).click().build().perform();
         this.wait.until(ExpectedConditions.textToBePresentInElement(solutionDropDown, options.size() + " selected"));
         return this;
     }
 
-    public void clickContinue(){
+    public void clickContinue() {
         this.wait.until(d -> this.continueButton.isDisplayed());
         this.continueButton.click();
     }
-
 
 
 }
