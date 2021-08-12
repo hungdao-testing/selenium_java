@@ -1,0 +1,5 @@
+com/aspire/loan/datamanagement/DataManagement.class
+com/aspire/loan/tests/BaseTest.class
+com/aspire/loan/tests/RegisterTest.class
+com/aspire/loan/datamanagement/PersonalDataBuilder.class
+com/aspire/loan/datamanagement/PersonalDataBuilder$1.class

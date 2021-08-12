@@ -28,12 +28,12 @@ public class BusinessRegistrationMethodPage extends AbstractBasePage {
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-    public BusinessRegistrationMethodPage isAt(){
-        this.wait.until(d -> noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Choose a registration method"));
-        this.wait.until(ExpectedConditions.urlContains("/onboarding/register-select-method"));
-        return this;
-    }
+//    public BusinessRegistrationMethodPage isAt(){
+//        this.wait.until(d -> noActiveAjaxRequest());
+//        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Choose a registration method"));
+//        this.wait.until(ExpectedConditions.urlContains("/onboarding/register-select-method"));
+//        return this;
+//    }
 
     public void selectBusinessRegistrationMethod(String method){
         if(method.toLowerCase().contains("standard")){

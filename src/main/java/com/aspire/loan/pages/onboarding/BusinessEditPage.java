@@ -1,9 +1,9 @@
 package com.aspire.loan.pages.onboarding;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
-import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class BusinessEditPage extends AbstractBasePage implements IDropdown {
 
@@ -46,16 +45,16 @@ public class BusinessEditPage extends AbstractBasePage implements IDropdown {
     }
 
     public BusinessEditPage goTo(){
-        this.driver.get(getBaseUrl() + "/onboarding/business-edit");
+        this.driver.get(AppConfig.getBaseUrl() + "/onboarding/business-edit");
         return this;
     }
 
-    public BusinessEditPage isAt(){
-        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Business Details"));
-        this.wait.until(d -> businessLegalNameField.isDisplayed() && entityCategoryField.isDisplayed());
-        this.wait.until(noActiveAjaxRequest());
-        return this;
-    }
+//    public BusinessEditPage isAt(){
+//        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Business Details"));
+//        this.wait.until(d -> businessLegalNameField.isDisplayed() && entityCategoryField.isDisplayed());
+//        this.wait.until(noActiveAjaxRequest());
+//        return this;
+//    }
 
     public BusinessEditPage setBusinessName(String name){
         this.wait.until(ExpectedConditions.elementToBeClickable(businessLegalNameField));
@@ -65,7 +64,7 @@ public class BusinessEditPage extends AbstractBasePage implements IDropdown {
 
     public BusinessEditPage setEntityCategory(String entityCategory){
         this.wait.until(d -> entityCategoryField.isDisplayed());
-        selectOptionFromDropdown(driver, entityCategoryField, entityCategory);
+        scrollAndSelectOption(driver, wait, entityCategory);
         return this;
     }
 
@@ -78,16 +77,16 @@ public class BusinessEditPage extends AbstractBasePage implements IDropdown {
     }
 
     public BusinessEditPage setBusinessEntityType(String businessEntityType){
-        this.wait.until(noActiveAjaxRequest());
+      //  this.wait.until(noActiveAjaxRequest());
         this.wait.until(ExpectedConditions.elementToBeClickable(businessEntityTypeField));
-        selectOptionFromDropdown(driver, businessEntityTypeField, businessEntityType);
+        scrollAndSelectOption(driver, wait, businessEntityType);
         return this;
     }
 
     public BusinessEditPage setIndustry(String industry){
-        this.wait.until(noActiveAjaxRequest());
+       // this.wait.until(noActiveAjaxRequest());
         this.wait.until(ExpectedConditions.elementToBeClickable(industryField));
-        selectOptionFromDropdown(driver, industryField, industry);
+        scrollAndSelectOption(driver, wait, industry);
         return this;
     }
 

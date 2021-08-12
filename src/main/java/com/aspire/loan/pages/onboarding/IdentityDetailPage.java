@@ -1,6 +1,7 @@
 package com.aspire.loan.pages.onboarding;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.core.AbstractBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,15 +26,13 @@ public class IdentityDetailPage extends AbstractBasePage {
     }
 
     public IdentityDetailPage goTo(){
-        driver.get(getBaseUrl() + "/onboarding/identify-view");
+        driver.get(AppConfig.getBaseUrl() + "/onboarding/identify-view");
         return this;
     }
 
-    public IdentityDetailPage isAt(){
-        this.wait.until(noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.textToBePresentInElement(sideBar.getTitleComp(), "Information needed"));
-        this.wait.until(d -> documentCardOptions.isDisplayed());
-        return this;
+    @Override
+    public void isAt() {
+        super.isAt();
     }
 
     public void clickGetStartedButton(){

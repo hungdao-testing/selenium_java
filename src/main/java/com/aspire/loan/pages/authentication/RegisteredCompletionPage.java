@@ -21,16 +21,16 @@ public class RegisteredCompletionPage extends AbstractBasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public RegisteredCompletionPage isAt(){
-        this.wait.until(noActiveAjaxRequest());
+    @Override
+    public void isAt(){
+        super.isAt();
         this.wait.until(ExpectedConditions.urlContains("/register/completed"));
         this.wait.until(ExpectedConditions.textToBePresentInElement
                 (successfulRegistrationInformationText, GlobalConstants.SUCCESSFUL_REGISTRATION_INFORMATION));
-        this.wait.until(ExpectedConditions.visibilityOf(continueButton));
-        return this;
     }
 
     public void clickContinueButton(){
+        this.wait.until(d -> continueButton.isDisplayed());
         this.continueButton.click();
     }
 }

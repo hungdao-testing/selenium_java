@@ -1,6 +1,7 @@
 package com.aspire.loan.pages.onboarding;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.core.AbstractBasePage;
 import com.aspire.loan.pages.onboarding.kyc.IdentityFidoStrategy;
 import org.openqa.selenium.By;
@@ -32,15 +33,13 @@ public class IdentityOnFidoPage extends AbstractBasePage {
     }
 
     public IdentityOnFidoPage goTo() {
-        driver.get(getBaseUrl() + "/onboarding/identify-onfido");
+        driver.get(AppConfig.getBaseUrl() + "/onboarding/identify-onfido");
         return this;
     }
 
-    public IdentityOnFidoPage isAt() {
-        this.wait.until(noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.textToBePresentInElement(sideBar.getTitleComp(), "Account Verification"));
-        this.wait.until(d -> documentCardOptions.isDisplayed());
-        return this;
+    @Override
+    public void isAt() {
+        super.isAt();
     }
 
     public IdentityOnFidoPage clickBeginVerificationButton() {

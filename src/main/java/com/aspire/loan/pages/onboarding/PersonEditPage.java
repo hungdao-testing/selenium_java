@@ -1,24 +1,19 @@
 package com.aspire.loan.pages.onboarding;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelper.ICalendar;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
-import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.time.Month;
-import java.time.format.TextStyle;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class PersonEditPage extends AbstractBasePage implements IDropdown, ICalendar {
 
@@ -46,14 +41,13 @@ public class PersonEditPage extends AbstractBasePage implements IDropdown, ICale
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-    public PersonEditPage isAt(){
-        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Personal Details"));
-        this.wait.until(noActiveAjaxRequest());
-        return this;
+    @Override
+    public void isAt() {
+        super.isAt();
     }
 
     public void goTo(){
-        this.driver.get(getBaseUrl() + "/onboarding/person-edit");
+        this.driver.get(AppConfig.getBaseUrl() + "/onboarding/person-edit");
     }
 
     public PersonEditPage setEmail(String inputEmailField){
@@ -78,7 +72,6 @@ public class PersonEditPage extends AbstractBasePage implements IDropdown, ICale
     }
 
     public PersonEditPage setNationality(String nationality){
-        this.wait.until(noActiveAjaxRequest());
         this.wait.until(ExpectedConditions.elementToBeClickable(nationalityField));
         nationalityField.click();
         nationalityField.sendKeys(nationality);
@@ -94,14 +87,13 @@ public class PersonEditPage extends AbstractBasePage implements IDropdown, ICale
 
     public PersonEditPage setGender(String gender){
         this.wait.until(ExpectedConditions.elementToBeClickable(genderField));
-        selectOptionFromDropdown(driver, genderField, gender);
+        scrollAndSelectOption(driver,wait, gender);
         return this;
     }
 
     public void clickSubmit(){
         this.wait.until(d -> submitButton.isDisplayed());
         submitButton.click();
-        this.wait.until(noActiveAjaxRequest());
     }
 
 
