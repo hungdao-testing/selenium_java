@@ -6,13 +6,12 @@ import com.github.javafaker.Faker;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
 import kong.unirest.json.JSONObject;
-
-import java.util.Locale;
 import java.util.Map;
 
 
-public class PersonalBuilder {
-    static Faker faker = new Faker(new Locale("en_SG"));
+public class PersonalBuilder extends BuilderManagement{
+
+    private static final String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
 
     private Personal.PersonalBuilder aUser() {
         CountryService defaultCountry = CountryService.getCountryBy("Singapore");
@@ -31,7 +30,7 @@ public class PersonalBuilder {
             String payload = String.format(
                     "{\"full_name\": \"%s\",\"email\": \"%s\",\"phone\": \"%s\"}", fullName, email, formattedPhone);
 
-            JSONObject resp = Unirest.post(AppConfig.getApiUrl() + "/v1/auth/check-new-person")
+            JSONObject resp = Unirest.post(checkNewUserUrl)
                     .headers(Map.of("Content-Type", "application/json", "x-aspire-application", "CNSING"))
                     .body(payload)
                     .asJson()
@@ -43,7 +42,7 @@ public class PersonalBuilder {
                 return new PersonalBuilder()
                         .aUser()
                         .withFullName(fullName)
-                        .withPhone(formattedPhone)
+                        .withPhone(phone)
                         .withEmail(email)
                         .build();
             } else if (!resp.has("check")) {

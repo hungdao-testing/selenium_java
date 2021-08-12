@@ -4,13 +4,14 @@ import com.aspire.loan.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
+import com.aspire.loan.data.Personal;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
-public class UserAccountCreationPage extends AbstractBasePage implements IDropdown {
+public class RegistrationPage extends AbstractBasePage implements IDropdown {
 
     @FindBy(css = "input[data-cy='register-person-name']")
     private WebElement fullName;
@@ -44,13 +45,13 @@ public class UserAccountCreationPage extends AbstractBasePage implements IDropdo
 
     private SideBar sideBar;
 
-    public UserAccountCreationPage(WebDriver driver) {
+    public RegistrationPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-    public UserAccountCreationPage goTo() {
+    public RegistrationPage goTo() {
         this.driver.get(AppConfig.getBaseUrl() + "/register");
         return this;
     }
@@ -61,17 +62,17 @@ public class UserAccountCreationPage extends AbstractBasePage implements IDropdo
         this.wait.until(ExpectedConditions.visibilityOfAllElements(this.mobileSection, this.email, this.sideBar.getTitleComp()));
     }
 
-    public UserAccountCreationPage inputFullName(String fullName) {
+    protected RegistrationPage inputFullName(String fullName) {
         this.inputTextToVisibleField(this.fullName, fullName);
         return this;
     }
 
-    public UserAccountCreationPage inputEmail(String email) {
+    protected RegistrationPage inputEmail(String email) {
         this.inputTextToVisibleField(this.email, email);
         return this;
     }
 
-    public UserAccountCreationPage inputPhoneNumber(String countryPhoneCode, String phoneNumber) {
+    protected RegistrationPage inputPhoneNumber(String countryPhoneCode, String phoneNumber) {
         phoneNumberTxt.sendKeys(phoneNumber);
         this.wait.until(ExpectedConditions.elementToBeClickable(countryDropdown));
         countryDropdown.click();
@@ -85,19 +86,19 @@ public class UserAccountCreationPage extends AbstractBasePage implements IDropdo
         return this;
     }
 
-    public UserAccountCreationPage inputAboutUs(String input) {
+    protected RegistrationPage inputAboutUs(String input) {
         this.wait.until(d -> hearAboutUs.isDisplayed());
         hearAboutUs.click();
         selectOptionFromShortList(driver, wait, input);
         return this;
     }
 
-    public UserAccountCreationPage inputPromoCode(String promoCode) {
+    protected RegistrationPage inputPromoCode(String promoCode) {
         this.inputTextToVisibleField(this.promoCode, promoCode);
         return this;
     }
 
-    public UserAccountCreationPage checkPrivacyBox() {
+    protected RegistrationPage checkPrivacyBox() {
         if (this.privacyCheckbox.isSelected()) {
             return this;
         } else {
@@ -106,9 +107,20 @@ public class UserAccountCreationPage extends AbstractBasePage implements IDropdo
         return this;
     }
 
-    public void clickSubmitBtn() {
+    protected void clickSubmitBtn() {
         this.wait.until(d -> continueBtn.isDisplayed());
         this.continueBtn.click();
+    }
+
+    public void createUserAccount(Personal personal, String aboutUs){
+        String phoneCode = personal.getCountry() + " " + "("+  personal.getDialCode()+ ")";
+        inputFullName(personal.getFullName());
+        inputEmail(personal.getEmail());
+        inputAboutUs(aboutUs);
+        inputPhoneNumber(phoneCode, personal.getPhone());
+        checkPrivacyBox();
+        clickSubmitBtn();
+
     }
 
 }

@@ -1,6 +1,5 @@
 package com.aspire.loan.controlhelper;
 
-import com.aspire.loan.helpers.WaitHelper;
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
