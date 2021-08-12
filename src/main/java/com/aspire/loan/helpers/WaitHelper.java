@@ -1,8 +1,6 @@
 package com.aspire.loan.helpers;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,8 +11,11 @@ public class WaitHelper {
     private static By spinnerElementByCss = By.cssSelector(".q-spinner");
     private static By loadingProgressBar = By.cssSelector(".q-loading-bar");
 
+
     public static void waitUntilNoSpinnerDisplayed(WebDriver driver, WebDriverWait wait) {
-        wait.until(d -> ExpectedConditions.invisibilityOf(driver.findElement(spinnerElementByCss)));
+        if(driver.findElements(spinnerElementByCss).size() > 0){
+            wait.until(ExpectedConditions.invisibilityOf(driver.findElement(spinnerElementByCss)));
+        }
     }
 
     public static boolean waitUntilLoadingBarInvisible(WebDriver driver) {

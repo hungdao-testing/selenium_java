@@ -1,6 +1,7 @@
 package com.aspire.loan.pages.onboarding;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelper.ICalendar;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
@@ -40,14 +41,13 @@ public class PersonEditPage extends AbstractBasePage implements IDropdown, ICale
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-//    public PersonEditPage isAt(){
-//        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Personal Details"));
-//        this.wait.until(noActiveAjaxRequest());
-//        return this;
-//    }
+    @Override
+    public void isAt() {
+        super.isAt();
+    }
 
     public void goTo(){
-        this.driver.get(getBaseUrl() + "/onboarding/person-edit");
+        this.driver.get(AppConfig.getBaseUrl() + "/onboarding/person-edit");
     }
 
     public PersonEditPage setEmail(String inputEmailField){
@@ -72,7 +72,6 @@ public class PersonEditPage extends AbstractBasePage implements IDropdown, ICale
     }
 
     public PersonEditPage setNationality(String nationality){
-//        this.wait.until(noActiveAjaxRequest());
         this.wait.until(ExpectedConditions.elementToBeClickable(nationalityField));
         nationalityField.click();
         nationalityField.sendKeys(nationality);
@@ -95,7 +94,6 @@ public class PersonEditPage extends AbstractBasePage implements IDropdown, ICale
     public void clickSubmit(){
         this.wait.until(d -> submitButton.isDisplayed());
         submitButton.click();
-//        this.wait.until(noActiveAjaxRequest());
     }
 
 

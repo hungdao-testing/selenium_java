@@ -1,6 +1,7 @@
 package com.aspire.loan.pages.onboarding;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
 import org.openqa.selenium.By;
@@ -44,7 +45,7 @@ public class BusinessEditPage extends AbstractBasePage implements IDropdown {
     }
 
     public BusinessEditPage goTo(){
-        this.driver.get(getBaseUrl() + "/onboarding/business-edit");
+        this.driver.get(AppConfig.getBaseUrl() + "/onboarding/business-edit");
         return this;
     }
 

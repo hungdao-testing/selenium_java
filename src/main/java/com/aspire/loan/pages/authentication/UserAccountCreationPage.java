@@ -1,6 +1,7 @@
 package com.aspire.loan.pages.authentication;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
 import org.openqa.selenium.*;
@@ -50,7 +51,7 @@ public class UserAccountCreationPage extends AbstractBasePage implements IDropdo
     }
 
     public UserAccountCreationPage goTo() {
-        this.driver.get(getBaseUrl() + "/register");
+        this.driver.get(AppConfig.getBaseUrl() + "/register");
         return this;
     }
 

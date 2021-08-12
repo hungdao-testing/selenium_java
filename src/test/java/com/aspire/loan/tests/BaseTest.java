@@ -26,7 +26,6 @@ public class BaseTest {
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(GlobalConstants.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(GlobalConstants.IMPLICIT_WAIT_TIMEOUT, TimeUnit.SECONDS);
     }
 
     @AfterClass

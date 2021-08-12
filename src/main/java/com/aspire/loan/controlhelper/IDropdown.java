@@ -1,5 +1,6 @@
 package com.aspire.loan.controlhelper;
 
+import com.aspire.loan.helpers.WaitHelper;
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-public interface IDropdown{
+public interface IDropdown {
 
     default void scrollAndSelectOption(WebDriver driver, WebDriverWait wait, String value){
         By dropdownMenu = By.cssSelector(".q-menu");

@@ -1,6 +1,7 @@
 package com.aspire.loan.pages.authentication;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
 import org.openqa.selenium.WebDriver;
@@ -41,7 +42,7 @@ public class LoginPage extends AbstractBasePage implements IDropdown {
     }
 
     public LoginPage goTo() {
-        this.driver.get(getBaseUrl() + "/login");
+        this.driver.get(AppConfig.getBaseUrl() + "/login");
         return this;
     }
 

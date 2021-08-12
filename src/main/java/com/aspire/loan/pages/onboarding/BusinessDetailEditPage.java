@@ -1,6 +1,7 @@
 package com.aspire.loan.pages.onboarding;
 
 import com.aspire.loan.components.SideBar;
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelper.IDropdown;
 import com.aspire.loan.core.AbstractBasePage;
 import org.junit.Assert;
@@ -39,15 +40,14 @@ public class BusinessDetailEditPage extends AbstractBasePage implements IDropdow
     }
 
     public BusinessDetailEditPage goTo(){
-        this.driver.get(getBaseUrl() + "/onboarding/business-details-edit");
+        this.driver.get(AppConfig.getBaseUrl() + "/onboarding/business-details-edit");
         return this;
     }
 
-//    public BusinessDetailEditPage isAt(){
-//        this.wait.until(noActiveAjaxRequest());
-//        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Enter your business’ details"));
-//        return this;
-//    }
+    @Override
+    public void isAt() {
+        super.isAt();
+    }
 
     public BusinessDetailEditPage setBusinessActivity(String activity){
         Assert.assertTrue("Activity must be at lease 40 chars, please check again!!",
@@ -86,7 +86,6 @@ public class BusinessDetailEditPage extends AbstractBasePage implements IDropdow
     public void clickSubmit(){
         this.wait.until(d -> this.continueButton.isDisplayed());
         this.continueButton.click();
-//        this.wait.until(noActiveAjaxRequest());
     }
     
 }

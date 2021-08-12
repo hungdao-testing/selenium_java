@@ -1,5 +1,6 @@
 package com.aspire.loan.pages.onboarding;
 
+import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.core.AbstractBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,17 +33,14 @@ public class BusinessRelationShipPage extends AbstractBasePage {
     }
 
     public BusinessRelationShipPage goTo() {
-        driver.get(getBaseUrl() + "/onboarding/business-relationship");
+        driver.get(AppConfig.getBaseUrl() + "/onboarding/business-relationship");
         return this;
     }
 
-//    public BusinessRelationShipPage isAt() {
-//        this.wait.until(noActiveAjaxRequest());
-//        this.wait.until(ExpectedConditions.urlContains("/onboarding/business-relationship"));
-//        this.wait.until(ExpectedConditions.visibilityOfAllElements(radioButtonsOfQuestionOne));
-//        this.wait.until(ExpectedConditions.visibilityOfAllElements(radioButtonsOfQuestionTwo));
-//        return this;
-//    }
+    @Override
+    public void isAt() {
+        super.isAt();
+    }
 
     public BusinessRelationShipPage answerForQuestionOne(String answerOption) {
         for (WebElement radio : radioButtonsOfQuestionOne) {
