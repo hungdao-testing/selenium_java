@@ -21,16 +21,17 @@ public class RegisteredCompletionPage extends AbstractBasePage {
         PageFactory.initElements(driver, this);
     }
 
-    @Override
-    public void isAt(){
+    public boolean isSuccessfulMessageDisplayed(){
         super.isAt();
+        LOGGER.info("Waiting for the successful registration message loaded");
         this.wait.until(ExpectedConditions.urlContains("/register/completed"));
         this.wait.until(ExpectedConditions.textToBePresentInElement
                 (successfulRegistrationInformationText, GlobalConstants.SUCCESSFUL_REGISTRATION_INFORMATION));
+        return true;
     }
 
     public void clickContinueButton(){
-        this.wait.until(d -> continueButton.isDisplayed());
-        this.continueButton.click();
+        clickOnVisibleElement(continueButton);
+        LOGGER.info("Finish registration");
     }
 }

@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
-public class RegistrationPage extends AbstractBasePage implements IDropdown {
+public class SignUpPage extends AbstractBasePage implements IDropdown {
 
     @FindBy(css = "input[data-cy='register-person-name']")
     private WebElement fullName;
@@ -45,13 +45,13 @@ public class RegistrationPage extends AbstractBasePage implements IDropdown {
 
     private SideBar sideBar;
 
-    public RegistrationPage(WebDriver driver) {
+    public SignUpPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-    public RegistrationPage goTo() {
+    public SignUpPage goTo() {
         this.driver.get(AppConfig.getBaseUrl() + "/register");
         return this;
     }
@@ -62,20 +62,20 @@ public class RegistrationPage extends AbstractBasePage implements IDropdown {
         this.wait.until(ExpectedConditions.visibilityOfAllElements(this.mobileSection, this.email, this.sideBar.getTitleComp()));
     }
 
-    protected RegistrationPage inputFullName(String fullName) {
+    protected SignUpPage inputFullName(String fullName) {
         LOGGER.info("Input full name");
         this.inputTextToVisibleField(this.fullName, fullName);
         return this;
     }
 
-    protected RegistrationPage inputEmail(String email) {
+    protected SignUpPage inputEmail(String email) {
         LOGGER.info("Input email");
         this.inputTextToVisibleField(this.email, email);
         return this;
     }
 
-    protected RegistrationPage inputPhoneNumber(String countryPhoneCode, String phoneNumber) {
-        LOGGER.info("select country {}", countryPhoneCode);
+    protected SignUpPage inputPhoneNumber(String countryPhoneCode, String phoneNumber) {
+        LOGGER.info("select country: '{}'", countryPhoneCode);
         phoneNumberTxt.sendKeys(phoneNumber);
         this.wait.until(ExpectedConditions.elementToBeClickable(countryDropdown));
         countryDropdown.click();
@@ -89,21 +89,21 @@ public class RegistrationPage extends AbstractBasePage implements IDropdown {
         return this;
     }
 
-    protected RegistrationPage inputAboutUs(String input) {
-        LOGGER.info("select about us options {}", input);
+    protected SignUpPage inputAboutUs(String input) {
+        LOGGER.info("select about_us option: '{}'", input);
         this.wait.until(d -> hearAboutUs.isDisplayed());
         hearAboutUs.click();
         selectOptionFromShortList(driver, wait, input);
         return this;
     }
 
-    protected RegistrationPage inputPromoCode(String promoCode) {
+    protected SignUpPage inputPromoCode(String promoCode) {
         LOGGER.info("input promo code");
         this.inputTextToVisibleField(this.promoCode, promoCode);
         return this;
     }
 
-    protected RegistrationPage checkPrivacyBox() {
+    protected SignUpPage checkPrivacyBox() {
         LOGGER.info("Tick to privacy box");
         if (this.privacyCheckbox.isSelected()) {
             return this;

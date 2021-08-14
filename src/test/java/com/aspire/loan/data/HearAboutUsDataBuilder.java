@@ -11,7 +11,7 @@ public class HearAboutUsDataBuilder{
     private static final String url = AppConfig.getApiUrl() + "/v1/options?type=heard_about";
 
 
-    protected static String fetchHearAboutUsByApi() {
+    protected String fetchHearAboutUsByApi() {
 
         JSONArray hearAboutUsResponse = Unirest.get(url)
                 .header("x-aspire-application", "CNSING")

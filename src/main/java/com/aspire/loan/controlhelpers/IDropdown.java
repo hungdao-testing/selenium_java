@@ -18,7 +18,7 @@ public interface IDropdown {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dropdownMenu));
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(dropdownItems));
         LoggerFactory.getLogger(this.getClass().getInterfaces()[0].getSimpleName())
-                .info("Scrolling dropdown and selection value {}", value);
+                .info("Start scrolling dropdown to find value '{}' to select", value);
         boolean isContinueScrolled = false;
         while (!isContinueScrolled) {
             List<WebElement> dropDownOptions = driver.findElements(dropdownItems);
@@ -46,7 +46,7 @@ public interface IDropdown {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(dropdownItems));
 
         LoggerFactory.getLogger(this.getClass().getInterfaces()[0].getSimpleName())
-                .info("Scrolling dropdown and selection value {}", value);
+                .info("Start scrolling dropdown to find value '{}' to select", value);
 
         List<WebElement> dropDownOptions = driver.findElements(dropdownItems);
         for (WebElement e : dropDownOptions) {

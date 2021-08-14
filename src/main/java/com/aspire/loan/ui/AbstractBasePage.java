@@ -35,7 +35,7 @@ public abstract class AbstractBasePage {
     }
 
     protected void clickOnVisibleElement(WebElement element) {
-        LOGGER.info("Wait for an element to be clickable, then click on it");
+        LOGGER.info("Wait for an element to be clickable");
         this.wait.until(d -> element.isDisplayed() && element.isEnabled());
         element.click();
     }
