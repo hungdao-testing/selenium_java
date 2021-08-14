@@ -1,7 +1,7 @@
-package com.aspire.loan.databuilder;
+package com.aspire.loan.data.databuilder;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.services.CountryService;
+import com.aspire.loan.data.services.CountryService;
 import com.aspire.loan.data.Personal;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
@@ -9,7 +9,7 @@ import kong.unirest.json.JSONObject;
 import java.util.Map;
 
 
-public class PersonalDataBuilder extends DataBuilderConfig {
+public class PersonalDataBuilder {
 
     private static final String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
 
@@ -22,9 +22,9 @@ public class PersonalDataBuilder extends DataBuilderConfig {
 
     public Personal generateData() {
         while (true) {
-            String fullName = faker.funnyName().name();
-            String email = faker.internet().emailAddress();
-            String phone = faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
+            String fullName = DataBuilderConfig.faker.funnyName().name();
+            String email = DataBuilderConfig.faker.internet().emailAddress();
+            String phone = DataBuilderConfig.faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
             String formattedPhone = CountryService.getCountryBy("Singapore").getDialCode() + "" + phone;
 
             String payload = String.format(

@@ -1,4 +1,4 @@
-package com.aspire.loan.databuilder;
+package com.aspire.loan.data.databuilder;
 import com.aspire.loan.data.Personal;
 
 public class DataManagement {

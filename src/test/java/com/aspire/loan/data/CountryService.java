@@ -1,4 +1,4 @@
-package com.aspire.loan.services;
+package com.aspire.loan.data.services;
 
 import com.aspire.loan.config.AppConfig;
 import kong.unirest.GenericType;
