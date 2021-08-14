@@ -63,16 +63,19 @@ public class RegistrationPage extends AbstractBasePage implements IDropdown {
     }
 
     protected RegistrationPage inputFullName(String fullName) {
+        LOGGER.info("Input full name");
         this.inputTextToVisibleField(this.fullName, fullName);
         return this;
     }
 
     protected RegistrationPage inputEmail(String email) {
+        LOGGER.info("Input email");
         this.inputTextToVisibleField(this.email, email);
         return this;
     }
 
     protected RegistrationPage inputPhoneNumber(String countryPhoneCode, String phoneNumber) {
+        LOGGER.info("select country {}", countryPhoneCode);
         phoneNumberTxt.sendKeys(phoneNumber);
         this.wait.until(ExpectedConditions.elementToBeClickable(countryDropdown));
         countryDropdown.click();
@@ -87,6 +90,7 @@ public class RegistrationPage extends AbstractBasePage implements IDropdown {
     }
 
     protected RegistrationPage inputAboutUs(String input) {
+        LOGGER.info("select about us options {}", input);
         this.wait.until(d -> hearAboutUs.isDisplayed());
         hearAboutUs.click();
         selectOptionFromShortList(driver, wait, input);
@@ -94,11 +98,13 @@ public class RegistrationPage extends AbstractBasePage implements IDropdown {
     }
 
     protected RegistrationPage inputPromoCode(String promoCode) {
+        LOGGER.info("input promo code");
         this.inputTextToVisibleField(this.promoCode, promoCode);
         return this;
     }
 
     protected RegistrationPage checkPrivacyBox() {
+        LOGGER.info("Tick to privacy box");
         if (this.privacyCheckbox.isSelected()) {
             return this;
         } else {
@@ -108,11 +114,13 @@ public class RegistrationPage extends AbstractBasePage implements IDropdown {
     }
 
     protected void clickSubmitBtn() {
+        LOGGER.info("Wait for Submit button to be enable and click");
         this.wait.until(d -> continueBtn.isDisplayed());
         this.continueBtn.click();
     }
 
     public void createUserAccount(Personal personal, String aboutUs){
+        LOGGER.info("Start creating a new user account with personal info {}", personal.toString());
         String phoneCode = personal.getCountry() + " " + "("+  personal.getDialCode()+ ")";
         inputFullName(personal.getFullName());
         inputEmail(personal.getEmail());
