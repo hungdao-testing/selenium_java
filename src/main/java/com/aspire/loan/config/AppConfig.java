@@ -1,7 +1,5 @@
 package com.aspire.loan.config;
 
-import com.aspire.loan.core.GlobalConstants;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;

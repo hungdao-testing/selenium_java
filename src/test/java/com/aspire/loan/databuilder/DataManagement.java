@@ -4,11 +4,11 @@ import com.aspire.loan.data.Personal;
 public class DataManagement {
 
     public static String getHearAboutUs(){
-       return HearAboutUsBuilder.fetchHearAboutUsByApi();
+       return HearAboutUsDataBuilder.fetchHearAboutUsByApi();
     }
 
     public static Personal getPersonal() {
-        return new PersonalBuilder().generateData();
+        return new PersonalDataBuilder().generateData();
     }
 
 }
