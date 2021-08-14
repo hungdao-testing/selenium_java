@@ -44,8 +44,10 @@ public class OtpHandlePage extends AbstractBasePage {
         this.wait.until(ExpectedConditions.visibilityOfAllElements(otpFields));
         this.wait.until(d -> {
             if(recipientTxt.getText().contains("@")){
+                LOGGER.info("The Email OTP component is loaded");
                 return this.sideBar.getTitleComp().getText().contains("Enter email OTP");
             }else{
+                LOGGER.info("The Mobile OTP component is loaded");
                 return this.sideBar.getTitleComp().getText().contains("Enter phone OTP");
             }
         });
@@ -54,6 +56,7 @@ public class OtpHandlePage extends AbstractBasePage {
 
 
     public void inputOtp(String Otp){
+        LOGGER.info("Inputting otp values: {}", Otp);
         for(int i = 0; i < otpFields.size(); i++){
             this.wait.until(ExpectedConditions.elementToBeClickable(otpFields.get(i)));
             new Actions(driver)

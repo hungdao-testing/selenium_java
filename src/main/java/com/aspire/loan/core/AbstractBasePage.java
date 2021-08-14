@@ -5,17 +5,15 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractBasePage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
-    protected Properties prop;
     protected JavascriptExecutor js;
+    protected Logger LOGGER = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
 
     public AbstractBasePage(WebDriver driver) {
@@ -26,20 +24,23 @@ public abstract class AbstractBasePage {
 
     public void isAt() {
         waitForPageIsReady();
-    };
+    }
 
     protected void inputTextToVisibleField(WebElement element, String text) {
+        LOGGER.info("Wait for a text_field to be visible, then input '{}'", text);
         this.wait.until(d -> element.isDisplayed() && element.isEnabled());
         element.click();
         element.sendKeys(text);
     }
 
-    protected void clickOnVisibleElement(WebElement element){
+    protected void clickOnVisibleElement(WebElement element) {
+        LOGGER.info("Wait for an element to be clickable, then click on it");
         this.wait.until(d -> element.isDisplayed() && element.isEnabled());
         element.click();
     }
 
     public void waitForPageIsReady() {
+        LOGGER.info("Wait for page is ready to take action");
         WaitHelper.waitUntilLoadingBarInvisible(driver);
         WaitHelper.waitUntilNoSpinnerDisplayed(driver, wait);
         wait.until(WaitHelper.waitUntilNoActiveAjaxCalled(driver, wait));

@@ -1,15 +1,12 @@
-package com.aspire.loan.tests;
+package com.aspire.loan.specs;
 
 import com.aspire.loan.core.GlobalConstants;
-import com.aspire.loan.databuilder.DataManagement;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import java.util.concurrent.TimeUnit;
 

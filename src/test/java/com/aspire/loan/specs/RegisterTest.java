@@ -1,4 +1,4 @@
-package com.aspire.loan.tests;
+package com.aspire.loan.specs;
 
 import com.aspire.loan.databuilder.DataManagement;
 import com.aspire.loan.pages.authentication.RegistrationPage;

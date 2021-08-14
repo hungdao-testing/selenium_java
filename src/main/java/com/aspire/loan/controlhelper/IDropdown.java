@@ -4,19 +4,21 @@ import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-public interface IDropdown {
+public interface IDropdown extends IElementHelper{
 
     default void scrollAndSelectOption(WebDriver driver, WebDriverWait wait, String value){
         By dropdownMenu = By.cssSelector(".q-menu");
         By dropdownItems = By.cssSelector(".q-item__label");
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dropdownMenu));
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(dropdownItems));
-
+        LoggerFactory.getLogger(this.getClass().getInterfaces()[0].getSimpleName())
+                .info("Scrolling dropdown and selection value {}", value);
         boolean isContinueScrolled = false;
         while (!isContinueScrolled) {
             List<WebElement> dropDownOptions = driver.findElements(dropdownItems);
@@ -42,6 +44,9 @@ public interface IDropdown {
         By dropdownItems = By.cssSelector(".q-item__label");
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dropdownMenu));
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(dropdownItems));
+
+        LoggerFactory.getLogger(this.getClass().getInterfaces()[0].getSimpleName())
+                .info("Scrolling dropdown and selection value {}", value);
 
         List<WebElement> dropDownOptions = driver.findElements(dropdownItems);
         for (WebElement e : dropDownOptions) {
