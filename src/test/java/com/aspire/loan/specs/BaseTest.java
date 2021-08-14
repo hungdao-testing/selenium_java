@@ -1,6 +1,7 @@
 package com.aspire.loan.specs;
 
 import com.aspire.loan.config.GlobalConstants;
+import com.aspire.loan.data.DataManagement;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;

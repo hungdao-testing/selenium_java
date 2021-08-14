@@ -1,4 +1,4 @@
-package com.aspire.loan.data.services;
+package com.aspire.loan.data;
 
 import com.aspire.loan.config.AppConfig;
 import kong.unirest.GenericType;
@@ -50,7 +50,7 @@ public class CountryService {
                 '}';
     }
 
-    public static CountryService getCountryBy(String countryName){
+    protected static CountryService getCountryBy(String countryName){
         List<CountryService> body = Unirest
                 .get(AppConfig.getApiUrl() + "/v1/countries/all")
                 .asObject(new GenericType<List<CountryService>>() {

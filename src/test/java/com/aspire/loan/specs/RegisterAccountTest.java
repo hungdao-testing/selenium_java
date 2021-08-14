@@ -1,6 +1,6 @@
 package com.aspire.loan.specs;
 
-import com.aspire.loan.databuilder.DataManagement;
+import com.aspire.loan.data.DataManagement;
 import com.aspire.loan.ui.pages.authentication.RegistrationPage;
 import com.aspire.loan.ui.components.OtpHandle;
 import org.testng.annotations.BeforeTest;

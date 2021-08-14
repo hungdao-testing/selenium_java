@@ -1,8 +1,6 @@
-package com.aspire.loan.data.databuilder;
+package com.aspire.loan.data;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.data.services.CountryService;
-import com.aspire.loan.data.Personal;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
 import kong.unirest.json.JSONObject;
@@ -20,11 +18,11 @@ public class PersonalDataBuilder {
                 .withDialCode(defaultCountry.getDialCode());
     }
 
-    public Personal generateData() {
+    protected Personal generateData() {
         while (true) {
-            String fullName = DataBuilderConfig.faker.funnyName().name();
-            String email = DataBuilderConfig.faker.internet().emailAddress();
-            String phone = DataBuilderConfig.faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
+            String fullName = BuilderConfig.faker.funnyName().name();
+            String email = BuilderConfig.faker.internet().emailAddress();
+            String phone = BuilderConfig.faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
             String formattedPhone = CountryService.getCountryBy("Singapore").getDialCode() + "" + phone;
 
             String payload = String.format(
