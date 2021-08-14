@@ -23,10 +23,7 @@ It designs on following patterns:
 
 #### 2. What have not done yet ?
 
-- The Reporter(would use Allure) and Log (would use Log4j) are under construction .
-- In some pages, it needs to fix the wait to handle data loaded. I would investigate and research a library could capture/monitor XHR requests to enhance the loading time.
-   
-   E.g. Dropdown of country list, or category dropdown in business detail page.
+- The Reporter(would use Allure) are under construction .
 
 ### C. Scenarios to be covered:
 
@@ -41,11 +38,6 @@ There are pages in Singapore that need to go through:
 7. Identity Verification (It is checked, you can ignore it).
 8. Onboarding NPS
 
-#### 2. What have not done yet ?
-
-- So far, the framework already covers from step#1 to step#6. From step#7 and step#8, they are under construction. Related to step#7, there is a screen to take selfie that could not be achieved by automation
-
-The test script is defined as the *end-to-end flow* on one file `OnBoardingTest` 
 
 ### D. Installation:
 
@@ -59,6 +51,5 @@ The test script is defined as the *end-to-end flow* on one file `OnBoardingTest`
     
 ### E. How to run the test
 
-- Before running the test, go to `src/test/resources/data.json` and update the corresponding data you want to create account (e.g , email, phone, Business Number...)
 
 - Hit command : `mvn clean test`
