@@ -38,7 +38,7 @@ public class OtpHandle extends AbstractBasePage {
         return recipientTxt.getText().replaceAll(" ", "");
     }
 
-    public OtpHandle isAtOtpScreen(){
+    public OtpHandle waitForOtpScreenLoaded(){
         super.isAt();
         this.wait.until(ExpectedConditions.visibilityOfAllElements(otpFields));
         this.wait.until(d -> {

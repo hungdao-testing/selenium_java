@@ -120,7 +120,7 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         this.continueBtn.click();
     }
 
-    public OtpHandle createUserAccount(Personal personal, String aboutUs){
+    public OtpHandle submitUserInformation(Personal personal, String aboutUs){
         LOGGER.info("Start creating a new user account with personal info {}", personal.toString());
         String phoneCode = personal.getCountry() + " " + "("+  personal.getDialCode()+ ")";
         inputFullName(personal.getFullName());

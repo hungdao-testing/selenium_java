@@ -4,7 +4,6 @@ import com.aspire.loan.data.DataManagement;
 import com.aspire.loan.specs.BaseTest;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
 import com.aspire.loan.ui.pages.authentication.SignUpPage;
-import com.aspire.loan.ui.components.OtpHandle;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -25,8 +24,8 @@ public class RegisterAccountTest extends BaseTest {
     public void verify_client_could_register_a_new_account_with_valid_data(){
         this.signUpPage.goTo().isAt();
         this.signUpPage
-                .createUserAccount(DataManagement.getPersonal(), DataManagement.getHearAboutUs())
-                .isAtOtpScreen()
+                .submitUserInformation(DataManagement.getPersonal(), DataManagement.getHearAboutUs())
+                .waitForOtpScreenLoaded()
                 .inputOtp(DataManagement.getOtp());
 
         Assert.assertTrue(registeredCompletionPage.isSuccessfulMessageDisplayed());
