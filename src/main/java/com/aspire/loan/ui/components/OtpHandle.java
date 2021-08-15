@@ -31,13 +31,6 @@ public class OtpHandle extends AbstractBasePage {
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-    private String getRecipientText(){
-        if(recipientTxt.getText().contains("@")){
-            return recipientTxt.getText();
-        }
-        return recipientTxt.getText().replaceAll(" ", "");
-    }
-
     public OtpHandle waitForOtpScreenLoaded(){
         super.isAt();
         this.wait.until(ExpectedConditions.visibilityOfAllElements(otpFields));
