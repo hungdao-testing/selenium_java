@@ -1,29 +1,34 @@
 package com.aspire.loan.data;
 
 import com.aspire.loan.config.AppConfig;
+import com.aspire.loan.data.handler.CountryData;
+import com.github.javafaker.Faker;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
 import kong.unirest.json.JSONObject;
+
+import java.util.Locale;
 import java.util.Map;
 
 
 public class PersonalDataBuilder {
 
     private static final String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
+    protected static Faker faker = new Faker(new Locale("en_SG"));
 
-    private Personal.PersonalBuilder aUser() {
-        CountryService defaultCountry = CountryService.getCountryBy("Singapore");
-        return Personal.aUser()
+    private PersonalInfo.PersonalInfoBuilder aUser() {
+        CountryResponseSchema defaultCountry = new CountryData().fetchCountryByApi("Singapore");
+        return PersonalInfo.aUser()
                 .withCountry(defaultCountry.getName())
                 .withDialCode(defaultCountry.getDialCode());
     }
 
-    protected Personal generateData() {
+    protected PersonalInfo generateData() {
         while (true) {
-            String fullName = BuilderConfig.faker.funnyName().name();
-            String email = BuilderConfig.faker.internet().emailAddress();
-            String phone = BuilderConfig.faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
-            String formattedPhone = CountryService.getCountryBy("Singapore").getDialCode() + "" + phone;
+            String fullName = faker.funnyName().name();
+            String email = faker.internet().emailAddress();
+            String phone = faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
+            String formattedPhone = new CountryData().fetchCountryByApi("Singapore").getDialCode() + "" + phone;
 
             String payload = String.format(
                     "{\"full_name\": \"%s\",\"email\": \"%s\",\"phone\": \"%s\"}", fullName, email, formattedPhone);

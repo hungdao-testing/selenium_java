@@ -5,7 +5,7 @@ import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelpers.IDropdown;
 import com.aspire.loan.ui.AbstractBasePage;
-import com.aspire.loan.data.Personal;
+import com.aspire.loan.data.PersonalInfo;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -120,16 +120,16 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         this.continueBtn.click();
     }
 
-    public OtpHandle submitUserInformation(Personal personal, String aboutUs){
-        LOGGER.info("Start creating a new user account with personal info {}", personal.toString());
-        String phoneCode = personal.getCountry() + " " + "("+  personal.getDialCode()+ ")";
-        inputFullName(personal.getFullName());
-        inputEmail(personal.getEmail());
+    public OtpHandle submitUserInformation(PersonalInfo personalInfo, String aboutUs){
+        LOGGER.info("Start creating a new user account with personal info {}", personalInfo.toString());
+        String phoneCode = personalInfo.getCountry() + " " + "("+  personalInfo.getDialCode()+ ")";
+        inputFullName(personalInfo.getFullName());
+        inputEmail(personalInfo.getEmail());
         inputAboutUs(aboutUs);
-        inputPhoneNumber(phoneCode, personal.getPhone());
+        inputPhoneNumber(phoneCode, personalInfo.getPhone());
         checkPrivacyBox();
         clickSubmitBtn();
-        return new OtpHandle(driver, personal.getPhone());
+        return new OtpHandle(driver, personalInfo.getPhone());
 
     }
 

@@ -1,12 +1,6 @@
 package com.aspire.loan.data;
 
-import com.aspire.loan.config.AppConfig;
-import kong.unirest.GenericType;
-import kong.unirest.Unirest;
-
-import java.util.List;
-
-public class CountryService {
+public class CountryResponseSchema {
     private String uuid;
     private String code;
     private String name;
@@ -40,27 +34,13 @@ public class CountryService {
 
     @Override
     public String toString() {
-        return "CountryService{" +
+        return "CountryResponseSchema{" +
                 "uuid='" + uuid + '\'' +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
-                ", dialCode='" + dial_code + '\'' +
+                ", dial_code='" + dial_code + '\'' +
                 ", currency=" + currency +
-                ", isActive=" + is_active +
+                ", is_active=" + is_active +
                 '}';
-    }
-
-    protected static CountryService getCountryBy(String countryName){
-        List<CountryService> body = Unirest
-                .get(AppConfig.getApiUrl() + "/v1/countries/all")
-                .asObject(new GenericType<List<CountryService>>() {
-                })
-                .getBody();
-
-        return body
-                .stream()
-                .filter(c -> c.getActive() && c.getName().equalsIgnoreCase(countryName))
-                .findFirst()
-                .get();
     }
 }

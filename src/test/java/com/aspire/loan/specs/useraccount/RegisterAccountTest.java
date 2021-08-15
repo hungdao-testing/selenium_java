@@ -1,6 +1,6 @@
 package com.aspire.loan.specs.useraccount;
 
-import com.aspire.loan.data.DataManagement;
+import com.aspire.loan.data.DataGenerator;
 import com.aspire.loan.specs.BaseTest;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
 import com.aspire.loan.ui.pages.authentication.SignUpPage;
@@ -24,9 +24,9 @@ public class RegisterAccountTest extends BaseTest {
     public void verify_client_could_register_a_new_account_with_valid_data(){
         this.signUpPage.goTo().isAt();
         this.signUpPage
-                .submitUserInformation(DataManagement.getPersonal(), DataManagement.getHearAboutUs())
+                .submitUserInformation(DataGenerator.getPersonalInfo(), DataGenerator.getHearAboutUs())
                 .waitForOtpScreenLoaded()
-                .inputOtp(DataManagement.getOtp());
+                .inputOtp(DataGenerator.getOtp());
 
         Assert.assertTrue(registeredCompletionPage.isSuccessfulMessageDisplayed());
 
