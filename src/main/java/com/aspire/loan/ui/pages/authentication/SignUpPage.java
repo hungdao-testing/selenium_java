@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages.authentication;
 
+import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelpers.IDropdown;
@@ -119,7 +120,7 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         this.continueBtn.click();
     }
 
-    public void createUserAccount(Personal personal, String aboutUs){
+    public OtpHandle createUserAccount(Personal personal, String aboutUs){
         LOGGER.info("Start creating a new user account with personal info {}", personal.toString());
         String phoneCode = personal.getCountry() + " " + "("+  personal.getDialCode()+ ")";
         inputFullName(personal.getFullName());
@@ -128,6 +129,7 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         inputPhoneNumber(phoneCode, personal.getPhone());
         checkPrivacyBox();
         clickSubmitBtn();
+        return new OtpHandle(driver, personal.getPhone());
 
     }
 

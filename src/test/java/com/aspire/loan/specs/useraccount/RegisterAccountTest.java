@@ -1,6 +1,7 @@
-package com.aspire.loan.specs;
+package com.aspire.loan.specs.useraccount;
 
 import com.aspire.loan.data.DataManagement;
+import com.aspire.loan.specs.BaseTest;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
 import com.aspire.loan.ui.pages.authentication.SignUpPage;
 import com.aspire.loan.ui.components.OtpHandle;
@@ -9,7 +10,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 
-public class RegisterAccountTest extends BaseTest{
+public class RegisterAccountTest extends BaseTest {
 
     private SignUpPage signUpPage;
     private RegisteredCompletionPage registeredCompletionPage;
@@ -24,13 +25,11 @@ public class RegisterAccountTest extends BaseTest{
     public void verify_client_could_register_a_new_account_with_valid_data(){
         this.signUpPage.goTo().isAt();
         this.signUpPage
-                .createUserAccount(DataManagement.getPersonal(), DataManagement.getHearAboutUs());
-
-        OtpHandle otpHandle = new OtpHandle(driver, DataManagement.getPersonal().getPhone());
-        otpHandle.isAtOtpScreen().inputOtp(DataManagement.getOtp());
+                .createUserAccount(DataManagement.getPersonal(), DataManagement.getHearAboutUs())
+                .isAtOtpScreen()
+                .inputOtp(DataManagement.getOtp());
 
         Assert.assertTrue(registeredCompletionPage.isSuccessfulMessageDisplayed());
-
 
     }
 }

@@ -3,7 +3,7 @@
 <suite name="Loan" verbose="1">
     <test name="OnBoarding">
         <classes>
-            <class name="com.aspire.loan.specs.RegisterAccountTest" />
+            <class name="com.aspire.loan.specs.useraccount.RegisterAccountTest" />
         </classes>
     </test>
 </suite>

@@ -15,21 +15,13 @@ import java.util.function.Supplier;
 public class DriverFactory {
 
     private static Supplier<WebDriver> chrome = () -> {
-        ChromeOptions chromeOptions = new ChromeOptions();
-
-        /*
-         * https://www.selenium.dev/documentation/en/webdriver/page_loading_strategy/
-         * */
-        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         WebDriverManager.chromedriver().setup();
-        return new ChromeDriver(chromeOptions);
+        return new ChromeDriver();
     };
 
     private static Supplier<WebDriver> firefox = () -> {
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         WebDriverManager.firefoxdriver().setup();
-        return new FirefoxDriver(firefoxOptions);
+        return new FirefoxDriver();
     };
 
     private static Map<String, Supplier<WebDriver>> driverMapping = new HashMap<>();
