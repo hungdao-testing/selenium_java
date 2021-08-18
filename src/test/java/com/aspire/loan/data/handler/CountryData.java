@@ -6,20 +6,18 @@ import kong.unirest.GenericType;
 import kong.unirest.Unirest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CountryData {
 
-    public CountryResponseSchema fetchCountryByApi(String countryName){
-        List<CountryResponseSchema> body = Unirest
+    public List<CountryResponseSchema> fetchActiveCountryByApi(){
+        return Unirest
                 .get(AppConfig.getApiUrl() + "/v1/countries/all")
                 .asObject(new GenericType<List<CountryResponseSchema>>() {
                 })
-                .getBody();
-
-        return body
+                .getBody()
                 .stream()
-                .filter(c -> c.getActive() && c.getName().equalsIgnoreCase(countryName))
-                .findFirst()
-                .get();
+                .filter(c -> c.getActive())
+                .collect(Collectors.toList());
     }
 }

@@ -7,28 +7,35 @@ import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
 import kong.unirest.json.JSONObject;
 
-import java.util.Locale;
 import java.util.Map;
 
 
 public class PersonalDataBuilder {
 
-    private static final String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
-    protected static Faker faker = new Faker(new Locale("en_SG"));
+    protected static Faker faker = new Faker();
+
+    private CountryResponseSchema getDefaultCountry() {
+        return new CountryData()
+                .fetchActiveCountryByApi()
+                .stream()
+                .filter(c -> c.getName().equalsIgnoreCase("Singapore"))
+                .findFirst()
+                .get();
+    };
 
     private PersonalInfo.PersonalInfoBuilder aUser() {
-        CountryResponseSchema defaultCountry = new CountryData().fetchCountryByApi("Singapore");
         return PersonalInfo.aUser()
-                .withCountry(defaultCountry.getName())
-                .withDialCode(defaultCountry.getDialCode());
-    }
+                .withCountry(getDefaultCountry().getName())
+                .withDialCode(getDefaultCountry().getDialCode());
+    };
 
-    protected PersonalInfo generateData() {
+    protected PersonalInfo generateValidData() {
+        String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
         while (true) {
             String fullName = faker.funnyName().name();
             String email = faker.internet().emailAddress();
             String phone = faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
-            String formattedPhone = new CountryData().fetchCountryByApi("Singapore").getDialCode() + "" + phone;
+            String formattedPhone = getDefaultCountry().getDialCode() + "" + phone;
 
             String payload = String.format(
                     "{\"full_name\": \"%s\",\"email\": \"%s\",\"phone\": \"%s\"}", fullName, email, formattedPhone);
@@ -55,6 +62,21 @@ public class PersonalDataBuilder {
 
     }
 
+    protected PersonalInfo generateInvalidData(String name, String email, String phone) {
+        CountryResponseSchema country= new CountryData()
+                .fetchActiveCountryByApi()
+                .stream()
+                .findAny()
+                .get();
+
+        return new PersonalDataBuilder().aUser()
+                .withCountry(country.getName())
+                .withDialCode(country.getDialCode())
+                .withPhone(phone)
+                .withEmail(email)
+                .withFullName(name)
+                .build();
+    }
 
 }
 
