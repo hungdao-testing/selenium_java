@@ -1,4 +1,4 @@
-package com.aspire.loan.data.handler;
+package com.aspire.loan.data;
 
 public class OtpData {
 

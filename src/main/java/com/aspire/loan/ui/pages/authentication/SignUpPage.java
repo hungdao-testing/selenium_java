@@ -72,13 +72,13 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
     }
 
     protected SignUpPage inputFullName(String fullName) {
-        LOGGER.info("Input full name");
+        LOGGER.info("Start inputting full_name field");
         this.inputTextToVisibleField(this.fullName, fullName);
         return this;
     }
 
     protected SignUpPage inputEmail(String email) {
-        LOGGER.info("Input email");
+        LOGGER.info("Start inputting email field");
         this.inputTextToVisibleField(this.email, email);
         return this;
     }
@@ -151,5 +151,13 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         LOGGER.info("Wait for notification error message loaded and get text");
         this.wait.until(d -> notificationErrorMessage.isDisplayed());
         return notificationErrorMessage.getText();
+    }
+
+    public List<WebElement> getErrorEls() {
+        return errors;
+    }
+
+    public WebElement getNotificationErrorEl(){
+        return notificationErrorMessage;
     }
 }
