@@ -47,5 +47,10 @@ public abstract class AbstractBasePage {
         wait.until(WaitHelper.waitUntilNoActiveAjaxCalled(driver, wait));
     }
 
+    public void clearLocalStorage(){
+        LOGGER.info("Clear local storage");
+        this.js.executeScript("window.localStorage.clear()");
+    }
+
 
 }

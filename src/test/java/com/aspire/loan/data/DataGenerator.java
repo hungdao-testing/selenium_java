@@ -10,12 +10,15 @@ public class DataGenerator {
     }
 
     public static PersonalInfo getPersonalInfo() {
-        return new PersonalDataBuilder().generateData();
+        return new PersonalDataBuilder().generateValidData();
     }
 
     public static String getOtp(){
         return new OtpData().getOtp();
     }
 
+    public static PersonalInfo getInvalidPersonalInfoWith(String name, String email, String phone) {
+        return new PersonalDataBuilder().generateInvalidData(name, email, phone);
+    }
 }
 

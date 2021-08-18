@@ -31,7 +31,7 @@ public class OtpHandle extends AbstractBasePage {
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-    public OtpHandle waitForOtpScreenLoaded(){
+    public OtpHandle waitForOtpSectionLoaded(){
         super.isAt();
         this.wait.until(ExpectedConditions.visibilityOfAllElements(otpFields));
         this.wait.until(d -> {

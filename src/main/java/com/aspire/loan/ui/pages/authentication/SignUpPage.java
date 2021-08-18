@@ -1,6 +1,5 @@
 package com.aspire.loan.ui.pages.authentication;
 
-import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelpers.IDropdown;
@@ -10,6 +9,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class SignUpPage extends AbstractBasePage implements IDropdown {
@@ -43,6 +45,12 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
 
     @FindBy(css = "button[role='button']")
     private WebElement continueBtn;
+
+    @FindBy(css = ".aspire-label__text.text-negative")
+    private List<WebElement> errors;
+
+    @FindBy(css = ".q-notification__message.col")
+    private WebElement notificationErrorMessage;
 
     private SideBar sideBar;
 
@@ -104,7 +112,7 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         return this;
     }
 
-    protected SignUpPage checkPrivacyBox() {
+    public SignUpPage checkPrivacyBox() {
         LOGGER.info("Tick to privacy box");
         if (this.privacyCheckbox.isSelected()) {
             return this;
@@ -114,23 +122,34 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         return this;
     }
 
-    protected void clickSubmitBtn() {
+    public void clickSubmitBtn() {
         LOGGER.info("Wait for Submit button to be enable and click");
         this.wait.until(d -> continueBtn.isDisplayed());
         this.continueBtn.click();
     }
 
-    public OtpHandle submitUserInformation(PersonalInfo personalInfo, String aboutUs){
+    public SignUpPage fillForm(PersonalInfo personalInfo, String aboutUs){
         LOGGER.info("Start creating a new user account with personal info {}", personalInfo.toString());
         String phoneCode = personalInfo.getCountry() + " " + "("+  personalInfo.getDialCode()+ ")";
         inputFullName(personalInfo.getFullName());
         inputEmail(personalInfo.getEmail());
         inputAboutUs(aboutUs);
         inputPhoneNumber(phoneCode, personalInfo.getPhone());
-        checkPrivacyBox();
-        clickSubmitBtn();
-        return new OtpHandle(driver, personalInfo.getPhone());
-
+        return this;
     }
 
+    public List<String> getErrorMessage(){
+        LOGGER.info("Get Inline Error Messages");
+        return errors.stream()
+                .map(WebElement::getText)
+                .map(String::trim)
+                .collect(Collectors.toList());
+    }
+
+    public String getNotificationErrorMessage(){
+        this.isAt();
+        LOGGER.info("Wait for notification error message loaded and get text");
+        this.wait.until(d -> notificationErrorMessage.isDisplayed());
+        return notificationErrorMessage.getText();
+    }
 }
