@@ -9,7 +9,7 @@ public class DataGenerator {
        return new HearAboutUsData().fetchHearAboutUsByApi();
     }
 
-    public static PersonalInfo getPersonalInfo() {
+    public static PersonalInfo getValidPersonalInfo() {
         return new PersonalDataBuilder().generateValidData();
     }
 

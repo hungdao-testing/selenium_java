@@ -31,7 +31,7 @@ public class RegisterAccountTest extends BaseTest {
 
     @Test
     public void verify_client_could_register_a_new_account_with_valid_data(){
-        PersonalInfo validPersonalData = DataGenerator.getPersonalInfo();
+        PersonalInfo validPersonalData = DataGenerator.getValidPersonalInfo();
 
         this.signUpPage.goTo().isAt();
         this.signUpPage
