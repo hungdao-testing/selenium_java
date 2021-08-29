@@ -1,9 +1,18 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Loan" verbose="1">
-    <test name="OnBoarding">
+    <listeners>
+        <listener class-name = "com.aspire.loan.testlistener.LogListener"/>
+    </listeners>
+
+    <test name="User Account">
         <classes>
             <class name="com.aspire.loan.specs.useraccount.RegisterAccountTest" />
+        </classes>
+    </test>
+    <test name="Business Role Selector">
+        <classes>
+            <class name="com.aspire.loan.specs.useraccount.BusinessRoleTest"/>
         </classes>
     </test>
 </suite>

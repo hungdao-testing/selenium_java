@@ -2,6 +2,7 @@ package com.aspire.loan.data;
 
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.data.handler.CountryData;
+import com.aspire.loan.service.schema.CountryResponseSchema;
 import com.github.javafaker.Faker;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;

@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages.authentication;
 
+import com.aspire.loan.config.AppMessage;
 import com.aspire.loan.ui.AbstractBasePage;
 import com.aspire.loan.config.GlobalConstants;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +27,7 @@ public class RegisteredCompletionPage extends AbstractBasePage {
         LOGGER.info("Waiting for the successful registration message loaded");
         this.wait.until(ExpectedConditions.urlContains("/register/completed"));
         this.wait.until(ExpectedConditions.textToBePresentInElement
-                (successfulRegistrationInformationText, GlobalConstants.SUCCESSFUL_REGISTRATION_INFORMATION));
+                (successfulRegistrationInformationText, AppMessage.SUCCESSFUL_REGISTRATION_INFORMATION));
         return true;
     }
 

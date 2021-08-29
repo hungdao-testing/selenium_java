@@ -2,10 +2,10 @@ package com.aspire.loan.ui.common.authentication;
 
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.data.RegistrationInformation;
+import com.aspire.loan.service.schema.RegistrationSchema;
 import com.aspire.loan.service.AbstractBaseService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.SerializedName;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
 import org.testng.Assert;
@@ -46,26 +46,5 @@ public class ApiRegistration extends AbstractBaseService implements IRegistratio
                             .getStatus();
         Assert.assertEquals(200, statusCode);
         LOGGER.info(" User {} is created successfully ", registrationInformation.toString());
-    }
-}
-
-class RegistrationSchema{
-
-    @SerializedName(value = "full_name")
-    private String fullName;
-    private String email;
-    private String phone;
-    private boolean privacy;
-
-    @SerializedName(value = "heard_about")
-    String hearAbout;
-
-
-    public RegistrationSchema(String fullName, String email, String phone, boolean privacy, String hearAbout) {
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.privacy = privacy;
-        this.hearAbout = hearAbout;
     }
 }

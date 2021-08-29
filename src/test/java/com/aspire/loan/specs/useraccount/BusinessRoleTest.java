@@ -1,51 +1,59 @@
 package com.aspire.loan.specs.useraccount;
 
-import com.aspire.loan.data.BusinessRoleType;
+import com.aspire.loan.data.type.BusinessRoleType;
 import com.aspire.loan.data.DataGenerator;
 import com.aspire.loan.data.RegistrationInformation;
-import com.aspire.loan.specs.BaseTest;
+import com.aspire.loan.specs.AbstractBaseTestNG;
 import com.aspire.loan.ui.common.authentication.ApiRegistration;
 import com.aspire.loan.ui.pages.authentication.LoginPage;
 import com.aspire.loan.ui.pages.businessrole.RoleSelectorPage;
-import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BusinessRoleTest extends BaseTest {
+public class BusinessRoleTest extends AbstractBaseTestNG {
 
     private LoginPage loginPage;
     private RoleSelectorPage roleSelectorPage;
     private RegistrationInformation account;
 
-
     @BeforeTest
     public void beforeTest(){
+        LOGGER.info("BusinessRoleTest :: Generating data", this.toString());
         this.account = DataGenerator.generateValidRegistrationData();
         new ApiRegistration().create(account);
+        LOGGER.info("Setting up page");
         this.loginPage = new LoginPage(driver);
         this.roleSelectorPage = new RoleSelectorPage(driver);
     }
 
+//    @BeforeClass
+//    public void setUpPage(){
+//        LOGGER.info("Setting up page");
+//        this.loginPage = new LoginPage(driver);
+//        this.roleSelectorPage = new RoleSelectorPage(driver);
+//    }
+
+    @BeforeMethod
+    public void login(){
+        this.loginPage.goTo().isAt();
+        this.loginPage.loginByEmail(account.getPersonalInfo().getEmail()).waitForOtpSectionLoaded().inputOtp("1234");
+    }
+
     @AfterMethod
     public void clearBrowserCache(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.localStorage.clear()");
+        this.roleSelectorPage.clearLocalStorage();
     }
 
     @Test(dataProvider = "getDirectorData")
     public void select_director_role_test(Map<String,String> data){
-        this.loginPage.goTo().isAt();
-        this.loginPage.loginByEmail(account.getPersonalInfo().getEmail()).waitForOtpSectionLoaded().inputOtp("1234");
         this.roleSelectorPage.isAt();
         roleSelectorPage.selectRoleAndProcess(BusinessRoleType.DIRECTOR, data);
     }
 
     @Test(dataProvider = "getEntreData")
     public void select_entre_role_test(Map<String,String> data){
-        this.loginPage.goTo().isAt();
-        this.loginPage.loginByEmail(account.getPersonalInfo().getEmail()).waitForOtpSectionLoaded().inputOtp("1234");
         this.roleSelectorPage.isAt();
         roleSelectorPage.selectRoleAndProcess(BusinessRoleType.ENTREPRENEUR, data);
     }

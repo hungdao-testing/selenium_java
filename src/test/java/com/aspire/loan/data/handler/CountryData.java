@@ -1,7 +1,7 @@
 package com.aspire.loan.data.handler;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.data.CountryResponseSchema;
+import com.aspire.loan.service.schema.CountryResponseSchema;
 import kong.unirest.GenericType;
 import kong.unirest.Unirest;
 

@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages.businessrole.incorporate;
 
+import com.aspire.loan.config.AppMessage;
 import com.aspire.loan.config.GlobalConstants;
 import com.aspire.loan.ui.AbstractBasePage;
 import org.openqa.selenium.By;
@@ -35,6 +36,6 @@ public class IncorporateCompletionPage extends AbstractBasePage {
         this.wait.until(
                 d -> mainContent.findElement(By.xpath("div[1]")).getText().contains("Hurray!"));
         this.wait.until(
-                d -> mainContent.findElement(By.xpath("div[2]")).getText().contains(GlobalConstants.RECEIVED_INCORPORATION));
+                d -> mainContent.findElement(By.xpath("div[2]")).getText().contains(AppMessage.RECEIVED_INCORPORATION));
     }
 }

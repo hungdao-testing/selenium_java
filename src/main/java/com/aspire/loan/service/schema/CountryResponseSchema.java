@@ -1,4 +1,4 @@
-package com.aspire.loan.data;
+package com.aspire.loan.service.schema;
 
 public class CountryResponseSchema {
     private String uuid;

@@ -1,4 +1,4 @@
-package com.aspire.loan.data;
+package com.aspire.loan.data.type;
 
 public enum IncorporatePackageType {
     KICKSTART("Kickstart"),
