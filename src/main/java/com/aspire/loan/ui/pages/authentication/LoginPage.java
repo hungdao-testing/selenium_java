@@ -1,26 +1,31 @@
 package com.aspire.loan.ui.pages.authentication;
 
+import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelpers.IDropdown;
 import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.utils.WaitHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import javax.swing.*;
+
 public class LoginPage extends AbstractBasePage implements IDropdown {
 
 
-    @FindBy(css = "input[data-cy='register-person-phone']")
-    private WebElement mobile;
+    @FindBy(css = ".auth-form__card > div:nth-child(3) div")
+    private WebElement loginEmailSelection;
 
-    @FindBy(xpath = "//input[@data-cy='register-person-phone']/preceding-sibling::div")
-    private WebElement countryPhoneCodeEl;
+    @FindBy(css = "input[name='email']")
+    private WebElement emailField;
 
-    @FindBy(css = "i[role='presentation']")
-    private WebElement countryDropdownIcon;
+    @FindBy(css = "div[data-cy='register-person-phone'] input")
+    private WebElement phoneInput;
 
     @FindBy(css = "button[type='submit']")
     private WebElement loginButton;
@@ -36,23 +41,31 @@ public class LoginPage extends AbstractBasePage implements IDropdown {
 
 
     public void isAt() {
-        //this.wait.until(noActiveAjaxRequest());
-        this.wait.until(d -> this.mobile.isDisplayed());
+        super.isAt();
+        LOGGER.info("Wait for Login Page is loaded");
+        this.wait.until(ExpectedConditions.visibilityOfAllElements(phoneInput, loginEmailSelection));
         this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Login to Aspire"));
+        WaitHelper.waitUntilNoInnerLoadingInFields(driver, wait);
     }
 
     public LoginPage goTo() {
+        LOGGER.info("Open Login Page");
         this.driver.get(AppConfig.getBaseUrl() + "/login");
         return this;
     }
 
-    public void loginByMobilePhone(String country, String nationPhoneCodeWithPlusSymbol, String phoneNumber){
-        this.wait.until(ExpectedConditions.elementToBeClickable(this.countryDropdownIcon));
-        scrollAndSelectOption(driver, wait, country);
-        this.wait.until(ExpectedConditions.textToBePresentInElement(countryPhoneCodeEl, nationPhoneCodeWithPlusSymbol));
-        this.wait.until(ExpectedConditions.elementToBeClickable(mobile));
-        mobile.sendKeys(phoneNumber);
+    public OtpHandle loginByEmail(String email){
+        LOGGER.info("Attempt to click on 'Login Email' button");
+        loginEmailSelection.click();
+
+        LOGGER.info("Input email address");
+        this.wait.until(d -> emailField.isDisplayed());
+        emailField.sendKeys(email);
+
+        LOGGER.info("Click On Login button");
         this.wait.until(d -> loginButton.isDisplayed());
         loginButton.click();
-    }
+        return new OtpHandle(driver, email);
+    };
+
 }

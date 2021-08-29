@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages.authentication;
 
+import com.aspire.loan.data.RegistrationInformation;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelpers.IDropdown;
@@ -128,13 +129,14 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         this.continueBtn.click();
     }
 
-    public SignUpPage fillForm(PersonalInfo personalInfo, String aboutUs){
-        LOGGER.info("Start creating a new user account with personal info {}", personalInfo.toString());
-        String phoneCode = personalInfo.getCountry() + " " + "("+  personalInfo.getDialCode()+ ")";
-        inputFullName(personalInfo.getFullName());
-        inputEmail(personalInfo.getEmail());
-        inputAboutUs(aboutUs);
-        inputPhoneNumber(phoneCode, personalInfo.getPhone());
+    public SignUpPage fillForm(RegistrationInformation data){
+        LOGGER.info("Start creating a new user account with personal info {}", data.getPersonalInfo().toString());
+        String phoneCode = data.getPersonalInfo().getCountry() + " " + "("+  data.getPersonalInfo().getDialCode()+ ")";
+        inputFullName(data.getPersonalInfo().getFullName());
+        inputEmail(data.getPersonalInfo().getEmail());
+        inputPromoCode(data.getPromoCode());
+        inputAboutUs(data.getHearAboutUs());
+        inputPhoneNumber(phoneCode, data.getPersonalInfo().getPhone());
         return this;
     }
 

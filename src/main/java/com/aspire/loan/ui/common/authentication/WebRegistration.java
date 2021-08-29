@@ -1,7 +1,7 @@
 package com.aspire.loan.ui.common.authentication;
 
-import com.aspire.loan.data.OtpData;
-import com.aspire.loan.data.PersonalInfo;
+import com.aspire.loan.data.RegistrationInformation;
+import com.aspire.loan.service.OtpService;
 import com.aspire.loan.ui.AbstractBasePage;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
@@ -16,14 +16,17 @@ public class WebRegistration extends AbstractBasePage implements IRegistration{
     }
 
     @Override
-    public void create(PersonalInfo personalInfo, String hearAboutUs) {
+    public void create(RegistrationInformation registrationInformation) {
         LOGGER.info(" === Create an account by UI === ");
         SignUpPage signUpPage = new SignUpPage(driver);
         signUpPage.goTo().isAt();
-        signUpPage.fillForm(personalInfo, hearAboutUs).checkPrivacyBox().clickSubmitBtn();
+        signUpPage
+                .fillForm(registrationInformation)
+                .checkPrivacyBox()
+                .clickSubmitBtn();
 
-        OtpHandle otpHandle = new OtpHandle(driver, personalInfo.getPhone());
-        otpHandle.waitForOtpSectionLoaded().inputOtp(new OtpData().getOtp());
+        OtpHandle otpHandle = new OtpHandle(driver, registrationInformation.getPersonalInfo().getPhone());
+        otpHandle.waitForOtpSectionLoaded().inputOtp(new OtpService().getOtp());
 
         RegisteredCompletionPage registeredCompletionPage = new RegisteredCompletionPage(driver);
         Assert.assertTrue(registeredCompletionPage.isSuccessfulMessageDisplayed());

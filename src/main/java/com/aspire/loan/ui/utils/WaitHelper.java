@@ -10,7 +10,13 @@ public class WaitHelper {
 
     private static By spinnerElementByCss = By.cssSelector(".q-spinner");
     private static By loadingProgressBar = By.cssSelector(".q-loading-bar");
+    private static By innerLoadingByCss = By.cssSelector(".q-inner-loading");
 
+    public static void waitUntilNoInnerLoadingInFields(WebDriver driver, WebDriverWait wait){
+        if(driver.findElements(innerLoadingByCss).size() > 0){
+            wait.until(ExpectedConditions.invisibilityOf(driver.findElement(innerLoadingByCss)));
+        }
+    }
 
     public static void waitUntilNoSpinnerDisplayed(WebDriver driver, WebDriverWait wait) {
         if(driver.findElements(spinnerElementByCss).size() > 0){

@@ -44,6 +44,7 @@ public abstract class AbstractBasePage {
         LOGGER.info("Wait for page is ready to take action");
         WaitHelper.waitUntilLoadingBarInvisible(driver);
         WaitHelper.waitUntilNoSpinnerDisplayed(driver, wait);
+        WaitHelper.waitUntilNoInnerLoadingInFields(driver, wait);
         wait.until(WaitHelper.waitUntilNoActiveAjaxCalled(driver, wait));
     }
 

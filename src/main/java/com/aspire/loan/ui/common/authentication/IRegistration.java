@@ -1,8 +1,8 @@
 package com.aspire.loan.ui.common.authentication;
 
-import com.aspire.loan.data.PersonalInfo;
+import com.aspire.loan.data.RegistrationInformation;
 
 public interface IRegistration {
 
-    public void create(PersonalInfo personalInfo, String hearAboutUs);
+    public void create(RegistrationInformation registrationInformation);
 }

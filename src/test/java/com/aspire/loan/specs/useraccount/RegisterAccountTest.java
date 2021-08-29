@@ -1,8 +1,9 @@
 package com.aspire.loan.specs.useraccount;
 
 import com.aspire.loan.data.DataGenerator;
-import com.aspire.loan.data.PersonalInfo;
+import com.aspire.loan.data.RegistrationInformation;
 import com.aspire.loan.specs.BaseTest;
+import com.aspire.loan.ui.common.authentication.ApiRegistration;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
 import com.aspire.loan.ui.pages.authentication.SignUpPage;
@@ -31,15 +32,15 @@ public class RegisterAccountTest extends BaseTest {
 
     @Test
     public void verify_client_could_register_a_new_account_with_valid_data(){
-        PersonalInfo validPersonalData = DataGenerator.getValidPersonalInfo();
+        RegistrationInformation validPersonalData = DataGenerator.generateValidRegistrationData();
 
         this.signUpPage.goTo().isAt();
         this.signUpPage
-                .fillForm(validPersonalData, DataGenerator.getHearAboutUs())
+                .fillForm(validPersonalData)
                 .checkPrivacyBox()
                 .clickSubmitBtn();
 
-        OtpHandle otpPage = new OtpHandle(driver, validPersonalData.getPhone());
+        OtpHandle otpPage = new OtpHandle(driver, validPersonalData.getPersonalInfo().getPhone());
         otpPage
                 .waitForOtpSectionLoaded()
                 .inputOtp(DataGenerator.getOtp());
@@ -50,14 +51,13 @@ public class RegisterAccountTest extends BaseTest {
 
     @Test
     public void verify_error_message_before_submitting(){
-        PersonalInfo invalidPersonal = DataGenerator
-                                        .getInvalidPersonalInfoWith(" ", "invalid@", "1234");
         List<String> errorTexts = Arrays.asList(
                 "Full Name as per ID is required.",
                 "Email address must be a valid email address.");
 
         this.signUpPage.goTo().isAt();
-        this.signUpPage.fillForm(invalidPersonal, DataGenerator.getHearAboutUs());
+        this.signUpPage.fillForm(DataGenerator
+                .generateInvalidRegistrationData(" ", "invalid@", "1234"));
         Assert.assertEquals(this.signUpPage.getErrorMessage(), errorTexts);
     }
 
@@ -67,8 +67,7 @@ public class RegisterAccountTest extends BaseTest {
         this.signUpPage.goTo().isAt();
         this.signUpPage
                 .fillForm(
-                        DataGenerator.getInvalidPersonalInfoWith("Dave", "test@yopmail.com", "1234"),
-                        DataGenerator.getHearAboutUs())
+                        DataGenerator.generateInvalidRegistrationData("Dave", "test@yopmail.com", "1234"))
                 .checkPrivacyBox()
                 .clickSubmitBtn();
 
