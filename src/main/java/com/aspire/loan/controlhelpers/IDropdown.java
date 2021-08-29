@@ -1,5 +1,6 @@
 package com.aspire.loan.controlhelpers;
 
+import com.aspire.loan.config.GlobalConstants;
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,16 +13,19 @@ import java.util.concurrent.TimeUnit;
 
 public interface IDropdown {
 
-    default void scrollAndSelectOption(WebDriver driver, WebDriverWait wait, String value){
-        By dropdownMenu = By.cssSelector(".q-menu");
-        By dropdownItems = By.cssSelector(".q-item__label");
+    default void waitForDropDownLoaded(WebDriver driver, WebDriverWait wait, By dropdownMenu, By dropdownItems){
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dropdownMenu));
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(dropdownItems));
+    }
+    default void scrollAndSelectOption(WebDriver driver, WebDriverWait wait, String value){
+        waitForDropDownLoaded(driver, wait,
+                GlobalConstants.DROPDOWN_MENU_CSS_SELECTOR, GlobalConstants.DROPDOWN_ITEM_CSS_SELECTOR);
+
         LoggerFactory.getLogger(this.getClass().getInterfaces()[0].getSimpleName())
                 .info("Start scrolling dropdown to find value '{}' to select", value);
         boolean isContinueScrolled = false;
         while (!isContinueScrolled) {
-            List<WebElement> dropDownOptions = driver.findElements(dropdownItems);
+            List<WebElement> dropDownOptions = driver.findElements(GlobalConstants.DROPDOWN_ITEM_CSS_SELECTOR);
             for (WebElement e : dropDownOptions) {
                 try {
                     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
@@ -31,7 +35,7 @@ public interface IDropdown {
                         break;
                     }
                 } catch (StaleElementReferenceException ex) {
-                    dropDownOptions = driver.findElements(dropdownItems);
+                    dropDownOptions = driver.findElements(GlobalConstants.DROPDOWN_ITEM_CSS_SELECTOR);
                 } finally {
                     Uninterruptibles.sleepUninterruptibly(150, TimeUnit.MILLISECONDS);
                 }
@@ -40,15 +44,13 @@ public interface IDropdown {
     }
 
     default void selectOptionFromShortList(WebDriver driver, WebDriverWait wait, String value){
-        By dropdownMenu = By.cssSelector(".q-menu");
-        By dropdownItems = By.cssSelector(".q-item__label");
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dropdownMenu));
-        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(dropdownItems));
+        waitForDropDownLoaded(driver, wait,
+                GlobalConstants.DROPDOWN_MENU_CSS_SELECTOR, GlobalConstants.DROPDOWN_ITEM_CSS_SELECTOR);
 
         LoggerFactory.getLogger(this.getClass().getInterfaces()[0].getSimpleName())
                 .info("Start scrolling dropdown to find value '{}' to select", value);
 
-        List<WebElement> dropDownOptions = driver.findElements(dropdownItems);
+        List<WebElement> dropDownOptions = driver.findElements(GlobalConstants.DROPDOWN_ITEM_CSS_SELECTOR);
         for (WebElement e : dropDownOptions) {
             if(e.getText().equalsIgnoreCase(value)){
                 if(e.isDisplayed()){
@@ -61,6 +63,14 @@ public interface IDropdown {
                 break;
             }
         }
+    }
+
+    default void searchAndSelectOptionInDropDownList(WebDriver driver, WebDriverWait wait, WebElement input, String value){
+        input.sendKeys(value);
+        waitForDropDownLoaded(driver, wait,
+                GlobalConstants.DROPDOWN_MENU_CSS_SELECTOR, GlobalConstants.DROPDOWN_ITEM_CSS_SELECTOR);
+        List<WebElement> options = driver.findElements(GlobalConstants.DROPDOWN_ITEM_CSS_SELECTOR);
+        options.stream().filter(o -> o.getText().equalsIgnoreCase(value)).findFirst().get().click();
     }
 
 }

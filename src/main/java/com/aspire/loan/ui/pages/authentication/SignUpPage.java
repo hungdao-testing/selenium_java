@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages.authentication;
 
+import com.aspire.loan.data.RegistrationInformation;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.controlhelpers.IDropdown;
@@ -72,13 +73,13 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
     }
 
     protected SignUpPage inputFullName(String fullName) {
-        LOGGER.info("Input full name");
+        LOGGER.info("Start inputting full_name field");
         this.inputTextToVisibleField(this.fullName, fullName);
         return this;
     }
 
     protected SignUpPage inputEmail(String email) {
-        LOGGER.info("Input email");
+        LOGGER.info("Start inputting email field");
         this.inputTextToVisibleField(this.email, email);
         return this;
     }
@@ -128,13 +129,14 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         this.continueBtn.click();
     }
 
-    public SignUpPage fillForm(PersonalInfo personalInfo, String aboutUs){
-        LOGGER.info("Start creating a new user account with personal info {}", personalInfo.toString());
-        String phoneCode = personalInfo.getCountry() + " " + "("+  personalInfo.getDialCode()+ ")";
-        inputFullName(personalInfo.getFullName());
-        inputEmail(personalInfo.getEmail());
-        inputAboutUs(aboutUs);
-        inputPhoneNumber(phoneCode, personalInfo.getPhone());
+    public SignUpPage fillForm(RegistrationInformation data){
+        LOGGER.info("Start creating a new user account with personal info {}", data.getPersonalInfo().toString());
+        String phoneCode = data.getPersonalInfo().getCountry() + " " + "("+  data.getPersonalInfo().getDialCode()+ ")";
+        inputFullName(data.getPersonalInfo().getFullName());
+        inputEmail(data.getPersonalInfo().getEmail());
+        inputPromoCode(data.getPromoCode());
+        inputAboutUs(data.getHearAboutUs());
+        inputPhoneNumber(phoneCode, data.getPersonalInfo().getPhone());
         return this;
     }
 
@@ -151,5 +153,13 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         LOGGER.info("Wait for notification error message loaded and get text");
         this.wait.until(d -> notificationErrorMessage.isDisplayed());
         return notificationErrorMessage.getText();
+    }
+
+    public List<WebElement> getErrorEls() {
+        return errors;
+    }
+
+    public WebElement getNotificationErrorEl(){
+        return notificationErrorMessage;
     }
 }

@@ -32,7 +32,7 @@ public class PersonalDataBuilder {
     protected PersonalInfo generateValidData() {
         String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
         while (true) {
-            String fullName = faker.funnyName().name();
+            String fullName = faker.name().fullName();
             String email = faker.internet().emailAddress();
             String phone = faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
             String formattedPhone = getDefaultCountry().getDialCode() + "" + phone;

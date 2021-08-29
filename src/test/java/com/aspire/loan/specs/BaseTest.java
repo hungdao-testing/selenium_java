@@ -13,14 +13,14 @@ public class BaseTest {
 
     @Parameters("browser")
     @BeforeTest
-    public void setupClass(@Optional("chrome") String browser)  {
+    public void setUpBrowser(@Optional("chrome") String browser)  {
         driver = DriverFactory.getDriver(browser);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(GlobalConstants.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
     }
 
-    @AfterClass
-    public void teardownClass() {
+    @AfterTest
+    public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
