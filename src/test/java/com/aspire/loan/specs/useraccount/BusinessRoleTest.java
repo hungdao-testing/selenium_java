@@ -20,30 +20,21 @@ public class BusinessRoleTest extends AbstractBaseTestNG {
 
     @BeforeTest
     public void beforeTest(){
-        LOGGER.info("BusinessRoleTest :: Generating data", this.toString());
         this.account = DataGenerator.generateValidRegistrationData();
         new ApiRegistration().create(account);
-        LOGGER.info("Setting up page");
+    }
+
+    @BeforeClass
+    @Override
+    public void setUpPage() {
         this.loginPage = new LoginPage(driver);
         this.roleSelectorPage = new RoleSelectorPage(driver);
     }
-
-//    @BeforeClass
-//    public void setUpPage(){
-//        LOGGER.info("Setting up page");
-//        this.loginPage = new LoginPage(driver);
-//        this.roleSelectorPage = new RoleSelectorPage(driver);
-//    }
 
     @BeforeMethod
     public void login(){
         this.loginPage.goTo().isAt();
         this.loginPage.loginByEmail(account.getPersonalInfo().getEmail()).waitForOtpSectionLoaded().inputOtp("1234");
-    }
-
-    @AfterMethod
-    public void clearBrowserCache(){
-        this.roleSelectorPage.clearLocalStorage();
     }
 
     @Test(dataProvider = "getDirectorData")

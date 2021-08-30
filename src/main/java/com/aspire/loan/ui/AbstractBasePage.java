@@ -13,14 +13,12 @@ public abstract class AbstractBasePage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
-    protected JavascriptExecutor js;
     protected Logger LOGGER = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
 
     public AbstractBasePage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, GlobalConstants.EXPLICIT_WAIT_TIMEOUT);
-        js = (JavascriptExecutor) driver;
     }
 
     public void isAt() {
@@ -47,11 +45,5 @@ public abstract class AbstractBasePage {
         WaitHelper.waitUntilNoInnerLoadingInFields(driver, wait);
         wait.until(WaitHelper.waitUntilNoActiveAjaxCalled(driver, wait));
     }
-
-    public void clearLocalStorage(){
-        LOGGER.info("Clear local storage");
-        this.js.executeScript("window.localStorage.clear()");
-    }
-
 
 }

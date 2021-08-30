@@ -18,9 +18,9 @@ public class RegisterAccountTest extends AbstractBaseTestNG {
     private SignUpPage signUpPage;
     private RegisteredCompletionPage registeredCompletionPage;
 
-    @BeforeTest
+    @BeforeClass
+    @Override
     public void setUpPage(){
-        LOGGER.info("Setting up page");
         this.signUpPage = new SignUpPage(driver);
         this.registeredCompletionPage = new RegisteredCompletionPage(driver);
     }
@@ -30,16 +30,9 @@ public class RegisterAccountTest extends AbstractBaseTestNG {
         this.signUpPage.goTo().isAt();
     }
 
-    @AfterMethod
-    public void tearDown(){
-        this.signUpPage.clearLocalStorage();
-    }
-
     @Test
     public void verify_client_could_register_a_new_account_with_valid_data(){
         RegistrationInformation validPersonalData = DataGenerator.generateValidRegistrationData();
-
-
         this.signUpPage
                 .fillForm(validPersonalData)
                 .checkPrivacyBox()

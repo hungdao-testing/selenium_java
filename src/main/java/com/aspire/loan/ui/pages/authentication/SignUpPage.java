@@ -62,6 +62,7 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
     }
 
     public SignUpPage goTo() {
+        LOGGER.info("Go to SignUp Page");
         this.driver.get(AppConfig.getBaseUrl() + "/register");
         return this;
     }
@@ -69,6 +70,7 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
     @Override
     public void isAt() {
         super.isAt();
+        LOGGER.info("Waiting for SignUp page loaded");
         this.wait.until(ExpectedConditions.visibilityOfAllElements(this.mobileSection, this.email, this.sideBar.getTitleComp()));
     }
 

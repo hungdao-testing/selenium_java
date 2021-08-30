@@ -10,7 +10,7 @@ public class LogListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        LOGGER.info("=== Start executing the test case: {} === ", result.getName().toString());
+        LOGGER.info("=== Start executing the test case: {} === ", result.getName());
     }
 
     @Override

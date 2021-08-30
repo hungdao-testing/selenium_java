@@ -1,16 +1,18 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Loan" verbose="1">
+<suite name="Loan" verbose="1" parallel="methods" thread-count="3">
     <listeners>
         <listener class-name = "com.aspire.loan.testlistener.LogListener"/>
     </listeners>
 
     <test name="User Account">
+        <parameter name="BrowserType" value= "chrome" />
         <classes>
             <class name="com.aspire.loan.specs.useraccount.RegisterAccountTest" />
         </classes>
     </test>
     <test name="Business Role Selector">
+        <parameter name="BrowserType" value= "firefox" />
         <classes>
             <class name="com.aspire.loan.specs.useraccount.BusinessRoleTest"/>
         </classes>
