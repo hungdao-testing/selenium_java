@@ -16,7 +16,7 @@ public abstract class AbstractBaseTestNG {
     protected JavascriptExecutor js;
 
     @Parameters("BrowserType")
-    @BeforeTest
+    @BeforeClass
     public void setUpBrowser(@Optional("chrome") String browser)  {
         LOGGER.info("BeforeTest: Setting up browser");
         driver = DriverFactory.getDriver(browser);
@@ -25,10 +25,6 @@ public abstract class AbstractBaseTestNG {
         js = (JavascriptExecutor) driver;
     }
 
-    @BeforeClass
-    public void setUpPage(){
-        LOGGER.info("Setting up page");
-    }
 
     @AfterMethod
     public void clearLocalStorage(){
@@ -36,13 +32,12 @@ public abstract class AbstractBaseTestNG {
         this.js.executeScript("window.localStorage.clear()");
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown() {
         if(driver != null){
             LOGGER.info("After Test: Close browser");
-            this.driver.quit();
+            driver.quit();
         }
     }
-
 
 }
