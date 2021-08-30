@@ -19,8 +19,7 @@ public class RegisterAccountTest extends AbstractBaseTestNG {
     private RegisteredCompletionPage registeredCompletionPage;
 
     @BeforeClass
-    @Override
-    public void setUpPage(){
+    public void setUpDataAndService(){
         this.signUpPage = new SignUpPage(driver);
         this.registeredCompletionPage = new RegisteredCompletionPage(driver);
     }

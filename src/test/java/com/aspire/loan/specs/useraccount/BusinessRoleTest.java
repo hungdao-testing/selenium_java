@@ -18,14 +18,8 @@ public class BusinessRoleTest extends AbstractBaseTestNG {
     private RoleSelectorPage roleSelectorPage;
     private RegistrationInformation account;
 
-    @BeforeTest
-    public void beforeTest(){
-        this.account = DataGenerator.generateValidRegistrationData();
-        new ApiRegistration().create(account);
-    }
 
     @BeforeClass
-    @Override
     public void setUpPage() {
         this.loginPage = new LoginPage(driver);
         this.roleSelectorPage = new RoleSelectorPage(driver);
@@ -33,6 +27,8 @@ public class BusinessRoleTest extends AbstractBaseTestNG {
 
     @BeforeMethod
     public void login(){
+        this.account = DataGenerator.generateValidRegistrationData();
+        new ApiRegistration().create(account);
         this.loginPage.goTo().isAt();
         this.loginPage.loginByEmail(account.getPersonalInfo().getEmail()).waitForOtpSectionLoaded().inputOtp("1234");
     }
