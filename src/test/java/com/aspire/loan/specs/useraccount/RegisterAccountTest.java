@@ -1,7 +1,7 @@
 package com.aspire.loan.specs.useraccount;
 
-import com.aspire.loan.data.DataGenerator;
-import com.aspire.loan.data.RegistrationInformation;
+import com.aspire.loan.datagenerator.RegistrationDataGenerator;
+import com.aspire.loan.model.uidata.RegistrationInfo;
 import com.aspire.loan.specs.AbstractBaseTestNG;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
@@ -31,7 +31,7 @@ public class RegisterAccountTest extends AbstractBaseTestNG {
 
     @Test
     public void verify_client_could_register_a_new_account_with_valid_data(){
-        RegistrationInformation validPersonalData = DataGenerator.generateValidRegistrationData();
+        RegistrationInfo validPersonalData = RegistrationDataGenerator.generateValidRegistrationData();
         this.signUpPage
                 .fillForm(validPersonalData)
                 .checkPrivacyBox()
@@ -40,7 +40,7 @@ public class RegisterAccountTest extends AbstractBaseTestNG {
         OtpHandle otpPage = new OtpHandle(driver, validPersonalData.getPersonalInfo().getPhone());
         otpPage
                 .waitForOtpSectionLoaded()
-                .inputOtp(DataGenerator.getOtp());
+                .inputOtp(RegistrationDataGenerator.getOtp());
 
         Assert.assertTrue(registeredCompletionPage.isSuccessfulMessageDisplayed());
 
@@ -52,8 +52,8 @@ public class RegisterAccountTest extends AbstractBaseTestNG {
                 "Full Name as per ID is required.",
                 "Email address must be a valid email address.");
 
-        this.signUpPage.fillForm(DataGenerator
-                .generateInvalidRegistrationData(" ", "invalid@", "1234"));
+        this.signUpPage.fillForm(RegistrationDataGenerator
+                .generateRegistrationDataWith(" ", "invalid@", "1234"));
         Assert.assertEquals(this.signUpPage.getErrorMessage(), errorTexts);
     }
 
@@ -62,7 +62,7 @@ public class RegisterAccountTest extends AbstractBaseTestNG {
         List<String> errorTexts = Arrays.asList("Incorrect phone format for phone., The phone format is invalid.");
         this.signUpPage
                 .fillForm(
-                        DataGenerator.generateInvalidRegistrationData("Dave", "test@yopmail.com", "1234"))
+                        RegistrationDataGenerator.generateRegistrationDataWith("Dave", "test@yopmail.com", "1234"))
                 .checkPrivacyBox()
                 .clickSubmitBtn();
 

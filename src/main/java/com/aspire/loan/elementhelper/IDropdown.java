@@ -1,4 +1,4 @@
-package com.aspire.loan.controlhelpers;
+package com.aspire.loan.elementhelper;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.*;

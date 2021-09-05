@@ -3,17 +3,14 @@ package com.aspire.loan.ui.pages.authentication;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.controlhelpers.IDropdown;
+import com.aspire.loan.elementhelper.IDropdown;
 import com.aspire.loan.ui.AbstractBasePage;
 import com.aspire.loan.ui.utils.WaitHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import javax.swing.*;
 
 public class LoginPage extends AbstractBasePage implements IDropdown {
 

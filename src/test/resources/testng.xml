@@ -2,7 +2,7 @@
 
 <suite name="Loan" verbose="1" parallel="tests" thread-count="2">
     <listeners>
-        <listener class-name = "com.aspire.loan.testlistener.LogListener"/>
+        <listener class-name = "com.aspire.loan.testhelpers.LogListener"/>
     </listeners>
 
     <test name="User Account">

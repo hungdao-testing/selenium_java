@@ -1,8 +1,8 @@
 package com.aspire.loan.specs.useraccount;
 
-import com.aspire.loan.data.type.BusinessRoleType;
-import com.aspire.loan.data.DataGenerator;
-import com.aspire.loan.data.RegistrationInformation;
+import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
+import com.aspire.loan.datagenerator.RegistrationDataGenerator;
+import com.aspire.loan.model.uidata.RegistrationInfo;
 import com.aspire.loan.specs.AbstractBaseTestNG;
 import com.aspire.loan.ui.common.authentication.ApiRegistration;
 import com.aspire.loan.ui.pages.authentication.LoginPage;
@@ -16,7 +16,7 @@ public class BusinessRoleTest extends AbstractBaseTestNG {
 
     private LoginPage loginPage;
     private RoleSelectorPage roleSelectorPage;
-    private RegistrationInformation account;
+    private RegistrationInfo account;
 
 
     @BeforeClass
@@ -27,7 +27,7 @@ public class BusinessRoleTest extends AbstractBaseTestNG {
 
     @BeforeMethod
     public void login(){
-        this.account = DataGenerator.generateValidRegistrationData();
+        this.account = RegistrationDataGenerator.generateValidRegistrationData();
         new ApiRegistration().create(account);
         this.loginPage.goTo().isAt();
         this.loginPage.loginByEmail(account.getPersonalInfo().getEmail()).waitForOtpSectionLoaded().inputOtp("1234");

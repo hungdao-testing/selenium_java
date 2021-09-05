@@ -1,7 +1,7 @@
 package com.aspire.loan.ui.pages.businessrole;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.data.type.BusinessRoleType;
+import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
 import com.aspire.loan.ui.AbstractBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

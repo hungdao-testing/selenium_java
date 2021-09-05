@@ -1,4 +1,4 @@
-package com.aspire.loan.data;
+package com.aspire.loan.model.uidata;
 
 import lombok.Builder;
 import lombok.Data;

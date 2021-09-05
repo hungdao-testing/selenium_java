@@ -1,4 +1,4 @@
-package com.aspire.loan.data.handler;
+package com.aspire.loan.datagenerator.builder;
 
 import com.aspire.loan.config.AppConfig;
 import com.github.javafaker.Faker;
@@ -8,7 +8,7 @@ import kong.unirest.json.JSONArray;
 import java.util.Locale;
 import java.util.stream.Stream;
 
-public class HearAboutUsData {
+public class HearAboutUs {
 
     private static final String url = AppConfig.getApiUrl() + "/v1/options?type=heard_about";
     private static final Faker faker = new Faker(new Locale("en_SG"));

@@ -1,8 +1,8 @@
-package com.aspire.loan.data;
+package com.aspire.loan.datagenerator.builder;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.data.handler.CountryData;
-import com.aspire.loan.service.schema.CountryResponseSchema;
+import com.aspire.loan.model.uidata.PersonalInfo;
+import com.aspire.loan.model.apidata.CountryResponse;
 import com.github.javafaker.Faker;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
@@ -15,8 +15,8 @@ public class PersonalDataBuilder {
 
     protected static Faker faker = new Faker();
 
-    private CountryResponseSchema getDefaultCountry() {
-        return new CountryData()
+    private CountryResponse getDefaultCountry() {
+        return new Country()
                 .fetchActiveCountryByApi()
                 .stream()
                 .filter(c -> c.getName().equalsIgnoreCase("Singapore"))
@@ -30,7 +30,7 @@ public class PersonalDataBuilder {
                 .withDialCode(getDefaultCountry().getDialCode());
     };
 
-    protected PersonalInfo generateValidData() {
+    public PersonalInfo generateValidData() {
         String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
         while (true) {
             String fullName = faker.name().fullName();
@@ -63,8 +63,8 @@ public class PersonalDataBuilder {
 
     }
 
-    protected PersonalInfo generateInvalidData(String name, String email, String phone) {
-        CountryResponseSchema country= new CountryData()
+    public PersonalInfo generatePersonalDataWith(String name, String email, String phone) {
+        CountryResponse country= new Country()
                 .fetchActiveCountryByApi()
                 .stream()
                 .findAny()

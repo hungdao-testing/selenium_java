@@ -1,7 +1,7 @@
 package com.aspire.loan.ui.pages.businessrole.incorporate;
 
-import com.aspire.loan.controlhelpers.IDropdown;
-import com.aspire.loan.data.type.IncorporatePackageType;
+import com.aspire.loan.elementhelper.IDropdown;
+import com.aspire.loan.model.uidata.configtype.IncorporatePackageType;
 import com.aspire.loan.ui.AbstractBasePage;
 import com.aspire.loan.ui.components.SideBar;
 import org.openqa.selenium.By;
