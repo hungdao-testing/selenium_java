@@ -1,4 +1,4 @@
-package com.aspire.loan.model.apidata;
+package com.aspire.loan.datagenerator.builder.helper;
 
 public class CountryResponse {
     private String uuid;

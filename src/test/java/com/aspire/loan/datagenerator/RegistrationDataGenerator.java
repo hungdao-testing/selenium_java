@@ -3,7 +3,7 @@ package com.aspire.loan.datagenerator;
 import com.aspire.loan.datagenerator.builder.PersonalDataBuilder;
 import com.aspire.loan.model.uidata.PersonalInfo;
 import com.aspire.loan.model.uidata.RegistrationInfo;
-import com.aspire.loan.datagenerator.builder.HearAboutUs;
+import com.aspire.loan.datagenerator.builder.helper.HearAboutUsServiceHelper;
 import com.aspire.loan.service.OtpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ public class RegistrationDataGenerator {
     protected static Logger LOGGER = LoggerFactory.getLogger(RegistrationDataGenerator.class.getSimpleName());
 
     protected static String getHearAboutUs() {
-        String aboutUs = new HearAboutUs().fetchHearAboutUsByApi();
+        String aboutUs = new HearAboutUsServiceHelper().fetchHearAboutUsByApi();
         LOGGER.info("Getting About Us options by API: {}", aboutUs);
         return aboutUs;
     }
@@ -40,7 +40,7 @@ public class RegistrationDataGenerator {
         return RegistrationInfo
                 .registrationData()
                 .withPersonalInfo(new PersonalDataBuilder().generateValidData())
-                .withHearAboutUs(new HearAboutUs().fetchHearAboutUsByApi())
+                .withHearAboutUs(new HearAboutUsServiceHelper().fetchHearAboutUsByApi())
                 .withPromoCode(generatePromoCode())
                 .build();
     }

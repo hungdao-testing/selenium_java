@@ -1,8 +1,9 @@
 package com.aspire.loan.datagenerator.builder;
 
 import com.aspire.loan.config.AppConfig;
+import com.aspire.loan.datagenerator.builder.helper.CountryResponse;
+import com.aspire.loan.datagenerator.builder.helper.CountryServiceHelper;
 import com.aspire.loan.model.uidata.PersonalInfo;
-import com.aspire.loan.model.apidata.CountryResponse;
 import com.github.javafaker.Faker;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
@@ -16,7 +17,7 @@ public class PersonalDataBuilder {
     protected static Faker faker = new Faker();
 
     private CountryResponse getDefaultCountry() {
-        return new Country()
+        return new CountryServiceHelper()
                 .fetchActiveCountryByApi()
                 .stream()
                 .filter(c -> c.getName().equalsIgnoreCase("Singapore"))
@@ -64,7 +65,7 @@ public class PersonalDataBuilder {
     }
 
     public PersonalInfo generatePersonalDataWith(String name, String email, String phone) {
-        CountryResponse country= new Country()
+        CountryResponse country= new CountryServiceHelper()
                 .fetchActiveCountryByApi()
                 .stream()
                 .findAny()
