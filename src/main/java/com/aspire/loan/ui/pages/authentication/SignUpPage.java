@@ -1,11 +1,10 @@
 package com.aspire.loan.ui.pages.authentication;
 
-import com.aspire.loan.data.RegistrationInformation;
+import com.aspire.loan.model.uidata.RegistrationInfo;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.controlhelpers.IDropdown;
+import com.aspire.loan.elementhelper.IDropdown;
 import com.aspire.loan.ui.AbstractBasePage;
-import com.aspire.loan.data.PersonalInfo;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -131,7 +130,7 @@ public class SignUpPage extends AbstractBasePage implements IDropdown {
         this.continueBtn.click();
     }
 
-    public SignUpPage fillForm(RegistrationInformation data){
+    public SignUpPage fillForm(RegistrationInfo data){
         LOGGER.info("Start creating a new user account with personal info {}", data.getPersonalInfo().toString());
         String phoneCode = data.getPersonalInfo().getCountry() + " " + "("+  data.getPersonalInfo().getDialCode()+ ")";
         inputFullName(data.getPersonalInfo().getFullName());

@@ -1,8 +1,8 @@
 package com.aspire.loan.ui.common.authentication;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.data.RegistrationInformation;
-import com.aspire.loan.service.schema.RegistrationSchema;
+import com.aspire.loan.model.uidata.RegistrationInfo;
+import com.aspire.loan.model.apidata.RegistrationPayload;
 import com.aspire.loan.service.AbstractBaseService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,15 +15,15 @@ import java.util.Map;
 public class ApiRegistration extends AbstractBaseService implements IRegistration{
 
     @Override
-    public void create(RegistrationInformation registrationInformation) {
+    public void create(RegistrationInfo registrationInfo) {
         LOGGER.info("=== Create Account By API ==== ");
 
-        RegistrationSchema payload = new RegistrationSchema(
-                registrationInformation.getPersonalInfo().getFullName(),
-                registrationInformation.getPersonalInfo().getEmail(),
-                registrationInformation.getPersonalInfo().getDialCode() + registrationInformation.getPersonalInfo().getPhone(),
+        RegistrationPayload payload = new RegistrationPayload(
+                registrationInfo.getPersonalInfo().getFullName(),
+                registrationInfo.getPersonalInfo().getEmail(),
+                registrationInfo.getPersonalInfo().getDialCode() + registrationInfo.getPersonalInfo().getPhone(),
                 true,
-                registrationInformation.getHearAboutUs()
+                registrationInfo.getHearAboutUs()
         );
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -45,6 +45,6 @@ public class ApiRegistration extends AbstractBaseService implements IRegistratio
                             .asJson()
                             .getStatus();
         Assert.assertEquals(200, statusCode);
-        LOGGER.info(" User {} is created successfully ", registrationInformation.toString());
+        LOGGER.info(" User {} is created successfully ", registrationInfo.toString());
     }
 }

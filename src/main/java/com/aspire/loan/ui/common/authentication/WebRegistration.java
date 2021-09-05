@@ -1,6 +1,6 @@
 package com.aspire.loan.ui.common.authentication;
 
-import com.aspire.loan.data.RegistrationInformation;
+import com.aspire.loan.model.uidata.RegistrationInfo;
 import com.aspire.loan.service.OtpService;
 import com.aspire.loan.ui.AbstractBasePage;
 import com.aspire.loan.ui.components.OtpHandle;
@@ -16,16 +16,16 @@ public class WebRegistration extends AbstractBasePage implements IRegistration{
     }
 
     @Override
-    public void create(RegistrationInformation registrationInformation) {
+    public void create(RegistrationInfo registrationInfo) {
         LOGGER.info(" === Create an account by UI === ");
         SignUpPage signUpPage = new SignUpPage(driver);
         signUpPage.goTo().isAt();
         signUpPage
-                .fillForm(registrationInformation)
+                .fillForm(registrationInfo)
                 .checkPrivacyBox()
                 .clickSubmitBtn();
 
-        OtpHandle otpHandle = new OtpHandle(driver, registrationInformation.getPersonalInfo().getPhone());
+        OtpHandle otpHandle = new OtpHandle(driver, registrationInfo.getPersonalInfo().getPhone());
         otpHandle.waitForOtpSectionLoaded().inputOtp(new OtpService().getOtp());
 
         RegisteredCompletionPage registeredCompletionPage = new RegisteredCompletionPage(driver);

@@ -1,8 +1,8 @@
-package com.aspire.loan.service.schema;
+package com.aspire.loan.model.apidata;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegistrationSchema {
+public class RegistrationPayload {
     @SerializedName(value = "full_name")
     private String fullName;
     private String email;
@@ -13,7 +13,7 @@ public class RegistrationSchema {
     String hearAbout;
 
 
-    public RegistrationSchema(String fullName, String email, String phone, boolean privacy, String hearAbout) {
+    public RegistrationPayload(String fullName, String email, String phone, boolean privacy, String hearAbout) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;

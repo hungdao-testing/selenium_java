@@ -1,6 +1,6 @@
-package com.aspire.loan.service.schema;
+package com.aspire.loan.datagenerator.builder.helper;
 
-public class CountryResponseSchema {
+public class CountryResponse {
     private String uuid;
     private String code;
     private String name;

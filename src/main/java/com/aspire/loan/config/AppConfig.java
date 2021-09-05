@@ -1,33 +1,42 @@
 package com.aspire.loan.config;
 
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import org.aeonbits.owner.ConfigFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
 import java.util.Properties;
+
 
 public class AppConfig {
 
-    protected static Properties prop = new Properties();
+    protected static Logger LOGGER = LoggerFactory.getLogger(AppConfig.class.getSimpleName());
 
-    private static String getProp(String propName){
-        try (FileInputStream fis = new FileInputStream(GlobalConstants.propertyFilePath)) {
-            prop.load(fis);
-            return prop.getProperty(propName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "There is no property " + propName;
+    private static Environment setUpEnv() {
+        Properties props = new Properties();
+        String envProp = Objects.isNull(System.getProperty("env")) ? "test" : System.getProperty("env");
+        String locale = Objects.isNull(System.getProperty("locale")) ? "sg" : System.getProperty("locale");
+        props.setProperty("app.locale", locale);
+        ConfigFactory.setProperty("env", envProp);
+        return ConfigFactory.create(Environment.class, props);
     }
 
+
     public static String getBaseUrl() {
-        return getProp("baseUrl");
+        LOGGER.info("BASE URL: {} ", setUpEnv().webUrl());
+        return setUpEnv().webUrl();
+
+    }
+
+    public static String getLocaleFile(){
+        return setUpEnv().localeFile();
     }
 
     public static String getApiUrl() {
-        return getProp("apiUrl");
+        return setUpEnv().apiUrl();
     }
 
-    public static String getBrowserName(){
-        return getProp("browser");
-    }
+
+
 }
