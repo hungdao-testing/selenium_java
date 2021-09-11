@@ -2,14 +2,14 @@ package com.aspire.loan.ui.common.authentication;
 
 import com.aspire.loan.model.uidata.RegistrationInfo;
 import com.aspire.loan.service.OtpService;
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
 import com.aspire.loan.ui.pages.authentication.SignUpPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-public class WebRegistration extends AbstractBasePage implements IRegistration{
+public class WebRegistration extends BasePage implements IRegistration{
 
     public WebRegistration(WebDriver driver) {
         super(driver);

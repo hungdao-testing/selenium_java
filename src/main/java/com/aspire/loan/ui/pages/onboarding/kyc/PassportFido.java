@@ -1,11 +1,11 @@
 package com.aspire.loan.ui.pages.onboarding.kyc;
 
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class PassportFido extends AbstractBasePage implements IdentityFidoStrategy{
+public class PassportFido extends BasePage implements IdentityFidoStrategy{
 
     @FindBy(css = "[data-onfido-qa='passport']")
     private WebElement passportOption;

@@ -1,6 +1,6 @@
 package com.aspire.loan.ui.pages.businessrole.incorporate;
 
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.pages.businessrole.BusinessRoleProcessor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Map;
 
-public class IncorporateProcessor extends AbstractBasePage implements BusinessRoleProcessor {
+public class IncorporateProcessor extends BasePage implements BusinessRoleProcessor {
 
     @FindBy(xpath = "//div[@class='aspire-cta-screen__content']/div[normalize-space()='Incorporate your business in Singapore with Aspire Kickstart']")
     private WebElement mainContent;

@@ -1,15 +1,14 @@
 package com.aspire.loan.ui.pages.businessrole.incorporate;
 
 import com.aspire.loan.config.AppMessage;
-import com.aspire.loan.config.GlobalConstants;
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class IncorporateCompletionPage extends AbstractBasePage {
+public class IncorporateCompletionPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(.,'Log Out')]")
     private WebElement logOutButton;

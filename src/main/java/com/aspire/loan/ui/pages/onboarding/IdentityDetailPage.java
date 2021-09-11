@@ -2,13 +2,13 @@ package com.aspire.loan.ui.pages.onboarding;
 
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class IdentityDetailPage extends AbstractBasePage {
+public class IdentityDetailPage extends BasePage {
 
     @FindBy(css = ".auth-form__card")
     private WebElement documentCardOptions;
