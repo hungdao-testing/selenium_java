@@ -2,7 +2,7 @@ package com.aspire.loan.ui.pages.businessrole.incorporate;
 
 import com.aspire.loan.elementhelper.IDropdown;
 import com.aspire.loan.model.uidata.configtype.IncorporatePackageType;
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.SideBar;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class IncorporateYourCompanyPage extends AbstractBasePage implements IDropdown {
+public class IncorporateYourCompanyPage extends BasePage implements IDropdown {
 
     @FindBy(css = ".auth-form__card > div[url='countries/all']")
     private WebElement countryField;

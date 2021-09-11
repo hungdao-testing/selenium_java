@@ -1,6 +1,6 @@
 package com.aspire.loan.ui.components;
 
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class OtpHandle extends AbstractBasePage {
+public class OtpHandle extends BasePage {
 
     @FindBy(xpath = "//input[@data-cy='digit-input']/following-sibling::div/div")
     private List<WebElement> otpFields;

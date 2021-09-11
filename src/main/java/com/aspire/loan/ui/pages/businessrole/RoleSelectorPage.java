@@ -2,7 +2,7 @@ package com.aspire.loan.ui.pages.businessrole;
 
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class RoleSelectorPage extends AbstractBasePage {
+public class RoleSelectorPage extends BasePage {
 
     @FindBy(xpath = "//div[contains(text(), 'I want to open an Aspire account')]/following-sibling::div")
     private List<WebElement> aspireAccountRoles;

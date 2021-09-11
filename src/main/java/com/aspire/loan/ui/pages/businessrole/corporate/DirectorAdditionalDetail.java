@@ -1,7 +1,7 @@
 package com.aspire.loan.ui.pages.businessrole.corporate;
 
 import com.aspire.loan.elementhelper.IDropdown;
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.ui.pages.businessrole.BusinessRoleProcessor;
 import org.openqa.selenium.By;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class DirectorAdditionalDetail extends AbstractBasePage implements BusinessRoleProcessor, IDropdown {
+public class DirectorAdditionalDetail extends BasePage implements BusinessRoleProcessor, IDropdown {
 
     @FindBy(css = "div[url='countries/all'] label")
     private WebElement countryDropdown;

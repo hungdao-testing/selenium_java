@@ -4,7 +4,7 @@ import com.aspire.loan.model.uidata.RegistrationInfo;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.elementhelper.IDropdown;
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class SignUpPage extends AbstractBasePage implements IDropdown {
+public class SignUpPage extends BasePage implements IDropdown {
 
     @FindBy(css = "input[data-cy='register-person-name']")
     private WebElement fullName;

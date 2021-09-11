@@ -3,7 +3,7 @@ package com.aspire.loan.ui.pages.onboarding;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.elementhelper.IDropdown;
-import com.aspire.loan.ui.AbstractBasePage;
+import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class BusinessEditPage extends AbstractBasePage implements IDropdown {
+public class BusinessEditPage extends BasePage implements IDropdown {
 
     @FindBy(css = "[data-cy='register-business-name'] input")
     private WebElement businessLegalNameField;
