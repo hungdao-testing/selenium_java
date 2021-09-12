@@ -1,4 +1,4 @@
-package com.aspire.loan.ui.pages.onboarding;
+package com.aspire.loan.ui.pages;
 
 import com.aspire.loan.elementhelper.Calendar;
 import com.aspire.loan.ui.components.SideBar;
@@ -61,7 +61,7 @@ public class PersonEditPage extends BasePage implements IDropdown {
             while(phoneField.getAttribute("value").length() > 0){
                 this.phoneField.findElement(By.tagName("input")).sendKeys(Keys.BACK_SPACE);
             }
-            this.phoneField.findElement(By.tagName("input")).sendKeys(inputEmailField);
+            inputTextToVisibleField(this.phoneField.findElement(By.tagName("input")), inputEmailField);
         }
         return this;
     }
@@ -70,8 +70,7 @@ public class PersonEditPage extends BasePage implements IDropdown {
         LOGGER.info("Attempt to set DOB - day: '{}', month: '{}', year: '{}'", day, month, year);
         String formatDate = String
                 .format("%s %s, %s", DateHelper.convertToShortMonthFormat(month, Locale.UK), day, year);
-        clickOnVisibleElement(dateOfBirthField);
-        calendar.setDateOfBirth(year, month, day);
+        calendar.setDateOfBirth(dateOfBirthField, year, month, day);
         this.wait.until(d -> dateOfBirthField.getAttribute("value").equalsIgnoreCase(formatDate));
         return this;
     }
@@ -84,16 +83,14 @@ public class PersonEditPage extends BasePage implements IDropdown {
 
     public PersonEditPage setGender(String gender){
         LOGGER.info("Attempt to set gender: '{}'", gender);
-        this.wait.until(ExpectedConditions.elementToBeClickable(genderField));
         clickOnVisibleElement(genderField);
-        scrollAndSelectOption(driver,wait, gender);
+        scrollDropdownAndSelectValue(driver,wait, gender);
         return this;
     }
 
     public void clickSubmit(){
         LOGGER.info("Click Submit button");
-        this.wait.until(d -> submitButton.isDisplayed());
-        submitButton.click();
+        clickOnVisibleElement(submitButton);
     }
 
 

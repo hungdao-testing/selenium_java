@@ -73,13 +73,13 @@ public class BusinessDetailEditPage extends BasePage implements IDropdown {
 
     public BusinessDetailEditPage setNumberOfEmployees(String numberOfEmployees){
         this.wait.until(ExpectedConditions.elementToBeClickable(numberOfEmployeeField));
-        scrollAndSelectOption(driver, wait, numberOfEmployees);
+        scrollDropdownAndSelectValue(driver, wait, numberOfEmployees);
         return this;
     }
 
     public BusinessDetailEditPage setAnnualTurnOverField(String annualTurnOverRange){
         this.wait.until(ExpectedConditions.elementToBeClickable(annualTurnOverField));
-        scrollAndSelectOption(driver, wait, annualTurnOverRange);
+        scrollDropdownAndSelectValue(driver, wait, annualTurnOverRange);
         return this;
     }
 

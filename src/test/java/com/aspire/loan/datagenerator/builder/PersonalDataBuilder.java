@@ -4,7 +4,6 @@ import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.datagenerator.builder.helper.CountryResponse;
 import com.aspire.loan.datagenerator.builder.helper.CountryServiceHelper;
 import com.aspire.loan.model.uidata.PersonalInfo;
-import com.github.javafaker.Faker;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
 import kong.unirest.json.JSONObject;
@@ -13,8 +12,6 @@ import java.util.Map;
 
 
 public class PersonalDataBuilder {
-
-    protected static Faker faker = new Faker();
 
     private CountryResponse getDefaultCountry() {
         return new CountryServiceHelper()
@@ -34,9 +31,9 @@ public class PersonalDataBuilder {
     public PersonalInfo generateValidData() {
         String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
         while (true) {
-            String fullName = faker.name().fullName();
-            String email = faker.internet().emailAddress();
-            String phone = faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
+            String fullName = BuilderSetup.faker.name().fullName();
+            String email = BuilderSetup.faker.internet().emailAddress();
+            String phone = BuilderSetup.faker.phoneNumber().cellPhone().replaceAll("[^0-9]+", "");
             String formattedPhone = getDefaultCountry().getDialCode() + "" + phone;
 
             String payload = String.format(
@@ -56,6 +53,8 @@ public class PersonalDataBuilder {
                         .withFullName(fullName)
                         .withPhone(phone)
                         .withEmail(email)
+                        .withDob(TimeBuilder.getDob())
+                        .withGender(BuilderSetup.faker.demographic().sex())
                         .build();
             } else if (!resp.has("check")) {
                 throw new JSONException("Missing key 'check'");
@@ -77,6 +76,8 @@ public class PersonalDataBuilder {
                 .withPhone(phone)
                 .withEmail(email)
                 .withFullName(name)
+                .withDob(TimeBuilder.getDob())
+                .withGender(BuilderSetup.faker.demographic().sex())
                 .build();
     }
 

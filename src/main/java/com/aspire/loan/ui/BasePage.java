@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 
 public class BasePage {
 
@@ -40,6 +39,8 @@ public class BasePage {
 
     protected void clickOnVisibleElement(WebElement element) {
         LOGGER.info("Wait for an element to be clickable");
+        WaitHelper.waitUntilNoInnerLoadingInFields(driver, wait);
+        WaitHelper.waitUntilNoSpinnerDisplayed(driver, wait);
         this.wait.until(d -> element.isDisplayed() && element.isEnabled());
         element.click();
     }

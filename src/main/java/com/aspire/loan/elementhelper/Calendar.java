@@ -122,7 +122,8 @@ public class Calendar {
         return calendarInput.getAttribute("value");
     }
 
-    public void setDateOfBirth(String year, String month, String day){
+    public void setDateOfBirth(WebElement dobField, String year, String month, String day){
+        dobField.click();
         isCalendarOpened();
         setYear(year);
         setMonth(month);

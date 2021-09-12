@@ -48,7 +48,7 @@ public class DirectorAdditionalDetail extends BasePage implements BusinessRolePr
     private void selectCountry(String country){
         LOGGER.info("Select country '{}'", country);
         this.countryDropdown.click();
-        scrollAndSelectOption(driver, wait, country);
+        scrollDropdownAndSelectValue(driver, wait, country);
     }
 
     private void selectSolutions(String solutionOptions){
@@ -57,7 +57,7 @@ public class DirectorAdditionalDetail extends BasePage implements BusinessRolePr
 
         this.solutions.click();
         Arrays.stream(options).forEach(e -> {
-            scrollAndSelectOption(driver, wait, e);
+            scrollDropdownAndSelectValue(driver, wait, e);
         });
         this.solutions.click();
         this.wait.until(d -> selectedSolutions.size() == options.length);

@@ -13,7 +13,7 @@ public class RegistrationDataGenerator {
     protected static Logger LOGGER = LoggerFactory.getLogger(RegistrationDataGenerator.class.getSimpleName());
 
     protected static String getHearAboutUs() {
-        String aboutUs = new HearAboutUsServiceHelper().fetchHearAboutUsByApi();
+        String aboutUs = new HearAboutUsServiceHelper().getRandomHearAboutUsOption();
         LOGGER.info("Getting About Us options by API: {}", aboutUs);
         return aboutUs;
     }
@@ -40,7 +40,7 @@ public class RegistrationDataGenerator {
         return RegistrationInfo
                 .registrationData()
                 .withPersonalInfo(new PersonalDataBuilder().generateValidData())
-                .withHearAboutUs(new HearAboutUsServiceHelper().fetchHearAboutUsByApi())
+                .withHearAboutUs(new HearAboutUsServiceHelper().getRandomHearAboutUsOption())
                 .withPromoCode(generatePromoCode())
                 .build();
     }

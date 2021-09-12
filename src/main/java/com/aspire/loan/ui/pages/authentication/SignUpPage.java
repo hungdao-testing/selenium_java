@@ -90,7 +90,7 @@ public class SignUpPage extends BasePage implements IDropdown {
         phoneNumberTxt.sendKeys(phoneNumber);
         this.wait.until(ExpectedConditions.elementToBeClickable(countryDropdown));
         countryDropdown.click();
-        scrollAndSelectOption(driver, wait, countryPhoneCode);
+        scrollDropdownAndSelectValue(driver, wait, countryPhoneCode);
 
         String phoneNationalPattern = countryPhoneCode
                 .split(" ")[1]
