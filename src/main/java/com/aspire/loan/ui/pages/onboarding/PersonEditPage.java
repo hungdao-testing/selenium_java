@@ -3,7 +3,6 @@ package com.aspire.loan.ui.pages.onboarding;
 import com.aspire.loan.elementhelper.Calendar;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.elementhelper.ICalendar;
 import com.aspire.loan.elementhelper.IDropdown;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.utils.DateHelper;
@@ -17,7 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Locale;
 
-public class PersonEditPage extends BasePage implements IDropdown, ICalendar {
+public class PersonEditPage extends BasePage implements IDropdown {
 
     @FindBy(css = "div[data-cy='person-edit-phone']")
     private WebElement phoneField;
@@ -79,7 +78,7 @@ public class PersonEditPage extends BasePage implements IDropdown, ICalendar {
 
     public PersonEditPage setNationality(String nationality){
         LOGGER.info("Attempt to set nationality: '{}'", nationality);
-        inputTextToSearchDropdownField(nationalityField, nationality);
+        searchAndSelectTextInDropdownField(nationalityField, nationality);
         return this;
     }
 

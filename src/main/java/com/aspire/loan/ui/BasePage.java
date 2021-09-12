@@ -44,7 +44,7 @@ public class BasePage {
         element.click();
     }
 
-    protected void inputTextToSearchDropdownField(WebElement searchDropdown, String text) {
+    protected void searchAndSelectTextInDropdownField(WebElement searchDropdown, String text) {
         LOGGER.info("Wait for an element to be clickable");
         this.wait.until(d -> searchDropdown.isDisplayed() && searchDropdown.isEnabled());
         try{
