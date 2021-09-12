@@ -10,7 +10,7 @@ import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class AbstractBaseTestNG {
+public abstract class BaseTestNG {
     public WebDriver driver;
     protected Logger LOGGER = LoggerFactory.getLogger(this.getClass().getSimpleName());
     protected JavascriptExecutor js;

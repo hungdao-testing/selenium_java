@@ -22,9 +22,7 @@ public class AppConfig {
         return ConfigFactory.create(Environment.class, props);
     }
 
-
     public static String getBaseUrl() {
-        LOGGER.info("BASE URL: {} ", setUpEnv().webUrl());
         return setUpEnv().webUrl();
 
     }

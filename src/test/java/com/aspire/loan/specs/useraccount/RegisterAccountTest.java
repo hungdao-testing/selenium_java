@@ -2,7 +2,7 @@ package com.aspire.loan.specs.useraccount;
 
 import com.aspire.loan.datagenerator.RegistrationDataGenerator;
 import com.aspire.loan.model.uidata.RegistrationInfo;
-import com.aspire.loan.specs.AbstractBaseTestNG;
+import com.aspire.loan.specs.BaseTestNG;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
 import com.aspire.loan.ui.pages.authentication.SignUpPage;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class RegisterAccountTest extends AbstractBaseTestNG {
+public class RegisterAccountTest extends BaseTestNG {
 
     private SignUpPage signUpPage;
     private RegisteredCompletionPage registeredCompletionPage;

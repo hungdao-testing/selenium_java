@@ -3,7 +3,7 @@ package com.aspire.loan.specs;
 import com.aspire.loan.config.AppConfig;
 import org.testng.annotations.Test;
 
-public class ConfigTest extends AbstractBaseTestNG{
+public class ConfigTest extends BaseTestNG {
 
     @Test
     public void test_import(){

@@ -2,7 +2,7 @@ package com.aspire.loan.specs.onboarding;
 
 
 import com.aspire.loan.model.uidata.configtype.BusinessRegistrationMethodType;
-import com.aspire.loan.specs.AbstractBaseTestNG;
+import com.aspire.loan.specs.BaseTestNG;
 import com.aspire.loan.ui.pages.authentication.LoginPage;
 import com.aspire.loan.ui.pages.businessregistration.BusinessRegistrationMethodPage;
 import com.aspire.loan.ui.pages.onboarding.PersonEditPage;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class BusinessRegistrationMethodTest extends AbstractBaseTestNG {
+public class BusinessRegistrationMethodTest extends BaseTestNG {
 
     BusinessRegistrationMethodPage businessRegistrationPage;
     LoginPage loginPage;

@@ -3,7 +3,7 @@ package com.aspire.loan.specs.useraccount;
 import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
 import com.aspire.loan.datagenerator.RegistrationDataGenerator;
 import com.aspire.loan.model.uidata.RegistrationInfo;
-import com.aspire.loan.specs.AbstractBaseTestNG;
+import com.aspire.loan.specs.BaseTestNG;
 import com.aspire.loan.ui.common.authentication.ApiRegistration;
 import com.aspire.loan.ui.pages.authentication.LoginPage;
 import com.aspire.loan.ui.pages.businessrole.RoleSelectorPage;
@@ -12,7 +12,7 @@ import org.testng.annotations.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BusinessRoleTest extends AbstractBaseTestNG {
+public class BusinessRoleTest extends BaseTestNG {
 
     private LoginPage loginPage;
     private RoleSelectorPage roleSelectorPage;
