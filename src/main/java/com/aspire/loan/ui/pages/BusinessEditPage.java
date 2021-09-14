@@ -1,19 +1,15 @@
 package com.aspire.loan.ui.pages;
 
-import com.aspire.loan.model.uidata.configtype.EntityType;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.elementhelper.IDropdown;
 import com.aspire.loan.ui.BasePage;
-import com.aspire.loan.ui.utils.WaitHelper;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class BusinessEditPage extends BasePage implements IDropdown {
@@ -78,9 +74,9 @@ public class BusinessEditPage extends BasePage implements IDropdown {
         return this;
     }
 
-    public BusinessEditPage setEntityType(EntityType entityType){
+    public BusinessEditPage setEntityType(String entityType){
         clickOnVisibleElement(businessEntityTypeField);
-        scrollDropdownAndSelectValue(driver, wait, entityType.getEntityDesc());
+        scrollDropdownAndSelectValue(driver, wait, entityType);
         return this;
     }
 

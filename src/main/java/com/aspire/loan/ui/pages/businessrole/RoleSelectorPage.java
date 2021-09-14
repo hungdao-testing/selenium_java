@@ -1,6 +1,8 @@
 package com.aspire.loan.ui.pages.businessrole;
 
 import com.aspire.loan.config.AppConfig;
+import com.aspire.loan.model.uidata.CorporateAdditionalInfo;
+import com.aspire.loan.model.uidata.IncorporateAdditionalInfo;
 import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
 import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.By;
@@ -23,6 +25,8 @@ public class RoleSelectorPage extends BasePage {
     private List<WebElement> incorporateCompanyRoles;
 
     private BusinessRoleProcessor businessSelector;
+    private CorporateAdditionalInfo corporateAdditionalInfo;
+    private IncorporateAdditionalInfo incorporateAdditionalInfo;
 
     public RoleSelectorPage(WebDriver driver) {
         super(driver);
@@ -68,10 +72,25 @@ public class RoleSelectorPage extends BasePage {
         return MAP;
     }
 
+    private Map<BusinessRoleType, AbstractAdditionalData> setAdditionalDataByRole(){
+        Map<BusinessRoleType, AbstractAdditionalData> MAP = new HashMap<>();
+        MAP.put(BusinessRoleType.DIRECTOR, corporateAdditionalInfo);
+        MAP.put(BusinessRoleType.EMPLOYEE, corporateAdditionalInfo);
+        MAP.put(BusinessRoleType.FREELANCER, corporateAdditionalInfo);
+        MAP.put(BusinessRoleType.ENTREPRENEUR, incorporateAdditionalInfo);
+        return MAP;
+    }
+
     public void selectRoleAndProcess(BusinessRoleType role, Map<String,String> additionalDetails){
         LOGGER.info("Attempt to click on role_card: '{}'", role);
         selectRoleCard().get(role).accept(role);
         BusinessRoleFactory.loadAdditionalPage(role, driver).process(additionalDetails);
+    }
+
+    public void selectRoleAndProcessNew(BusinessRoleType role, AbstractAdditionalData data){
+        LOGGER.info("Attempt to click on role_card: '{}'", role);
+        selectRoleCard().get(role).accept(role);
+        BusinessRoleFactory.loadAdditionalPage(role, driver).processNew(setAdditionalDataByRole().get(role));
     }
 
 }

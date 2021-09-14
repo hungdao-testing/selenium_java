@@ -2,7 +2,6 @@ package com.aspire.loan.model.uidata;
 
 import com.aspire.loan.model.uidata.configtype.BusinessRegistrationMethodType;
 import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
-import com.aspire.loan.model.uidata.configtype.EntityType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,7 +17,7 @@ public class BusinessInfo {
     private BusinessRegistrationMethodType registrationMethodType;
     private String businessLegalName;
     private String entityCategory;
-    private EntityType entityType;
+    private String entityType;
     private String businessRegistrationNumber;
     private String industry;
     private String subIndustry;
