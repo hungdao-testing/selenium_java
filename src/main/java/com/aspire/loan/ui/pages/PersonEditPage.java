@@ -1,6 +1,9 @@
 package com.aspire.loan.ui.pages;
 
 import com.aspire.loan.elementhelper.Calendar;
+import com.aspire.loan.model.uidata.PersonalInfo;
+import com.aspire.loan.service.OtpService;
+import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.elementhelper.IDropdown;
@@ -54,22 +57,24 @@ public class PersonEditPage extends BasePage implements IDropdown {
         this.driver.get(AppConfig.getBaseUrl() + "/onboarding/person-edit");
     }
 
-    public PersonEditPage setEmail(String inputEmailField){
-        LOGGER.info("Attempt to input email '{}'", inputEmailField);
+    public PersonEditPage setPhone(String phone){
+        LOGGER.info("Attempt to input phone '{}'", phone);
         this.wait.until(d -> phoneField.isDisplayed());
-        if(!phoneField.getAttribute("value").equalsIgnoreCase(inputEmailField)){
+        if(!phoneField.getAttribute("value").equalsIgnoreCase(phone)){
             while(phoneField.getAttribute("value").length() > 0){
                 this.phoneField.findElement(By.tagName("input")).sendKeys(Keys.BACK_SPACE);
             }
-            inputTextToVisibleField(this.phoneField.findElement(By.tagName("input")), inputEmailField);
+            inputTextToVisibleField(this.phoneField.findElement(By.tagName("input")), phone);
         }
         return this;
     }
+
 
     public PersonEditPage setDateOfBirth(String day, String month, String year ){
         LOGGER.info("Attempt to set DOB - day: '{}', month: '{}', year: '{}'", day, month, year);
         String formatDate = String
                 .format("%s %s, %s", DateHelper.convertToShortMonthFormat(month, Locale.UK), day, year);
+//        calendar.setDateOfBirth(dateOfBirthField, year, month, day);
         calendar.setDateOfBirth(dateOfBirthField, year, month, day);
         this.wait.until(d -> dateOfBirthField.getAttribute("value").equalsIgnoreCase(formatDate));
         return this;
@@ -91,6 +96,15 @@ public class PersonEditPage extends BasePage implements IDropdown {
     public void clickSubmit(){
         LOGGER.info("Click Submit button");
         clickOnVisibleElement(submitButton);
+    }
+
+    public void submitPersonalAndVerifyOtp(PersonalInfo data){
+        setPhone(data.getPhone());
+        setDateOfBirth(data.getDob().get("day"), data.getDob().get("month"), data.getDob().get("year"));
+        setNationality(data.getCountry());
+        setGender(data.getGender());
+        clickSubmit();
+        new OtpHandle(driver, data.getPhone()).waitForOtpSectionLoaded().inputOtp(new OtpService().getOtp());
     }
 
 

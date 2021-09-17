@@ -16,13 +16,6 @@ import java.util.List;
 
 public class BusinessRegistrationMethodPage extends BasePage {
 
-
-    @FindBy(xpath = "//div[contains(text(),'Myinfo')]/parent::div/following-sibling::button")
-    private WebElement getGetStartedForMyInfoMethod;
-
-    @FindBy(xpath = "//div[contains(text(),'Standard Registration')]/parent::div/following-sibling::button")
-    private WebElement getStartedForStandardMethod;
-
     @FindBy(css = ".auth-form__card > div .onboarding-step-register-select-method__column-content")
     private List<WebElement> businessMethods;
 
@@ -44,16 +37,6 @@ public class BusinessRegistrationMethodPage extends BasePage {
 
     public void goTo(){
         this.driver.get(AppConfig.getBaseUrl() + "/onboarding/register-select-method");
-    }
-
-    public void selectBusinessRegistrationMethod(String method){
-        if(method.toLowerCase().contains("standard")){
-            this.wait.until(ExpectedConditions.elementToBeClickable(getStartedForStandardMethod));
-            getStartedForStandardMethod.click();
-        }else if(method.toLowerCase().contains("myinfo")){
-            this.wait.until(ExpectedConditions.elementToBeClickable(getGetStartedForMyInfoMethod));
-            getGetStartedForMyInfoMethod.click();
-        }
     }
 
     public void selectMethod(BusinessRegistrationMethodType type){

@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 public class IndustryServiceHelper {
 
     private static final String url = AppConfig.getApiUrl() + "/v1/industry-types?country=%s";
-    private static final Faker faker = new Faker(new Locale("en_SG"));
 
     private JSONArray fetchIndustryTypesByCountry(String country){
         return Unirest.get(String.format(url, country))

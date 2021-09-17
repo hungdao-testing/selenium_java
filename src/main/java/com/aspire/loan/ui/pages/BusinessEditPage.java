@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages;
 
+import com.aspire.loan.model.uidata.BusinessInfo;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.elementhelper.IDropdown;
@@ -95,4 +96,13 @@ public class BusinessEditPage extends BasePage implements IDropdown {
         clickOnVisibleElement(continueButton);
     }
 
+    public void submitEditBusinessInfo(BusinessInfo data){
+        setBusinessName(data.getBusinessLegalName());
+        setEntityCategory(data.getEntityCategory());
+        setEntityType(data.getEntityType());
+        setBusinessRegistrationNumber(data.getBusinessRegistrationNumber());
+        setIndustry(data.getIndustry());
+        setSubIndustry(data.getSubIndustry());
+        clickContinueButton();
+    }
 }

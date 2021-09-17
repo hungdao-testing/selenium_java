@@ -1,72 +1,58 @@
 package com.aspire.loan.specs.useraccount;
 
+
+
 import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
-import com.aspire.loan.datagenerator.RegistrationDataGenerator;
-import com.aspire.loan.model.uidata.RegistrationInfo;
 import com.aspire.loan.specs.BaseTestNG;
-import com.aspire.loan.ui.common.authentication.ApiRegistration;
-import com.aspire.loan.ui.pages.authentication.LoginPage;
+import com.aspire.loan.ui.common.authentication.LoginWF;
+import com.aspire.loan.ui.pages.BusinessEditPage;
+import com.aspire.loan.ui.pages.PersonEditPage;
+import com.aspire.loan.ui.pages.businessregistration.BusinessRegistrationMethodPage;
 import com.aspire.loan.ui.pages.businessrole.RoleSelectorPage;
 import org.testng.annotations.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class BusinessRoleTest extends BaseTestNG {
 
-    private LoginPage loginPage;
+    private LoginWF loginWF;
     private RoleSelectorPage roleSelectorPage;
-    private RegistrationInfo account;
-
+    private BusinessRegistrationMethodPage businessRegistrationPage;
+    private PersonEditPage personEditPage;
+    private BusinessEditPage businessEditPage;
 
     @BeforeClass
     public void setUpPage() {
-        this.loginPage = new LoginPage(driver);
+        this.loginWF = new LoginWF(driver);
         this.roleSelectorPage = new RoleSelectorPage(driver);
+        this.businessRegistrationPage = new BusinessRegistrationMethodPage(driver);
+        this.personEditPage = new PersonEditPage(driver);
+        this.businessEditPage = new BusinessEditPage(driver);
     }
 
     @BeforeMethod
     public void login(){
-        this.account = RegistrationDataGenerator.generateValidRegistrationData();
-        new ApiRegistration().create(account);
-        this.loginPage.goTo().isAt();
-        this.loginPage.loginByEmail(account.getPersonalInfo().getEmail()).waitForOtpSectionLoaded().inputOtp("1234");
+        this.loginWF.loginWith(this.personalInfo.getEmail());
     }
 
-    @Test(dataProvider = "getDirectorData")
-    public void select_director_role_test(Map<String,String> data){
+    @Test
+    public void select_director_role_test(){
         this.roleSelectorPage.isAt();
-        roleSelectorPage.selectRoleAndProcess(BusinessRoleType.DIRECTOR, data);
-    }
+        this.roleSelectorPage.selectRoleAndProcess(
+                BusinessRoleType.DIRECTOR,
+                this.businessInfo.getAdditionalRoleDetail());
 
-    @Test(dataProvider = "getEntreData")
-    public void select_entre_role_test(Map<String,String> data){
-        this.roleSelectorPage.isAt();
-        roleSelectorPage.selectRoleAndProcess(BusinessRoleType.ENTREPRENEUR, data);
-    }
+        this.businessRegistrationPage.isAt();
+        this.businessRegistrationPage
+                .selectMethod(this.businessInfo.getRegistrationMethodType());
 
-    @DataProvider
-    public Object[] getEntreData(){
-        Map<String,String> businessDetails = new HashMap<>();
-        businessDetails.put("country", "Singapore");
-        businessDetails.put("package", "KICKSTART");
-        businessDetails.put("businessName", "Test Business");
-        businessDetails.put("website", "http://www.local.com");
-        businessDetails.put("numberOfShareholders", "12");
-        businessDetails.put("financialYearEndDate", "31 December");
+        this.personEditPage.isAt();
+        this.personEditPage
+                .submitPersonalAndVerifyOtp(this.personalInfo);
 
-        return new Object[]{
-                businessDetails
-        };
-    }
+        this.businessEditPage.isAt();
+        this.businessEditPage
+                .submitEditBusinessInfo(this.businessInfo);
 
-    @DataProvider
-    public Object[] getDirectorData(){
-        Map<String,String> additionalDetails = new HashMap<>();
-        additionalDetails.put("country", "Singapore");
-        additionalDetails.put("solutions", "iste,ut");
-        return new Object[]{
-                additionalDetails
-        };
+
     }
 }

@@ -5,14 +5,14 @@ import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Map;
 
 @Data
 @Builder(builderMethodName = "setBusiness", setterPrefix = "with", toBuilder = true)
 public class BusinessInfo {
 
     private BusinessRoleType roleName;
-    private Map<String,String> additionalRoleDetail;
+    private BusinessRegistrationMethodType businessRegistrationMethodType;
+    private AdditionalRoleDetailInfo additionalRoleDetail;
     private String country;
     private BusinessRegistrationMethodType registrationMethodType;
     private String businessLegalName;
@@ -21,6 +21,11 @@ public class BusinessInfo {
     private String businessRegistrationNumber;
     private String industry;
     private String subIndustry;
+    private String businessActivity;
+    private String detailedBusinessActivity;
+    private String liveWebsite;
+    private String numberEmployees;
+    private String annualRevenue;
 
 }
 

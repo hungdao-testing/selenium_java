@@ -45,7 +45,7 @@ public class LoginPage extends BasePage implements IDropdown {
     }
 
     public OtpHandle loginByEmail(String email){
-        LOGGER.info("Input email address");
+        LOGGER.info("Input email address: '{}'", email);
         this.wait.until(d -> emailOrPhoneInput.isDisplayed());
         emailOrPhoneInput.sendKeys(email);
 

@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages.onboarding;
 
+import com.aspire.loan.model.uidata.BusinessInfo;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.elementhelper.IDropdown;
@@ -87,5 +88,9 @@ public class BusinessDetailEditPage extends BasePage implements IDropdown {
         this.wait.until(d -> this.continueButton.isDisplayed());
         this.continueButton.click();
     }
+
+//    public void submitEditBusinessDetail(BusinessInfo businessInfo){
+//        setBusinessActivity(businessInfo)
+//    }
     
 }

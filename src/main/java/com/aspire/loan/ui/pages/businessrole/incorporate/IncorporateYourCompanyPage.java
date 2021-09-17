@@ -1,6 +1,7 @@
 package com.aspire.loan.ui.pages.businessrole.incorporate;
 
 import com.aspire.loan.elementhelper.IDropdown;
+import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
 import com.aspire.loan.model.uidata.configtype.IncorporatePackageType;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.SideBar;
@@ -128,15 +129,15 @@ public class IncorporateYourCompanyPage extends BasePage implements IDropdown {
         clickOnVisibleElement(continueBtn);
     }
 
-    protected void configureIncorporate(Map<String,String> businessDetails){
+    protected void configureIncorporate(AdditionalRoleDetailInfo businessDetails){
         LOGGER.info("Configuring Incorporation Information: {}", businessDetails.toString());
-        selectCountry(businessDetails.get("country"));
-        selectPackage(IncorporatePackageType.valueOf(businessDetails.get("package")));
+        selectCountry(businessDetails.getCountry());
+        selectPackage(businessDetails.getPackageType());
         fillAdditionalDetailForm(
-                businessDetails.get("businessName"),
-                businessDetails.get("website"),
-                businessDetails.get("numberOfShareholders"),
-                businessDetails.get("financialYearEndDate")
+                businessDetails.getBusinessName(),
+                businessDetails.getLiveWebsite(),
+                businessDetails.getNumberOfShareHolder(),
+                businessDetails.getFinancialYearEndDate()
         );
     }
 }

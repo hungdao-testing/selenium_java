@@ -2,6 +2,12 @@ package com.aspire.loan.specs;
 
 import com.aspire.loan.config.DriverFactory;
 import com.aspire.loan.config.GlobalConstants;
+import com.aspire.loan.datagenerator.RegistrationDataGenerator;
+import com.aspire.loan.datagenerator.builder.BusinessDataBuilder;
+import com.aspire.loan.model.uidata.BusinessInfo;
+import com.aspire.loan.model.uidata.PersonalInfo;
+import com.aspire.loan.model.uidata.RegistrationInfo;
+import com.aspire.loan.ui.common.authentication.ApiRegistration;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -14,6 +20,16 @@ public abstract class BaseTestNG {
     public WebDriver driver;
     protected Logger LOGGER = LoggerFactory.getLogger(this.getClass().getSimpleName());
     protected JavascriptExecutor js;
+    protected BusinessInfo businessInfo;
+    protected PersonalInfo personalInfo;
+
+    @BeforeSuite
+    public void setUpData(){
+        RegistrationInfo validAccount = RegistrationDataGenerator.generateValidRegistrationData();
+        new ApiRegistration().create(validAccount);
+        this.personalInfo = validAccount.getPersonalInfo();
+        this.businessInfo = new BusinessDataBuilder().generateStandardCorporateBusiness();
+    }
 
     @Parameters("BrowserType")
     @BeforeClass
