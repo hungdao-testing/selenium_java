@@ -50,6 +50,7 @@ There are pages in Singapore that need to go through:
   - At the root folder of the project, type command `mvn clean install -DskipTests`
     
 ### E. How to run the test
+ ** Locale: Singapore(code: sg), Indonesia(code: id)
+ ** Environment: test, stag
 
-
-- Hit command : `mvn clean test`
+- Hit command : `mvn clean test - Dlocale={locale_code} -Denv={env_name}`
