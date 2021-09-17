@@ -1,17 +1,17 @@
-package com.aspire.loan.ui.pages.onboarding;
+package com.aspire.loan.ui.pages;
 
+import com.aspire.loan.model.uidata.BusinessInfo;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.elementhelper.IDropdown;
 import com.aspire.loan.ui.BasePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
+import java.util.regex.Pattern;
 
 public class BusinessEditPage extends BasePage implements IDropdown {
 
@@ -38,23 +38,24 @@ public class BusinessEditPage extends BasePage implements IDropdown {
 
     private SideBar sideBar;
 
+    private static final String businessRegistrationNumberPattern = "^([0-9]{8,9}[a-zA-Z]{1})$";
+
     public BusinessEditPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
+    @Override
+    public void isAt() {
+        super.isAt();
+        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Business Details"));
+    }
+
     public BusinessEditPage goTo(){
         this.driver.get(AppConfig.getBaseUrl() + "/onboarding/business-edit");
         return this;
     }
-
-//    public BusinessEditPage isAt(){
-//        this.wait.until(ExpectedConditions.textToBePresentInElement(this.sideBar.getTitleComp(), "Business Details"));
-//        this.wait.until(d -> businessLegalNameField.isDisplayed() && entityCategoryField.isDisplayed());
-//        this.wait.until(noActiveAjaxRequest());
-//        return this;
-//    }
 
     public BusinessEditPage setBusinessName(String name){
         this.wait.until(ExpectedConditions.elementToBeClickable(businessLegalNameField));
@@ -63,50 +64,45 @@ public class BusinessEditPage extends BasePage implements IDropdown {
     }
 
     public BusinessEditPage setEntityCategory(String entityCategory){
-        this.wait.until(d -> entityCategoryField.isDisplayed());
-        scrollAndSelectOption(driver, wait, entityCategory);
+        clickOnVisibleElement(entityCategoryField);
+        scrollDropdownAndSelectValue(driver, wait, entityCategory);
         return this;
     }
 
     public BusinessEditPage setBusinessRegistrationNumber(String businessNumber){
-        this.wait.until(ExpectedConditions.elementToBeClickable(businessRegistrationNumber));
-        businessRegistrationNumber.click();
-        businessRegistrationNumber.clear();
-        businessRegistrationNumber.sendKeys(businessNumber);
+        if(!Pattern.matches(businessRegistrationNumberPattern, businessNumber)) return null;
+        inputTextToVisibleField(businessRegistrationNumber, businessNumber);
         return this;
     }
 
-    public BusinessEditPage setBusinessEntityType(String businessEntityType){
-      //  this.wait.until(noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.elementToBeClickable(businessEntityTypeField));
-        scrollAndSelectOption(driver, wait, businessEntityType);
+    public BusinessEditPage setEntityType(String entityType){
+        clickOnVisibleElement(businessEntityTypeField);
+        scrollDropdownAndSelectValue(driver, wait, entityType);
         return this;
     }
 
     public BusinessEditPage setIndustry(String industry){
-       // this.wait.until(noActiveAjaxRequest());
-        this.wait.until(ExpectedConditions.elementToBeClickable(industryField));
-        scrollAndSelectOption(driver, wait, industry);
+        clickOnVisibleElement(industryField);
+        scrollDropdownAndSelectValue(driver, wait, industry);
         return this;
     }
 
     public BusinessEditPage setSubIndustry(String subIndustry){
-        this.wait.until(ExpectedConditions.elementToBeClickable(subIndustryField));
-        subIndustryField.clear();
-        subIndustryField.sendKeys(subIndustry);
-        List<WebElement> items = driver.findElements(By.cssSelector(".q-item__label"));
-        for(WebElement item : items){
-            if(item.getText().equalsIgnoreCase(subIndustry)){
-                item.click();
-                break;
-            }
-        }
+        searchAndSelectTextInDropdownField(subIndustryField, subIndustry);
         return this;
     }
 
     public void clickContinueButton(){
-        this.wait.until(d -> this.continueButton.isDisplayed());
-        this.continueButton.click();
+        clickOnVisibleElement(continueButton);
     }
 
+    public void submitEditBusinessInfo(BusinessInfo data){
+        setBusinessName(data.getBusinessLegalName());
+        setEntityCategory(data.getEntityCategory());
+        setEntityType(data.getEntityType());
+        setBusinessRegistrationNumber(data.getBusinessRegistrationNumber());
+        setIndustry(data.getIndustry());
+        setSubIndustry(data.getSubIndustry());
+        clickContinueButton();
+    }
 }

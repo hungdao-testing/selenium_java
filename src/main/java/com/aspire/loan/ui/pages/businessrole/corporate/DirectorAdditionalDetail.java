@@ -1,9 +1,11 @@
 package com.aspire.loan.ui.pages.businessrole.corporate;
 
 import com.aspire.loan.elementhelper.IDropdown;
+import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.ui.pages.businessrole.BusinessRoleProcessor;
+import com.aspire.loan.ui.pages.businessrole.IAdditionalData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,34 +50,33 @@ public class DirectorAdditionalDetail extends BasePage implements BusinessRolePr
     private void selectCountry(String country){
         LOGGER.info("Select country '{}'", country);
         this.countryDropdown.click();
-        scrollAndSelectOption(driver, wait, country);
+        scrollDropdownAndSelectValue(driver, wait, country);
     }
 
-    private void selectSolutions(String solutionOptions){
+    private void selectSolutions(List<String> solutionOptions){
         LOGGER.info("Select Solutions: '{}'", solutionOptions);
-        String[] options = solutionOptions.split(",");
+        this.solutions.click();
 
+        solutionOptions.stream().forEach(e -> scrollDropdownAndSelectValue(driver, wait, e));
         this.solutions.click();
-        Arrays.stream(options).forEach(e -> {
-            scrollAndSelectOption(driver, wait, e);
-        });
-        this.solutions.click();
-        this.wait.until(d -> selectedSolutions.size() == options.length);
+        this.wait.until(d -> selectedSolutions.size() == solutionOptions.size());
 
         String text = this.solutions.findElement(By.cssSelector("div:nth-child(1)")).getText();
-        Assert.assertEquals(text, String.format("%s selected", options.length));
+        Assert.assertEquals(text, String.format("%s selected", solutionOptions.size()));
     }
 
     private void clickContinueButton(){
+        LOGGER.info("Click on Continue Button");
         this.wait.until(d -> continueBtn.isDisplayed());
         continueBtn.click();
     }
 
+
     @Override
-    public void process(Map<String, String> additionalDetails) {
+    public void process(AdditionalRoleDetailInfo additionalData) {
         isAt();
-        selectCountry(additionalDetails.get("country"));
-        selectSolutions(additionalDetails.get("solutions"));
+        selectCountry(additionalData.getCountry());
+        selectSolutions(additionalData.getSolutions());
         clickContinueButton();
     }
 }

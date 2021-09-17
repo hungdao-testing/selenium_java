@@ -1,6 +1,7 @@
 package com.aspire.loan.ui.pages.businessrole;
 
 import com.aspire.loan.config.AppConfig;
+import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
 import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
 import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.By;
@@ -68,7 +69,8 @@ public class RoleSelectorPage extends BasePage {
         return MAP;
     }
 
-    public void selectRoleAndProcess(BusinessRoleType role, Map<String,String> additionalDetails){
+
+    public void selectRoleAndProcess(BusinessRoleType role, AdditionalRoleDetailInfo additionalDetails){
         LOGGER.info("Attempt to click on role_card: '{}'", role);
         selectRoleCard().get(role).accept(role);
         BusinessRoleFactory.loadAdditionalPage(role, driver).process(additionalDetails);

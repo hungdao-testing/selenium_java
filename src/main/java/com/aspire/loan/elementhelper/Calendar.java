@@ -2,17 +2,16 @@ package com.aspire.loan.elementhelper;
 
 import com.aspire.loan.config.GlobalConstants;
 import com.aspire.loan.ui.utils.DateHelper;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.google.common.util.concurrent.Uninterruptibles;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.Locale;
-
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 
 public class Calendar {
@@ -41,6 +40,15 @@ public class Calendar {
     @FindBy(css = ".q-date__navigation > div:nth-child(5)")
     private WebElement yearWebEl;
 
+    @FindBy(css = ".q-date__years-content div")
+    private List<WebElement> yearDialogOptions;
+
+    @FindBy(css = "div.col-auto:first-child")
+    private WebElement prevArrowYearDialog;
+
+    @FindBy(css = "div.col-auto:last-child")
+    private WebElement nextArrowYearDialog;
+
     @FindBy(css = ".q-date__months-item button")
     private List<WebElement> monthOptions;
 
@@ -64,23 +72,44 @@ public class Calendar {
         while (!currentLoadedValue.equalsIgnoreCase(selectYear)) {
             try {
                 arrowDirection.click();
+                this.wait.until(ExpectedConditions.visibilityOfAllElements(days));
             } catch (StaleElementReferenceException e) {
                 System.out.println("Ignore Unharmful 'Stale Element' exception");
             } finally {
-                this.wait.until(ExpectedConditions.visibilityOfAllElements(days));
+                Uninterruptibles.sleepUninterruptibly(200, TimeUnit.MILLISECONDS);
                 currentLoadedValue = element.getText();
             }
         }
     }
 
+    protected void navigateNew(List<WebElement> webElementList, WebElement arrowDirection, String selectedValue){
+        Optional<WebElement> optionalWebElement = webElementList.stream().filter(e -> e.getText().equalsIgnoreCase(selectedValue)).findFirst();
+        while(!optionalWebElement.isPresent()){
+            try{
+                arrowDirection.click();
+            }catch (StaleElementReferenceException e){
+                System.out.println("Ignore Unharmful 'Stale Element' exception");
+            }finally {
+                this.wait.until(ExpectedConditions.visibilityOfAllElements(webElementList));
+                optionalWebElement = webElementList.stream().filter(e -> e.getText().equalsIgnoreCase(selectedValue)).findFirst();
+            }
+        }
+        optionalWebElement.get().click();
+    }
+
+
 
     protected Calendar setYear(String selectYear) {
-        String currentDisplayedYear = yearWebEl.getText();
+        yearWebEl.click();
+        this.wait.until(d -> yearDialogOptions.size() > 0);
 
-        if (Integer.parseInt(currentDisplayedYear) < Integer.parseInt(selectYear)) {
-            navigate(yearWebEl, nextYearArrow, selectYear);
-        } else if(Integer.parseInt(currentDisplayedYear) > Integer.parseInt(selectYear)) {
-            navigate(yearWebEl, previousYearArrow, selectYear);
+        int maxYearItem = Integer.parseInt(yearDialogOptions.get(yearDialogOptions.size() - 1).getText());
+        int minYearItem = Integer.parseInt(yearDialogOptions.get(0).getText());
+
+        if (Integer.parseInt(selectYear) > maxYearItem) {
+            navigateNew(yearDialogOptions, nextArrowYearDialog, selectYear);
+        } else if(Integer.parseInt(selectYear) < minYearItem) {
+            navigateNew(yearDialogOptions, prevArrowYearDialog, selectYear);
         }else{
             return this;
         }
@@ -89,7 +118,8 @@ public class Calendar {
     }
 
     protected Calendar setMonth(String selectedMonth) {
-        if (monthWebEl.getText().equalsIgnoreCase(DateHelper.convertToFullMonthFormat(selectedMonth, Locale.UK))) return this;
+        if (monthWebEl.getText().equalsIgnoreCase(DateHelper.convertToFullMonthFormat(selectedMonth, Locale.UK)))
+            return this;
 
         String shortMonthFormat = DateHelper.convertToShortMonthFormat(selectedMonth, Locale.UK);
         String fullMonthFormat = DateHelper.convertToFullMonthFormat(selectedMonth, Locale.UK);
@@ -108,7 +138,7 @@ public class Calendar {
     }
 
     protected Calendar setDay(String selectedDay) {
-        this.wait.until(ExpectedConditions.visibilityOfAllElements(days));
+        this.wait.until(d -> days.size() > 0);
         days.stream()
                 .filter(e -> e.getText().equalsIgnoreCase(selectedDay))
                 .peek(System.out::println)
@@ -118,17 +148,18 @@ public class Calendar {
         return this;
     }
 
-    public String getCalendarInputField(WebElement calendarInput){
+    public String getCalendarInputField(WebElement calendarInput) {
         return calendarInput.getAttribute("value");
     }
 
-    public void setDateOfBirth(String year, String month, String day){
+
+    public void setDateOfBirth(WebElement dobField, String year, String month, String day){
+        dobField.click();
         isCalendarOpened();
         setYear(year);
         setMonth(month);
         setDay(day);
     }
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages.businessrole.incorporate;
 
+import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.pages.businessrole.BusinessRoleProcessor;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +26,7 @@ public class IncorporateProcessor extends BasePage implements BusinessRoleProces
     private IncorporateCompletionPage incorporateCompletionPage;
 
     @Override
-    public void process(Map<String, String> additionalDetails) {
+    public void process(AdditionalRoleDetailInfo additionalDetails) {
         isAt();
         incorporateCompany(additionalDetails);
     }
@@ -45,11 +46,12 @@ public class IncorporateProcessor extends BasePage implements BusinessRoleProces
         this.incorporateCompletionPage = PageFactory.initElements(driver, IncorporateCompletionPage.class);
     }
 
-    public void incorporateCompany(Map<String,String> data){
+    public void incorporateCompany(AdditionalRoleDetailInfo data){
         getStartedButton.click();
         this.incorporateYourCompanyPage.isAt();
         this.incorporateYourCompanyPage.configureIncorporate(data);
         this.incorporateCompletionPage.isAt();
         this.incorporateCompletionPage.waitForReceivedIncorporationTextLoaded();
     }
+
 }

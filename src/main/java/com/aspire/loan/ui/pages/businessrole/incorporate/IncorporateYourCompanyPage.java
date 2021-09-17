@@ -1,6 +1,7 @@
 package com.aspire.loan.ui.pages.businessrole.incorporate;
 
 import com.aspire.loan.elementhelper.IDropdown;
+import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
 import com.aspire.loan.model.uidata.configtype.IncorporatePackageType;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.SideBar;
@@ -68,20 +69,7 @@ public class IncorporateYourCompanyPage extends BasePage implements IDropdown {
         this.sideBar = PageFactory.initElements(driver, SideBar.class);
     }
 
-    private void waitForOptionActionOnSideBar(String text){
-        LOGGER.info("Wait for the text {} is visible and active in side-bar", text);
-        WebElement activeEl =  stepsInSideBar
-                .stream()
-                .filter(element ->
-                        element.findElement(By.tagName("div")).getAttribute("class").contains("q-stepper__tab--active")
-                )
-                .map(e -> e.findElement(By.tagName("div")))
-                .findFirst().get();
-        this.wait.until(ExpectedConditions.textToBePresentInElement(activeEl, text));
-
-    }
-
-    private void waitForIconIsMarkedDone( int stepOrder, String text){
+    private void waitForStepDone(int stepOrder, String text){
         LOGGER.info("Wait for the icon of {} in side bar is mark done", text);
         WebElement markedDoneEl = stepsInSideBar
                 .stream()
@@ -91,67 +79,65 @@ public class IncorporateYourCompanyPage extends BasePage implements IDropdown {
                 .skip(stepOrder - 1)
                 .findFirst()
                 .get();
-
         this.wait.until(ExpectedConditions.textToBePresentInElement(markedDoneEl, text));
-
     }
 
-    private void selectCountry(String country){
-        this.step = STEP.get("select country").get();
-        LOGGER.info("Wait for url contains {}", "/incorporated/incorporate-your-company");
-        this.wait.until(ExpectedConditions.urlContains("/incorporated/incorporate-your-company"));
-        this.wait.until(ExpectedConditions.elementToBeClickable(countryField));
+    private void waitForStepLoaded(String stepName, String stepUrl){
+        LOGGER.info("Wait for the text {} is visible and active in side-bar", STEP.get(stepName).get().getStepDesc());
+        WebElement activeEl =  stepsInSideBar
+                .stream()
+                .filter(element ->
+                        element.findElement(By.tagName("div"))
+                                .getAttribute("class").contains("q-stepper__tab--active")
+                )
+                .map(e -> e.findElement(By.tagName("div")))
+                .findFirst().get();
+        this.wait.until(ExpectedConditions.textToBePresentInElement(activeEl, STEP.get(stepName).get().getStepDesc()));
 
-        waitForOptionActionOnSideBar(STEP.get("select country").get().getStepDesc());
-        countryField.click();
-        searchAndSelectOptionInDropDownList(driver, wait, countryField.findElement(By.tagName("input")), country);
-        this.wait.until(d -> continueBtn.isDisplayed());
-        continueBtn.click();
+        LOGGER.info("Wait for incorporate process move to step: {}", stepName);
+        this.wait.until(ExpectedConditions.urlContains(stepUrl));
         this.waitForPageIsReady();
-        waitForIconIsMarkedDone(
+    }
+
+    protected void selectCountry(String country){
+        waitForStepLoaded("select country", "/incorporated/incorporate-your-company");
+        searchAndSelectTextInDropdownField(countryField.findElement(By.tagName("input")), country);
+        clickOnVisibleElement(continueBtn);
+        waitForStepDone(
                 STEP.get("select country").get().getStepNum(),
                 STEP.get("select country").get().getStepDesc());
     }
 
-    private void selectPackage(IncorporatePackageType packageName){
-        this.step = STEP.get("select package").get();
-        LOGGER.info("Wait for url contains {}", "/incorporated/select-package");
-        this.wait.until(ExpectedConditions.urlContains("/incorporated/select-package"));
+    protected void selectPackage(IncorporatePackageType packageName){
+        String packageLocator = String.format("//div[normalize-space()='%s']", packageName.getPackageName());
+        WebElement packageEl = driver.findElement(By.xpath(packageLocator));
+        waitForStepLoaded("select package", "/incorporated/select-package");
 
-        waitForOptionActionOnSideBar(STEP.get("select package").get().getStepDesc());
-
-        String locator = String.format("//div[normalize-space()='%s']", packageName.getPackageName());
-        WebElement packageEl = driver.findElement(By.xpath(locator));
-        packageEl.click();
-        this.waitForPageIsReady();
-        waitForIconIsMarkedDone(
+        clickOnVisibleElement(packageEl);
+        waitForStepDone(
                 STEP.get("select package").get().getStepNum(),
                 STEP.get("select package").get().getStepDesc());
     }
 
-    private void fillAdditionalDetailForm(String businessName, String website, String numberOfShareholders, String financialYearEndDate){
-        this.step = STEP.get("fill additional details").get();
-        LOGGER.info("Wait for url contains {}", "/incorporated/business-details");
-        this.wait.until(ExpectedConditions.urlContains("/incorporated/business-details"));
-
-        waitForOptionActionOnSideBar(this.step.getStepDesc());
+    protected void fillAdditionalDetailForm(String businessName, String website, String numberOfShareholders, String financialYearEndDate){
+        waitForStepLoaded("fill additional details", "/incorporated/business-details");
         inputTextToVisibleField(this.desiredBusinessName, businessName);
         inputTextToVisibleField(this.liveBusinessWebsite, website);
         inputTextToVisibleField(this.numberOfShareholders, numberOfShareholders);
         inputTextToVisibleField(this.financialYearEndDate, financialYearEndDate);
-        termCheckbox.click();
+        clickOnVisibleElement(termCheckbox);
         clickOnVisibleElement(continueBtn);
     }
 
-    protected void configureIncorporate(Map<String,String> businessDetails){
+    protected void configureIncorporate(AdditionalRoleDetailInfo businessDetails){
         LOGGER.info("Configuring Incorporation Information: {}", businessDetails.toString());
-        selectCountry(businessDetails.get("country"));
-        selectPackage(IncorporatePackageType.valueOf(businessDetails.get("package")));
+        selectCountry(businessDetails.getCountry());
+        selectPackage(businessDetails.getPackageType());
         fillAdditionalDetailForm(
-                businessDetails.get("businessName"),
-                businessDetails.get("website"),
-                businessDetails.get("numberOfShareholders"),
-                businessDetails.get("financialYearEndDate")
+                businessDetails.getBusinessName(),
+                businessDetails.getLiveWebsite(),
+                businessDetails.getNumberOfShareHolder(),
+                businessDetails.getFinancialYearEndDate()
         );
     }
 }

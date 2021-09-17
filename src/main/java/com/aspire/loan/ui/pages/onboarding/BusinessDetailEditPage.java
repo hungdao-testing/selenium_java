@@ -1,5 +1,6 @@
 package com.aspire.loan.ui.pages.onboarding;
 
+import com.aspire.loan.model.uidata.BusinessInfo;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.elementhelper.IDropdown;
@@ -73,13 +74,13 @@ public class BusinessDetailEditPage extends BasePage implements IDropdown {
 
     public BusinessDetailEditPage setNumberOfEmployees(String numberOfEmployees){
         this.wait.until(ExpectedConditions.elementToBeClickable(numberOfEmployeeField));
-        scrollAndSelectOption(driver, wait, numberOfEmployees);
+        scrollDropdownAndSelectValue(driver, wait, numberOfEmployees);
         return this;
     }
 
     public BusinessDetailEditPage setAnnualTurnOverField(String annualTurnOverRange){
         this.wait.until(ExpectedConditions.elementToBeClickable(annualTurnOverField));
-        scrollAndSelectOption(driver, wait, annualTurnOverRange);
+        scrollDropdownAndSelectValue(driver, wait, annualTurnOverRange);
         return this;
     }
 
@@ -87,5 +88,9 @@ public class BusinessDetailEditPage extends BasePage implements IDropdown {
         this.wait.until(d -> this.continueButton.isDisplayed());
         this.continueButton.click();
     }
+
+//    public void submitEditBusinessDetail(BusinessInfo businessInfo){
+//        setBusinessActivity(businessInfo)
+//    }
     
 }

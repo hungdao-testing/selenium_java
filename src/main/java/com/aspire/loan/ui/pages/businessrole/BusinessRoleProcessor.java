@@ -1,8 +1,9 @@
 package com.aspire.loan.ui.pages.businessrole;
 
-import java.util.Map;
+import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
+
 
 public interface BusinessRoleProcessor {
 
-    public void process(Map<String,String> additionalDetails);
+    public void process(AdditionalRoleDetailInfo additionalData);
 }
