@@ -14,7 +14,8 @@ The testing program consists of essential parts below:
 - Unit framework tool: TestNG
 - Web automation-framework: Selenium(v3)
 - Programming language: JAVA (v11)
-- Test data handled by Json file (Gson package)
+- REST service is handled by Unirest library
+- Using Lombok library to construct the data structure and test data generation.
 
 It designs on following patterns:
 
