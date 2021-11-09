@@ -82,7 +82,7 @@ public class Calendar {
 
 
 
-    private Calendar setYear(String selectYear) {
+    private void setYear(String selectYear) {
         yearWebEl.click();
         this.wait.until(d -> yearDialogOptions.size() > 0);
 
@@ -94,15 +94,13 @@ public class Calendar {
         } else if(Integer.parseInt(selectYear) < minYearItem) {
             navigate(yearDialogOptions, prevArrowYearDialog, selectYear);
         }else{
-            return this;
         }
 
-        return this;
     }
 
-    private Calendar setMonth(String selectedMonth) {
+    private void setMonth(String selectedMonth) {
         if (monthWebEl.getText().equalsIgnoreCase(DateHelper.convertToFullMonthFormat(selectedMonth, Locale.UK)))
-            return this;
+            return;
 
         String shortMonthFormat = DateHelper.convertToShortMonthFormat(selectedMonth, Locale.UK);
         String fullMonthFormat = DateHelper.convertToFullMonthFormat(selectedMonth, Locale.UK);
@@ -117,10 +115,9 @@ public class Calendar {
                 .click();
         isCalendarOpened();
         this.wait.until(d -> monthWebEl.getText().equalsIgnoreCase(fullMonthFormat));
-        return this;
     }
 
-    private Calendar setDay(String selectedDay) {
+    private void setDay(String selectedDay) {
         this.wait.until(d -> days.size() > 0);
         days.stream()
                 .filter(e -> e.getText().equalsIgnoreCase(selectedDay))
@@ -128,16 +125,16 @@ public class Calendar {
                 .findFirst()
                 .get()
                 .click();
-        return this;
     }
 
 
-    public void setDateForField(WebElement dobField, String year, String month, String day){
-        dobField.click();
+    public void setDateForField(WebElement dateField, String year, String month, String day){
+        dateField.click();
         isCalendarOpened();
         setYear(year);
         setMonth(month);
         setDay(day);
+        this.wait.until(d -> !dateField.getAttribute("value").isEmpty());
     }
 
 

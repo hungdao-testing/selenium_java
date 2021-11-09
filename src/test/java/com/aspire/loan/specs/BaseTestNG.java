@@ -2,8 +2,8 @@ package com.aspire.loan.specs;
 
 import com.aspire.loan.config.DriverFactory;
 import com.aspire.loan.config.GlobalConstants;
-import com.aspire.loan.datagenerator.RegistrationDataGenerator;
-import com.aspire.loan.datagenerator.builder.BusinessDataBuilder;
+import com.aspire.loan.datagenerator.RegistrationGenerator;
+import com.aspire.loan.datagenerator.builder.BusinessInfoBuilder;
 import com.aspire.loan.models.uidata.BusinessModel;
 import com.aspire.loan.models.uidata.PersonalModel;
 import com.aspire.loan.ui.common.authentication.RegistrationInfo;
@@ -17,16 +17,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseTestNG {
     public WebDriver driver;
     protected JavascriptExecutor js;
-    protected BusinessModel businessInfo;
-    protected PersonalModel personalInfo;
 
-    @BeforeSuite
-    public void setUpData(){
-        RegistrationInfo validAccount = RegistrationDataGenerator.generateValidRegistrationData();
-        new ApiRegistration().create(validAccount);
-        this.personalInfo = validAccount.getPersonalInfo();
-        this.businessInfo = new BusinessDataBuilder().generateStandardCorporateBusiness();
-    }
 
     @Parameters("BrowserType")
     @BeforeClass

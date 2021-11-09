@@ -9,7 +9,7 @@ import kong.unirest.json.JSONObject;
 
 
 
-public class PersonalDataBuilder {
+public class PersonalInfoBuilder {
 
     private CountryResponseModel getDefaultCountry() {
         return new CountryService()
@@ -41,7 +41,7 @@ public class PersonalDataBuilder {
 
 
             if (resp.has("check") && !Boolean.parseBoolean(resp.get("check").toString())) {
-                return new PersonalDataBuilder()
+                return new PersonalInfoBuilder()
                         .aUser()
                         .withFullName(fullName)
                         .withPhone(phone)
@@ -64,7 +64,7 @@ public class PersonalDataBuilder {
                 .findAny()
                 .get();
 
-        return new PersonalDataBuilder().aUser()
+        return new PersonalInfoBuilder().aUser()
                 .withCountry(country.getName())
                 .withDialCode(country.getDialCode())
                 .withPhone(phone)

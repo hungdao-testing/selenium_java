@@ -8,7 +8,6 @@ import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.helpers.web_element.IDropdown;
 import com.aspire.loan.ui.BasePage;
-import com.aspire.loan.ui.utils.DateHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +16,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.Locale;
 
 public class PersonEditPage extends BasePage implements IDropdown {
 
@@ -66,35 +64,30 @@ public class PersonEditPage extends BasePage implements IDropdown {
         }
     }
 
-    public void setPhone(String phone){
+    private void setPhone(String phone){
         LOGGER.info("Attempt to input phone '{}'", phone);
         this.wait.until(d -> phoneField.isDisplayed());
         isPhoneLoadedAsSetup(phone);
     }
 
-    public PersonEditPage setDateOfBirth(String day, String month, String year ){
+    private void setDateOfBirth(String day, String month, String year ){
+        this.wait.until(d -> dateOfBirthField.isDisplayed());
         LOGGER.info("Attempt to set DOB - day: '{}', month: '{}', year: '{}'", day, month, year);
-        String formatDate = String
-                .format("%s %s, %s", DateHelper.convertToShortMonthFormat(month, Locale.UK), day, year);
         calendar.setDateForField(dateOfBirthField, year, month, day);
-        this.wait.until(d -> !dateOfBirthField.getAttribute("value").isEmpty());
-        return this;
     }
 
-    public PersonEditPage setNationality(String nationality){
+    private void setNationality(String nationality){
         LOGGER.info("Attempt to set nationality: '{}'", nationality);
         searchAndSelectTextInDropdownField(nationalityField, nationality);
-        return this;
     }
 
-    public PersonEditPage setGender(String gender){
+    private void setGender(String gender){
         LOGGER.info("Attempt to set gender: '{}'", gender);
         clickOnVisibleElement(genderField);
         scrollDropdownAndSelectValue(driver,wait, gender);
-        return this;
     }
 
-    public void clickSubmit(){
+    private void clickSubmit(){
         LOGGER.info("Click Submit button");
         clickOnVisibleElement(submitButton);
     }

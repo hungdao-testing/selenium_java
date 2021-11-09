@@ -46,8 +46,11 @@ public class DirectorAdditionalDetail extends BasePage implements BusinessRolePr
 
     private void selectCountry(String country){
         LOGGER.info("Select country '{}'", country);
-        this.countryDropdown.click();
-        scrollDropdownAndSelectValue(driver, wait, country);
+        if(!this.countryDropdown.getText().equalsIgnoreCase(country)){
+            this.countryDropdown.click();
+            scrollDropdownAndSelectValue(driver, wait, country);
+        }
+
     }
 
     private void selectSolutions(List<String> solutionOptions){
