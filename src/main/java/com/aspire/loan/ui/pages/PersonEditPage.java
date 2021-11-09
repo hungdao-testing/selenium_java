@@ -74,8 +74,7 @@ public class PersonEditPage extends BasePage implements IDropdown {
         LOGGER.info("Attempt to set DOB - day: '{}', month: '{}', year: '{}'", day, month, year);
         String formatDate = String
                 .format("%s %s, %s", DateHelper.convertToShortMonthFormat(month, Locale.UK), day, year);
-//        calendar.setDateOfBirth(dateOfBirthField, year, month, day);
-        calendar.setDateOfBirth(dateOfBirthField, year, month, day);
+        calendar.setDateForField(dateOfBirthField, year, month, day);
         this.wait.until(d -> dateOfBirthField.getAttribute("value").equalsIgnoreCase(formatDate));
         return this;
     }
