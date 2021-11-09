@@ -15,7 +15,7 @@ The testing program consists of essential parts below:
 - Web automation-framework: Selenium(v3)
 - Programming language: JAVA (v11)
 - REST service is handled by Unirest library
-- Using Lombok library to construct the data structure and test data generation.
+- Using Lombok library to construct the data structure and Faker library to generate test data.
 
 It designs on following patterns:
 
