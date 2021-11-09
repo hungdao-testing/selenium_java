@@ -1,6 +1,6 @@
 package com.aspire.loan.ui.pages.businessrole;
 
-import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
+import com.aspire.loan.models.uidata.configtype.BusinessRoleType;
 import com.aspire.loan.ui.pages.businessrole.incorporate.IncorporateProcessor;
 import com.aspire.loan.ui.pages.businessrole.corporate.DirectorAdditionalDetail;
 import com.aspire.loan.ui.pages.businessrole.corporate.EmployeeAdditionalDetail;

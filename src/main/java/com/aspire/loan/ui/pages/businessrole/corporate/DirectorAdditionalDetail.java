@@ -1,11 +1,10 @@
 package com.aspire.loan.ui.pages.businessrole.corporate;
 
-import com.aspire.loan.elementhelper.IDropdown;
-import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
+import com.aspire.loan.helpers.web_element.IDropdown;
+import com.aspire.loan.models.uidata.AdditionalRoleDetail;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.ui.pages.businessrole.BusinessRoleProcessor;
-import com.aspire.loan.ui.pages.businessrole.IAdditionalData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,9 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class DirectorAdditionalDetail extends BasePage implements BusinessRoleProcessor, IDropdown {
 
@@ -49,8 +46,11 @@ public class DirectorAdditionalDetail extends BasePage implements BusinessRolePr
 
     private void selectCountry(String country){
         LOGGER.info("Select country '{}'", country);
-        this.countryDropdown.click();
-        scrollDropdownAndSelectValue(driver, wait, country);
+        if(!this.countryDropdown.getText().equalsIgnoreCase(country)){
+            this.countryDropdown.click();
+            scrollDropdownAndSelectValue(driver, wait, country);
+        }
+
     }
 
     private void selectSolutions(List<String> solutionOptions){
@@ -73,7 +73,7 @@ public class DirectorAdditionalDetail extends BasePage implements BusinessRolePr
 
 
     @Override
-    public void process(AdditionalRoleDetailInfo additionalData) {
+    public void process(AdditionalRoleDetail additionalData) {
         isAt();
         selectCountry(additionalData.getCountry());
         selectSolutions(additionalData.getSolutions());

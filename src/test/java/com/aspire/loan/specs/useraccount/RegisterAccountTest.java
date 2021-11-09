@@ -1,7 +1,7 @@
 package com.aspire.loan.specs.useraccount;
 
-import com.aspire.loan.datagenerator.RegistrationDataGenerator;
-import com.aspire.loan.model.uidata.RegistrationInfo;
+import com.aspire.loan.datagenerator.RegistrationGenerator;
+import com.aspire.loan.ui.common.authentication.RegistrationInfo;
 import com.aspire.loan.specs.BaseTestNG;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;
@@ -31,7 +31,7 @@ public class RegisterAccountTest extends BaseTestNG {
 
     @Test
     public void verify_client_could_register_a_new_account_with_valid_data(){
-        RegistrationInfo validPersonalData = RegistrationDataGenerator.generateValidRegistrationData();
+        RegistrationInfo validPersonalData = RegistrationGenerator.generateValidRegistrationData();
         this.signUpPage
                 .fillForm(validPersonalData)
                 .checkPrivacyBox()
@@ -40,7 +40,7 @@ public class RegisterAccountTest extends BaseTestNG {
         OtpHandle otpPage = new OtpHandle(driver, validPersonalData.getPersonalInfo().getPhone());
         otpPage
                 .waitForOtpSectionLoaded()
-                .inputOtp(RegistrationDataGenerator.getOtp());
+                .inputOtp(RegistrationGenerator.getOtp());
 
         Assert.assertTrue(registeredCompletionPage.isSuccessfulMessageDisplayed());
 
@@ -52,17 +52,18 @@ public class RegisterAccountTest extends BaseTestNG {
                 "Full Name as per ID is required.",
                 "Email address must be a valid email address.");
 
-        this.signUpPage.fillForm(RegistrationDataGenerator
-                .generateRegistrationDataWith(" ", "invalid@", "1234"));
+        RegistrationInfo invalidAccount = RegistrationGenerator
+                .generateRegistrationDataWith(" ", "invalid@", "1234");
+        this.signUpPage.fillForm(invalidAccount);
         Assert.assertEquals(this.signUpPage.getErrorMessage(), errorTexts);
     }
 
     @Test
     public void verify_error_message_after_submitting(){
-        List<String> errorTexts = Arrays.asList("Incorrect phone format for phone., The phone format is invalid.");
+        List<String> errorTexts = List.of("Incorrect phone format for phone., The phone format is invalid.");
+        RegistrationInfo account = RegistrationGenerator.generateRegistrationDataWith("Dave", "test@yopmail.com", "1234");
         this.signUpPage
-                .fillForm(
-                        RegistrationDataGenerator.generateRegistrationDataWith("Dave", "test@yopmail.com", "1234"))
+                .fillForm(account)
                 .checkPrivacyBox()
                 .clickSubmitBtn();
 

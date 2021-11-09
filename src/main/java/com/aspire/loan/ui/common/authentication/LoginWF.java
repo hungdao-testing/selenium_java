@@ -1,8 +1,7 @@
 package com.aspire.loan.ui.common.authentication;
 
-import com.aspire.loan.service.OtpService;
+import com.aspire.loan.helpers.service.OtpService;
 import com.aspire.loan.ui.BasePage;
-import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.pages.authentication.LoginPage;
 import org.openqa.selenium.WebDriver;
 

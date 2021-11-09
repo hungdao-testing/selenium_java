@@ -12,6 +12,8 @@ public class BuilderSetup {
 
     public static final Faker faker = new Faker(Locale.UK);
 
+    public Logger LOGGER = LoggerFactory.getLogger(this.getClass().getSimpleName());
+
     public static int randomNumber(int start, int end){
         return faker.number().numberBetween(start, end);
     }
@@ -22,9 +24,6 @@ public class BuilderSetup {
         return range.get(randomNumber(0, range.size()));
     }
 
-    public static void main(String[] args) {
-        System.out.println();
-    }
 
 
 }

@@ -1,14 +1,13 @@
 package com.aspire.loan.ui.pages;
 
-import com.aspire.loan.elementhelper.Calendar;
-import com.aspire.loan.model.uidata.PersonalInfo;
-import com.aspire.loan.service.OtpService;
+import com.aspire.loan.helpers.web_element.Calendar;
+import com.aspire.loan.models.uidata.PersonalModel;
+import com.aspire.loan.helpers.service.OtpService;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.elementhelper.IDropdown;
+import com.aspire.loan.helpers.web_element.IDropdown;
 import com.aspire.loan.ui.BasePage;
-import com.aspire.loan.ui.utils.DateHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -17,11 +16,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.Locale;
 
 public class PersonEditPage extends BasePage implements IDropdown {
 
-    @FindBy(css = "div[data-cy='person-edit-phone']")
+    @FindBy(css = "div[data-cy='person-edit-phone'] input")
     private WebElement phoneField;
 
     @FindBy(css = "[label='Date of birth'] input")
@@ -57,47 +55,44 @@ public class PersonEditPage extends BasePage implements IDropdown {
         this.driver.get(AppConfig.getBaseUrl() + "/onboarding/person-edit");
     }
 
-    public PersonEditPage setPhone(String phone){
-        LOGGER.info("Attempt to input phone '{}'", phone);
-        this.wait.until(d -> phoneField.isDisplayed());
+    private void isPhoneLoadedAsSetup(String phone) {
         if(!phoneField.getAttribute("value").equalsIgnoreCase(phone)){
             while(phoneField.getAttribute("value").length() > 0){
                 this.phoneField.findElement(By.tagName("input")).sendKeys(Keys.BACK_SPACE);
             }
             inputTextToVisibleField(this.phoneField.findElement(By.tagName("input")), phone);
         }
-        return this;
     }
 
+    private void setPhone(String phone){
+        LOGGER.info("Attempt to input phone '{}'", phone);
+        this.wait.until(d -> phoneField.isDisplayed());
+        isPhoneLoadedAsSetup(phone);
+    }
 
-    public PersonEditPage setDateOfBirth(String day, String month, String year ){
+    private void setDateOfBirth(String day, String month, String year ){
+        this.wait.until(d -> dateOfBirthField.isDisplayed());
         LOGGER.info("Attempt to set DOB - day: '{}', month: '{}', year: '{}'", day, month, year);
-        String formatDate = String
-                .format("%s %s, %s", DateHelper.convertToShortMonthFormat(month, Locale.UK), day, year);
         calendar.setDateForField(dateOfBirthField, year, month, day);
-        this.wait.until(d -> dateOfBirthField.getAttribute("value").equalsIgnoreCase(formatDate));
-        return this;
     }
 
-    public PersonEditPage setNationality(String nationality){
+    private void setNationality(String nationality){
         LOGGER.info("Attempt to set nationality: '{}'", nationality);
         searchAndSelectTextInDropdownField(nationalityField, nationality);
-        return this;
     }
 
-    public PersonEditPage setGender(String gender){
+    private void setGender(String gender){
         LOGGER.info("Attempt to set gender: '{}'", gender);
         clickOnVisibleElement(genderField);
         scrollDropdownAndSelectValue(driver,wait, gender);
-        return this;
     }
 
-    public void clickSubmit(){
+    private void clickSubmit(){
         LOGGER.info("Click Submit button");
         clickOnVisibleElement(submitButton);
     }
 
-    public void submitPersonalAndVerifyOtp(PersonalInfo data){
+    public void submitPersonalAndVerifyOtp(PersonalModel data){
         setPhone(data.getPhone());
         setDateOfBirth(data.getDob().get("day"), data.getDob().get("month"), data.getDob().get("year"));
         setNationality(data.getCountry());

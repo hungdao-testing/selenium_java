@@ -1,7 +1,7 @@
 package com.aspire.loan.ui.pages.businessregistration;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.model.uidata.configtype.BusinessRegistrationMethodType;
+import com.aspire.loan.models.uidata.configtype.BusinessRegistrationMethodType;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.ui.BasePage;
 import org.openqa.selenium.By;
