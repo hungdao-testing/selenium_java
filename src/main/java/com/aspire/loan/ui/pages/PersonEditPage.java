@@ -1,12 +1,12 @@
 package com.aspire.loan.ui.pages;
 
-import com.aspire.loan.elementhelper.Calendar;
+import com.aspire.loan.helpers.web_element.Calendar;
 import com.aspire.loan.model.uidata.PersonalInfo;
-import com.aspire.loan.service.OtpService;
+import com.aspire.loan.helpers.service.OtpService;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.elementhelper.IDropdown;
+import com.aspire.loan.helpers.web_element.IDropdown;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.utils.DateHelper;
 import org.openqa.selenium.By;

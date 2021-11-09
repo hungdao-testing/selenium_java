@@ -3,12 +3,10 @@ package com.aspire.loan.datagenerator.builder;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.datagenerator.builder.rest_service.CountryResponseModel;
 import com.aspire.loan.datagenerator.builder.rest_service.CountryService;
+import com.aspire.loan.helpers.service.RestServiceHelper;
 import com.aspire.loan.model.uidata.PersonalInfo;
-import kong.unirest.Unirest;
-import kong.unirest.json.JSONException;
 import kong.unirest.json.JSONObject;
 
-import java.util.Map;
 
 
 public class PersonalDataBuilder {
@@ -39,12 +37,7 @@ public class PersonalDataBuilder {
             String payload = String.format(
                     "{\"full_name\": \"%s\",\"email\": \"%s\",\"phone\": \"%s\"}", fullName, email, formattedPhone);
 
-            JSONObject resp = Unirest.post(checkNewUserUrl)
-                    .headers(Map.of("Content-Type", "application/json", "x-aspire-application", "CNSING"))
-                    .body(payload)
-                    .asJson()
-                    .getBody()
-                    .getObject();
+            JSONObject resp = RestServiceHelper.sendPost(checkNewUserUrl, payload);
 
 
             if (resp.has("check") && !Boolean.parseBoolean(resp.get("check").toString())) {
@@ -56,9 +49,10 @@ public class PersonalDataBuilder {
                         .withDob(TimeBuilder.getDob())
                         .withGender(BuilderSetup.faker.demographic().sex())
                         .build();
-            } else if (!resp.has("check")) {
-                throw new JSONException("Missing key 'check'");
             }
+//            else if (!resp.has("check")) {
+//                throw new JSONException("Missing key 'check'");
+//            }
         }
 
     }

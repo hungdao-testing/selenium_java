@@ -1,9 +1,8 @@
 package com.aspire.loan.ui.pages.onboarding;
 
-import com.aspire.loan.model.uidata.BusinessInfo;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.elementhelper.IDropdown;
+import com.aspire.loan.helpers.web_element.IDropdown;
 import com.aspire.loan.ui.BasePage;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;

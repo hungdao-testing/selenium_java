@@ -35,7 +35,7 @@ public class BusinessDataBuilder extends BuilderSetup{
         BusinessRoleType randomBusinessRole = BuilderSetup.getRandomValueInDefinedRange(businessRoleTypes);
 
 
-        Map<String, String> randomEntityCategory = new EntityCategoryService().getRandomEntityCategory();
+        Map<String, String> randomEntityCategory = new OptionServices().getRandomEntityCategory();
         Map<String, String> industryData = new IndustryService().getRandomIndustryTypeByCountryCode(countryCode);
 
         BusinessInfo businessInfo = new BusinessDataBuilder()
@@ -69,7 +69,7 @@ public class BusinessDataBuilder extends BuilderSetup{
             randomBusinessRole = BusinessRoleType.ENTREPRENEUR;
         }
 
-        Map<String, String> randomEntityCategory = new EntityCategoryService().getRandomEntityCategory();
+        Map<String, String> randomEntityCategory = new OptionServices().getRandomEntityCategory();
         Map<String, String> industryData = new IndustryService().getRandomIndustryTypeByCountryCode(countryCode);
 
         BusinessInfo businessInfo = new BusinessDataBuilder()

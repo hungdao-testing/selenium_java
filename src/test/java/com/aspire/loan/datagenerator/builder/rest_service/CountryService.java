@@ -19,7 +19,7 @@ public class CountryService {
                 })
                 .getBody()
                 .stream()
-                .filter(c -> c.getActive())
+                .filter(CountryResponseModel::getActive)
                 .collect(Collectors.toList());
     }
 

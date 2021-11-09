@@ -4,7 +4,7 @@ import com.aspire.loan.datagenerator.builder.PersonalDataBuilder;
 import com.aspire.loan.datagenerator.builder.rest_service.OptionServices;
 import com.aspire.loan.model.uidata.PersonalInfo;
 import com.aspire.loan.model.uidata.RegistrationInfo;
-import com.aspire.loan.service.OtpService;
+import com.aspire.loan.helpers.service.OtpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

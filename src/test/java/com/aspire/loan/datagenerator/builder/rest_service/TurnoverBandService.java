@@ -2,20 +2,18 @@ package com.aspire.loan.datagenerator.builder.rest_service;
 
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.datagenerator.builder.BuilderSetup;
-import kong.unirest.Unirest;
+import com.aspire.loan.helpers.service.RestServiceHelper;
 import kong.unirest.json.JSONArray;
+
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class TurnoverBandService {
 
-    private static final String url = AppConfig.getApiUrl() + "/v1/turnover-bands?country=%s";
-
     private JSONArray fetchAnnualRevenue(String country){
-        return Unirest.get(String.format(url, country))
-                .header("x-aspire-application", "CNSING")
-                .asJson()
-                .getBody()
-                .getArray();
+        return RestServiceHelper
+                .getArrayResponseData( AppConfig.getApiUrl() + "/v1/turnover-bands", Map.of("country", country));
+
     }
 
     public String getRandomAnnualRevenueByCountryCode(String country){

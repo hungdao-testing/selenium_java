@@ -1,6 +1,6 @@
-package com.aspire.loan.service;
+package com.aspire.loan.helpers.service;
 
-public class OtpService extends AbstractBaseService {
+public class OtpService extends RestServiceHelper {
 
     public String getOtp(){
         LOGGER.info("Calling OTP service");

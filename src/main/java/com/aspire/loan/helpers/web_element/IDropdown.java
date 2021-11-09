@@ -1,4 +1,4 @@
-package com.aspire.loan.elementhelper;
+package com.aspire.loan.helpers.web_element;
 
 import com.aspire.loan.config.GlobalConstants;
 import com.google.common.util.concurrent.Uninterruptibles;

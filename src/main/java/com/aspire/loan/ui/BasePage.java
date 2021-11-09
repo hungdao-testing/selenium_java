@@ -1,7 +1,7 @@
 package com.aspire.loan.ui;
 
 import com.aspire.loan.config.GlobalConstants;
-import com.aspire.loan.elementhelper.ElementConstants;
+import com.aspire.loan.helpers.web_element.ElementConstants;
 import com.aspire.loan.ui.utils.WaitHelper;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;

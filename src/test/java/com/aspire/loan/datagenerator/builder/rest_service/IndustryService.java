@@ -2,7 +2,7 @@ package com.aspire.loan.datagenerator.builder.rest_service;
 
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.datagenerator.builder.BuilderSetup;
-import kong.unirest.Unirest;
+import com.aspire.loan.helpers.service.RestServiceHelper;
 import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
 
@@ -12,14 +12,9 @@ import java.util.stream.Stream;
 
 public class IndustryService {
 
-    private static final String url = AppConfig.getApiUrl() + "/v1/industry-types?country=%s";
-
     private JSONArray fetchIndustryTypesByCountry(String country){
-        return Unirest.get(String.format(url, country))
-                .header("x-aspire-application", "CNSING")
-                .asJson()
-                .getBody()
-                .getArray();
+        return RestServiceHelper
+                .getArrayResponseData(AppConfig.getApiUrl() + "/v1/industry-types", Map.of("country", country));
     }
 
     public Map<String, String> getRandomIndustryTypeByCountryCode(String country){
