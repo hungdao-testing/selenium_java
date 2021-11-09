@@ -1,4 +1,4 @@
-package com.aspire.loan.datagenerator.builder.helper;
+package com.aspire.loan.datagenerator.builder.rest_service;
 
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.datagenerator.builder.BuilderSetup;
@@ -6,7 +6,7 @@ import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
 import java.util.stream.Stream;
 
-public class TurnoverBandServiceHelper {
+public class TurnoverBandService {
 
     private static final String url = AppConfig.getApiUrl() + "/v1/turnover-bands?country=%s";
 

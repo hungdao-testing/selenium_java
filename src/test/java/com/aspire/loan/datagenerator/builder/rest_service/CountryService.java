@@ -1,4 +1,4 @@
-package com.aspire.loan.datagenerator.builder.helper;
+package com.aspire.loan.datagenerator.builder.rest_service;
 
 import com.aspire.loan.config.AppConfig;
 import kong.unirest.GenericType;
@@ -10,12 +10,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CountryServiceHelper {
+public class CountryService {
 
-    public List<CountryResponse> fetchActiveCountryByApi(){
+    public List<CountryResponseModel> fetchActiveCountryByApi(){
         return Unirest
                 .get(AppConfig.getApiUrl() + "/v1/countries/all")
-                .asObject(new GenericType<List<CountryResponse>>() {
+                .asObject(new GenericType<List<CountryResponseModel>>() {
                 })
                 .getBody()
                 .stream()

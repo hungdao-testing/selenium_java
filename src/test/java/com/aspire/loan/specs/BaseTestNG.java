@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class BaseTestNG {
     public WebDriver driver;
-    protected Logger LOGGER = LoggerFactory.getLogger(this.getClass().getSimpleName());
     protected JavascriptExecutor js;
     protected BusinessInfo businessInfo;
     protected PersonalInfo personalInfo;
@@ -34,7 +33,6 @@ public abstract class BaseTestNG {
     @Parameters("BrowserType")
     @BeforeClass
     public void setUpBrowser(@Optional("chrome") String browser)  {
-        LOGGER.info("BeforeTest: Setting up browser");
         driver = DriverFactory.getDriver(browser);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(GlobalConstants.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
@@ -44,14 +42,12 @@ public abstract class BaseTestNG {
 
     @AfterMethod
     public void clearLocalStorage(){
-        LOGGER.info("Clear local storage");
         this.js.executeScript("window.localStorage.clear()");
     }
 
     @AfterClass
     public void tearDown() {
         if(driver != null){
-            LOGGER.info("After Test: Close browser");
             driver.quit();
         }
     }

@@ -1,4 +1,4 @@
-package com.aspire.loan.datagenerator.builder.helper;
+package com.aspire.loan.datagenerator.builder.rest_service;
 
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.datagenerator.builder.BuilderSetup;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class EntityCategoryServiceHelper {
+public class EntityCategoryService {
 
     private static final String url = AppConfig.getApiUrl() + "/v1/options?type=registration_type&group=1";
 

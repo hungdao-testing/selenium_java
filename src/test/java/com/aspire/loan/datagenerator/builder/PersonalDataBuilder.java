@@ -1,8 +1,8 @@
 package com.aspire.loan.datagenerator.builder;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.datagenerator.builder.helper.CountryResponse;
-import com.aspire.loan.datagenerator.builder.helper.CountryServiceHelper;
+import com.aspire.loan.datagenerator.builder.rest_service.CountryResponseModel;
+import com.aspire.loan.datagenerator.builder.rest_service.CountryService;
 import com.aspire.loan.model.uidata.PersonalInfo;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONException;
@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class PersonalDataBuilder {
 
-    private CountryResponse getDefaultCountry() {
-        return new CountryServiceHelper()
+    private CountryResponseModel getDefaultCountry() {
+        return new CountryService()
                 .fetchActiveCountryByApi()
                 .stream()
                 .filter(c -> c.getName().equalsIgnoreCase("Singapore"))
@@ -64,7 +64,7 @@ public class PersonalDataBuilder {
     }
 
     public PersonalInfo generatePersonalDataWith(String name, String email, String phone) {
-        CountryResponse country= new CountryServiceHelper()
+        CountryResponseModel country= new CountryService()
                 .fetchActiveCountryByApi()
                 .stream()
                 .findAny()

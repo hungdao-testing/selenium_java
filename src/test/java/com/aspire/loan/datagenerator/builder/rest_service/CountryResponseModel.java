@@ -1,6 +1,6 @@
-package com.aspire.loan.datagenerator.builder.helper;
+package com.aspire.loan.datagenerator.builder.rest_service;
 
-public class CountryResponse {
+public class CountryResponseModel {
     private String uuid;
     private String code;
     private String name;

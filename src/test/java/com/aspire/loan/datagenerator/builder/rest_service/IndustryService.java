@@ -1,18 +1,16 @@
-package com.aspire.loan.datagenerator.builder.helper;
+package com.aspire.loan.datagenerator.builder.rest_service;
 
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.datagenerator.builder.BuilderSetup;
-import com.github.javafaker.Faker;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class IndustryServiceHelper {
+public class IndustryService {
 
     private static final String url = AppConfig.getApiUrl() + "/v1/industry-types?country=%s";
 
