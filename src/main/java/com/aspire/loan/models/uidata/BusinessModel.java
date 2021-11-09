@@ -1,18 +1,18 @@
-package com.aspire.loan.model.uidata;
+package com.aspire.loan.models.uidata;
 
-import com.aspire.loan.model.uidata.configtype.BusinessRegistrationMethodType;
-import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
+import com.aspire.loan.models.uidata.configtype.BusinessRegistrationMethodType;
+import com.aspire.loan.models.uidata.configtype.BusinessRoleType;
 import lombok.Builder;
 import lombok.Data;
 
 
 @Data
 @Builder(builderMethodName = "setBusiness", setterPrefix = "with", toBuilder = true)
-public class BusinessInfo {
+public class BusinessModel {
 
     private BusinessRoleType roleName;
     private BusinessRegistrationMethodType businessRegistrationMethodType;
-    private AdditionalRoleDetailInfo additionalRoleDetail;
+    private AdditionalRoleDetail additionalRoleDetail;
     private String country;
     private BusinessRegistrationMethodType registrationMethodType;
     private String businessLegalName;

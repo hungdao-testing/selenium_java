@@ -1,8 +1,7 @@
 package com.aspire.loan.ui.common.authentication;
 
 import com.aspire.loan.config.AppConfig;
-import com.aspire.loan.model.uidata.RegistrationInfo;
-import com.aspire.loan.model.apidata.RegistrationPayload;
+import com.aspire.loan.models.apidata.RegistrationPayload;
 import com.aspire.loan.helpers.service.RestServiceHelper;
 import kong.unirest.json.JSONObject;
 import org.testng.Assert;

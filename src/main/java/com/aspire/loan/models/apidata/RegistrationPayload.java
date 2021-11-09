@@ -1,4 +1,4 @@
-package com.aspire.loan.model.apidata;
+package com.aspire.loan.models.apidata;
 
 import com.google.gson.annotations.SerializedName;
 

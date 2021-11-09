@@ -2,7 +2,7 @@ package com.aspire.loan.specs.useraccount;
 
 
 
-import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
+import com.aspire.loan.models.uidata.configtype.BusinessRoleType;
 import com.aspire.loan.specs.BaseTestNG;
 import com.aspire.loan.ui.common.authentication.LoginWF;
 import com.aspire.loan.ui.pages.BusinessEditPage;

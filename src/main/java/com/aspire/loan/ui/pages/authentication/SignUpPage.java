@@ -1,6 +1,6 @@
 package com.aspire.loan.ui.pages.authentication;
 
-import com.aspire.loan.model.uidata.RegistrationInfo;
+import com.aspire.loan.ui.common.authentication.RegistrationInfo;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.helpers.web_element.IDropdown;

@@ -1,7 +1,7 @@
 package com.aspire.loan.ui.pages;
 
 import com.aspire.loan.helpers.web_element.Calendar;
-import com.aspire.loan.model.uidata.PersonalInfo;
+import com.aspire.loan.models.uidata.PersonalModel;
 import com.aspire.loan.helpers.service.OtpService;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.components.SideBar;
@@ -99,7 +99,7 @@ public class PersonEditPage extends BasePage implements IDropdown {
         clickOnVisibleElement(submitButton);
     }
 
-    public void submitPersonalAndVerifyOtp(PersonalInfo data){
+    public void submitPersonalAndVerifyOtp(PersonalModel data){
         setPhone(data.getPhone());
         setDateOfBirth(data.getDob().get("day"), data.getDob().get("month"), data.getDob().get("year"));
         setNationality(data.getCountry());

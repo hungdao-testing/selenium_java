@@ -4,14 +4,12 @@ import com.aspire.loan.config.DriverFactory;
 import com.aspire.loan.config.GlobalConstants;
 import com.aspire.loan.datagenerator.RegistrationDataGenerator;
 import com.aspire.loan.datagenerator.builder.BusinessDataBuilder;
-import com.aspire.loan.model.uidata.BusinessInfo;
-import com.aspire.loan.model.uidata.PersonalInfo;
-import com.aspire.loan.model.uidata.RegistrationInfo;
+import com.aspire.loan.models.uidata.BusinessModel;
+import com.aspire.loan.models.uidata.PersonalModel;
+import com.aspire.loan.ui.common.authentication.RegistrationInfo;
 import com.aspire.loan.ui.common.authentication.ApiRegistration;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
@@ -19,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseTestNG {
     public WebDriver driver;
     protected JavascriptExecutor js;
-    protected BusinessInfo businessInfo;
-    protected PersonalInfo personalInfo;
+    protected BusinessModel businessInfo;
+    protected PersonalModel personalInfo;
 
     @BeforeSuite
     public void setUpData(){

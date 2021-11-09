@@ -1,9 +1,9 @@
 package com.aspire.loan.ui.pages.businessrole;
 
-import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
 
+import com.aspire.loan.models.uidata.AdditionalRoleDetail;
 
 public interface BusinessRoleProcessor {
 
-    public void process(AdditionalRoleDetailInfo additionalData);
+    public void process(AdditionalRoleDetail additionalData);
 }

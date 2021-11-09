@@ -4,7 +4,7 @@ import com.aspire.loan.config.AppConfig;
 import com.aspire.loan.datagenerator.builder.rest_service.CountryResponseModel;
 import com.aspire.loan.datagenerator.builder.rest_service.CountryService;
 import com.aspire.loan.helpers.service.RestServiceHelper;
-import com.aspire.loan.model.uidata.PersonalInfo;
+import com.aspire.loan.models.uidata.PersonalModel;
 import kong.unirest.json.JSONObject;
 
 
@@ -20,13 +20,13 @@ public class PersonalDataBuilder {
                 .get();
     };
 
-    private PersonalInfo.PersonalInfoBuilder aUser() {
-        return PersonalInfo.aUser()
+    private PersonalModel.PersonalModelBuilder aUser() {
+        return PersonalModel.aUser()
                 .withCountry(getDefaultCountry().getName())
                 .withDialCode(getDefaultCountry().getDialCode());
     };
 
-    public PersonalInfo generateValidData() {
+    public PersonalModel generateValidData() {
         String checkNewUserUrl = AppConfig.getApiUrl() + "/v1/auth/check-new-person";
         while (true) {
             String fullName = BuilderSetup.faker.name().fullName();
@@ -57,7 +57,7 @@ public class PersonalDataBuilder {
 
     }
 
-    public PersonalInfo generatePersonalDataWith(String name, String email, String phone) {
+    public PersonalModel generatePersonalDataWith(String name, String email, String phone) {
         CountryResponseModel country= new CountryService()
                 .fetchActiveCountryByApi()
                 .stream()

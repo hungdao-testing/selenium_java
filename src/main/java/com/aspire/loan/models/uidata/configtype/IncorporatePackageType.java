@@ -1,4 +1,4 @@
-package com.aspire.loan.model.uidata.configtype;
+package com.aspire.loan.models.uidata.configtype;
 
 public enum IncorporatePackageType {
     KICKSTART("Kickstart"),

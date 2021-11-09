@@ -1,7 +1,7 @@
 package com.aspire.loan.specs.useraccount;
 
 import com.aspire.loan.datagenerator.RegistrationDataGenerator;
-import com.aspire.loan.model.uidata.RegistrationInfo;
+import com.aspire.loan.ui.common.authentication.RegistrationInfo;
 import com.aspire.loan.specs.BaseTestNG;
 import com.aspire.loan.ui.components.OtpHandle;
 import com.aspire.loan.ui.pages.authentication.RegisteredCompletionPage;

@@ -1,4 +1,4 @@
-package com.aspire.loan.model.uidata;
+package com.aspire.loan.models.uidata;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Data
 @Builder(builderMethodName = "aUser", setterPrefix = "with", toBuilder = true)
-public class PersonalInfo {
+public class PersonalModel {
 
     private String fullName;
     private String email;

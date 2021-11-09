@@ -1,7 +1,7 @@
 package com.aspire.loan.ui.pages.businessrole.corporate;
 
 import com.aspire.loan.helpers.web_element.IDropdown;
-import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
+import com.aspire.loan.models.uidata.AdditionalRoleDetail;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.SideBar;
 import com.aspire.loan.ui.pages.businessrole.BusinessRoleProcessor;
@@ -70,7 +70,7 @@ public class DirectorAdditionalDetail extends BasePage implements BusinessRolePr
 
 
     @Override
-    public void process(AdditionalRoleDetailInfo additionalData) {
+    public void process(AdditionalRoleDetail additionalData) {
         isAt();
         selectCountry(additionalData.getCountry());
         selectSolutions(additionalData.getSolutions());

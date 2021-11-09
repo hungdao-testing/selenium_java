@@ -1,6 +1,5 @@
 package com.aspire.loan.ui.common.authentication;
 
-import com.aspire.loan.model.uidata.RegistrationInfo;
 import com.aspire.loan.helpers.service.OtpService;
 import com.aspire.loan.ui.BasePage;
 import com.aspire.loan.ui.components.OtpHandle;

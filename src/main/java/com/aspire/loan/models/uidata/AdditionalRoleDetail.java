@@ -1,6 +1,6 @@
-package com.aspire.loan.model.uidata;
+package com.aspire.loan.models.uidata;
 
-import com.aspire.loan.model.uidata.configtype.IncorporatePackageType;
+import com.aspire.loan.models.uidata.configtype.IncorporatePackageType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder(builderMethodName = "setAdditionalInfo", setterPrefix = "with", toBuilder = true)
-public class AdditionalRoleDetailInfo {
+public class AdditionalRoleDetail {
 
     //Corporate Data
     private String country;

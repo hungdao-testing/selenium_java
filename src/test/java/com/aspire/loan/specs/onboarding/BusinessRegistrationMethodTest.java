@@ -4,9 +4,9 @@ package com.aspire.loan.specs.onboarding;
 import com.aspire.loan.datagenerator.builder.BuilderSetup;
 import com.aspire.loan.datagenerator.builder.BusinessDataBuilder;
 import com.aspire.loan.datagenerator.builder.TimeBuilder;
-import com.aspire.loan.model.uidata.BusinessInfo;
-import com.aspire.loan.model.uidata.RegistrationInfo;
-import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
+import com.aspire.loan.models.uidata.BusinessModel;
+import com.aspire.loan.ui.common.authentication.RegistrationInfo;
+import com.aspire.loan.models.uidata.configtype.BusinessRoleType;
 import com.aspire.loan.specs.BaseTestNG;
 import com.aspire.loan.ui.pages.BusinessEditPage;
 import com.aspire.loan.ui.pages.authentication.LoginPage;
@@ -17,8 +17,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
-
 public class BusinessRegistrationMethodTest extends BaseTestNG {
 
     BusinessRegistrationMethodPage businessRegistrationPage;
@@ -27,7 +25,7 @@ public class BusinessRegistrationMethodTest extends BaseTestNG {
     BusinessEditPage businessEditPage;
     RegistrationInfo account;
     RoleSelectorPage roleSelectorPage;
-    BusinessInfo businessInfo;
+    BusinessModel businessInfo;
 
     @BeforeClass
     public void setUpPage() {

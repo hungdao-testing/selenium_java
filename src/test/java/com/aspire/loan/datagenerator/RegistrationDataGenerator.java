@@ -2,8 +2,8 @@ package com.aspire.loan.datagenerator;
 
 import com.aspire.loan.datagenerator.builder.PersonalDataBuilder;
 import com.aspire.loan.datagenerator.builder.rest_service.OptionServices;
-import com.aspire.loan.model.uidata.PersonalInfo;
-import com.aspire.loan.model.uidata.RegistrationInfo;
+import com.aspire.loan.models.uidata.PersonalModel;
+import com.aspire.loan.ui.common.authentication.RegistrationInfo;
 import com.aspire.loan.helpers.service.OtpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class RegistrationDataGenerator {
     }
 
     public static RegistrationInfo generateRegistrationDataWith(String name, String email, String phone){
-        PersonalInfo user = new PersonalDataBuilder().generatePersonalDataWith(name, email, phone);
+        PersonalModel user = new PersonalDataBuilder().generatePersonalDataWith(name, email, phone);
         return RegistrationInfo
                 .registrationData()
                 .withPersonalInfo(user)

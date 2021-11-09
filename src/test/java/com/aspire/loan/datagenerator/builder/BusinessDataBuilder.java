@@ -1,10 +1,10 @@
 package com.aspire.loan.datagenerator.builder;
 
 import com.aspire.loan.datagenerator.builder.rest_service.*;
-import com.aspire.loan.model.uidata.AdditionalRoleDetailInfo;
-import com.aspire.loan.model.uidata.BusinessInfo;
-import com.aspire.loan.model.uidata.configtype.BusinessRegistrationMethodType;
-import com.aspire.loan.model.uidata.configtype.BusinessRoleType;
+import com.aspire.loan.models.uidata.AdditionalRoleDetail;
+import com.aspire.loan.models.uidata.BusinessModel;
+import com.aspire.loan.models.uidata.configtype.BusinessRegistrationMethodType;
+import com.aspire.loan.models.uidata.configtype.BusinessRoleType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,19 +14,19 @@ public class BusinessDataBuilder extends BuilderSetup{
 
     private static final String defaultCountry = "Singapore";
 
-    private BusinessInfo.BusinessInfoBuilder setBusiness(){
-        return BusinessInfo.setBusiness().withCountry(defaultCountry);
+    private BusinessModel.BusinessModelBuilder setBusiness(){
+        return BusinessModel.setBusiness().withCountry(defaultCountry);
     }
 
-    private AdditionalRoleDetailInfo.AdditionalRoleDetailInfoBuilder setAdditionalRoleDetailForCorporateBusiness(){
+    private AdditionalRoleDetail.AdditionalRoleDetailBuilder setAdditionalRoleDetailForCorporateBusiness(){
         List<String> randomSolutionOptions = new OptionServices().getRandomSolutionOptions();
-        return AdditionalRoleDetailInfo.setAdditionalInfo()
+        return AdditionalRoleDetail.setAdditionalInfo()
                 .withCountry(defaultCountry)
                 .withSolutions(randomSolutionOptions)
                 .withIsCompanyRegister(false);
     }
 
-    public BusinessInfo generateStandardCorporateBusiness(){
+    public BusinessModel generateStandardCorporateBusiness(){
         String countryCode = new CountryService().getCountryCodeByName(defaultCountry);
         List<BusinessRoleType> businessRoleTypes = Arrays.asList(
                                                         BusinessRoleType.DIRECTOR, BusinessRoleType.EMPLOYEE,
@@ -38,7 +38,7 @@ public class BusinessDataBuilder extends BuilderSetup{
         Map<String, String> randomEntityCategory = new OptionServices().getRandomEntityCategory();
         Map<String, String> industryData = new IndustryService().getRandomIndustryTypeByCountryCode(countryCode);
 
-        BusinessInfo businessInfo = new BusinessDataBuilder()
+        BusinessModel businessInfo = new BusinessDataBuilder()
                 .setBusiness()
                 .withRoleName(randomBusinessRole)
                 .withBusinessRegistrationMethodType(BusinessRegistrationMethodType.STANDARD)
@@ -56,7 +56,7 @@ public class BusinessDataBuilder extends BuilderSetup{
         return businessInfo;
     }
 
-    public BusinessInfo generateStandardForBusinessRole(BusinessRoleType roleType){
+    public BusinessModel generateStandardForBusinessRole(BusinessRoleType roleType){
 
         String countryCode = new CountryService().getCountryCodeByName(defaultCountry);
         List<BusinessRoleType> corporateBusinessRoleTypes = Arrays.asList(
@@ -72,7 +72,7 @@ public class BusinessDataBuilder extends BuilderSetup{
         Map<String, String> randomEntityCategory = new OptionServices().getRandomEntityCategory();
         Map<String, String> industryData = new IndustryService().getRandomIndustryTypeByCountryCode(countryCode);
 
-        BusinessInfo businessInfo = new BusinessDataBuilder()
+        BusinessModel businessInfo = new BusinessDataBuilder()
                 .setBusiness()
                 .withRoleName(randomBusinessRole)
                 .withBusinessRegistrationMethodType(BusinessRegistrationMethodType.STANDARD)
