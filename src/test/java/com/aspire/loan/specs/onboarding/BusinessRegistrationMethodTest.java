@@ -13,7 +13,6 @@ import com.aspire.loan.ui.pages.authentication.LoginPage;
 import com.aspire.loan.ui.pages.businessregistration.BusinessRegistrationMethodPage;
 import com.aspire.loan.ui.pages.PersonEditPage;
 import com.aspire.loan.ui.pages.businessrole.RoleSelectorPage;
-import com.google.common.util.concurrent.Uninterruptibles;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -64,7 +63,6 @@ public class BusinessRegistrationMethodTest extends BaseTestNG {
                 .setNationality(this.businessInfo.getCountry())
                 .setGender(BuilderSetup.faker.demographic().sex())
                 .clickSubmit();
-        Uninterruptibles.sleepUninterruptibly(2, TimeUnit.SECONDS);
 
         this.businessEditPage.isAt();
         this.businessEditPage

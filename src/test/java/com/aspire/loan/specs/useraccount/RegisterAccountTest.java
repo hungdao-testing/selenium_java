@@ -59,7 +59,7 @@ public class RegisterAccountTest extends BaseTestNG {
 
     @Test
     public void verify_error_message_after_submitting(){
-        List<String> errorTexts = Arrays.asList("Incorrect phone format for phone., The phone format is invalid.");
+        List<String> errorTexts = List.of("Incorrect phone format for phone., The phone format is invalid.");
         this.signUpPage
                 .fillForm(
                         RegistrationDataGenerator.generateRegistrationDataWith("Dave", "test@yopmail.com", "1234"))

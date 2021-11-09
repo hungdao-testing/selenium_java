@@ -21,7 +21,7 @@ import java.util.Locale;
 
 public class PersonEditPage extends BasePage implements IDropdown {
 
-    @FindBy(css = "div[data-cy='person-edit-phone']")
+    @FindBy(css = "div[data-cy='person-edit-phone'] input")
     private WebElement phoneField;
 
     @FindBy(css = "[label='Date of birth'] input")
@@ -57,25 +57,27 @@ public class PersonEditPage extends BasePage implements IDropdown {
         this.driver.get(AppConfig.getBaseUrl() + "/onboarding/person-edit");
     }
 
-    public PersonEditPage setPhone(String phone){
-        LOGGER.info("Attempt to input phone '{}'", phone);
-        this.wait.until(d -> phoneField.isDisplayed());
+    private void isPhoneLoadedAsSetup(String phone) {
         if(!phoneField.getAttribute("value").equalsIgnoreCase(phone)){
             while(phoneField.getAttribute("value").length() > 0){
                 this.phoneField.findElement(By.tagName("input")).sendKeys(Keys.BACK_SPACE);
             }
             inputTextToVisibleField(this.phoneField.findElement(By.tagName("input")), phone);
         }
-        return this;
     }
 
+    public void setPhone(String phone){
+        LOGGER.info("Attempt to input phone '{}'", phone);
+        this.wait.until(d -> phoneField.isDisplayed());
+        isPhoneLoadedAsSetup(phone);
+    }
 
     public PersonEditPage setDateOfBirth(String day, String month, String year ){
         LOGGER.info("Attempt to set DOB - day: '{}', month: '{}', year: '{}'", day, month, year);
         String formatDate = String
                 .format("%s %s, %s", DateHelper.convertToShortMonthFormat(month, Locale.UK), day, year);
         calendar.setDateForField(dateOfBirthField, year, month, day);
-        this.wait.until(d -> dateOfBirthField.getAttribute("value").equalsIgnoreCase(formatDate));
+        this.wait.until(d -> !dateOfBirthField.getAttribute("value").isEmpty());
         return this;
     }
 

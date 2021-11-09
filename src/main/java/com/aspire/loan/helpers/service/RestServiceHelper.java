@@ -24,7 +24,7 @@ public class RestServiceHelper {
     }
 
     public static JSONArray getArrayResponseData(String url, Map<String, Object> queryParams){
-        return Unirest.get(AppConfig.getApiUrl() + "/v1/options")
+        return Unirest.get(url)
                 .queryString(queryParams)
                 .header("x-aspire-application", "CNSING")
                 .asJson()
